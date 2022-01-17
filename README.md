@@ -1,10 +1,15 @@
 # Aktiv Campus Event Organization
 
-This is a 2 semester project for the course APP2000.
-For the frontend, **react.js** is used to create a single page application.
-While **firebase** is used as the backend.
+This is our group project for the course APP2000.
 
-The web-app can be found live at: `https://DOMAIN.TOP` (not yet ready)
+> Visit at: `https://www.domain.top` (not ready)
+
+We will be building this out with the following tech stack:
+
+- React.JS
+- Redux?
+- Tailwind
+- Firebase
 
 Group members:
 
@@ -13,4 +18,10 @@ Group members:
 - Elvisa Duric
 - Kristin Kofoed
 - Linnea Kristine Twilley
+
+## Create react app
+
+```bash
+npx create-react-app NAME
+```
 
