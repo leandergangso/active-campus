@@ -1,23 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import Sidebar from './components/Sidebar';
+import { MdCalendarToday, MdOutlineBusiness, MdSupervisedUserCircle, MdSettings, MdFeedback } from 'react-icons/md';
 
 function App() {
+  const routes = [
+    { 'route': 'Arrangementer',   'name': 'Arrangementer',  'icon': <MdCalendarToday />,        'role': 1 },
+    { 'route': 'Organisasjoner',  'name': 'Organisasjoner', 'icon': <MdOutlineBusiness />,      'role': 1 },
+    { 'route': 'Brukere',         'name': 'Brukere',        'icon': <MdSupervisedUserCircle />, 'role': 1 },
+    { 'route': 'Innstillinger',   'name': 'Innstillinger',  'icon': <MdSettings />,             'role': 1 },
+    { 'route': 'Tilbakemelding',  'name': 'Tilbakemelding', 'icon': <MdFeedback />,             'role': 1 },
+  ]
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Sidebar routes={routes} />
     </div>
   );
 }
