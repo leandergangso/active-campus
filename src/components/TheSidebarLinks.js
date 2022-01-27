@@ -4,7 +4,7 @@ import { IconContext } from "react-icons";
 const TheSidebarLinks = ({ route }) => {
   let activeColor = '#5544FF'
   let defaultColor = '#908DB3'
-  let location = useLocation()
+  const location = useLocation()
 
   const _isSamePath = (path) => {
     return path.toLowerCase() === location.pathname.toLowerCase()

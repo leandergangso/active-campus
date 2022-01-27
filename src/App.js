@@ -24,12 +24,14 @@ function App() {
   return (
     <AnimatePresence exitBeforeEnter>
       <Routes key={location.pathname} location={location}>
+        
         <Route path='/' element={<Layout routes={routes} />}>
           {routes.map(route => (
             <Route exact key={route.name} path={route.path} element={route.component} />
           ))}
-          <Route path='*' element={<NotFound />} />
         </Route>
+        
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </AnimatePresence>
   );
