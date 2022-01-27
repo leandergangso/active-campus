@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion'
 import { MdCalendarToday, MdOutlineBusiness, MdSupervisedUserCircle, MdSettings, MdFeedback } from 'react-icons/md';
 
 import Layout from './Layout';
@@ -18,9 +19,11 @@ function App() {
     { 'path': '/feedback', 'component': <Feedback />, 'name': 'Tilbakemelding', 'icon': <MdFeedback />, 'role': 1 },
   ]
 
+  const location = useLocation()
+
   return (
-    <Router>
-      <Routes>
+    <AnimatePresence exitBeforeEnter>
+      <Routes key={location.pathname} location={location}>
         <Route path='/' element={<Layout routes={routes} />}>
           {routes.map(route => (
             <Route exact key={route.name} path={route.path} element={route.component} />
@@ -28,7 +31,7 @@ function App() {
           <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>
-    </Router>
+    </AnimatePresence>
   );
 }
 
