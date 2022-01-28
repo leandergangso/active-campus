@@ -13,7 +13,7 @@ const renderMore = () => {
 function InfoCard({ more, children }) {
   return (
     <div className="bg-light relative rounded-md shadow-sm pl-5 py-4 pr-6">
-      {more === true ? renderMore() : null}
+      {/* {more === true ? renderMore() : null} */}
       {children}
     </div>
   );
