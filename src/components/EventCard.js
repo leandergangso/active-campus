@@ -4,10 +4,15 @@ import Options from './Options'
 
 function EventCard({ event }) {
   const options = [
-    { action: ()=>{console.log('copy')}, icon: { component: <MdControlPointDuplicate />, color: '#1B1555' }, name: 'Dupliser' },
-    { action: ()=>{console.log('hide')}, icon: { component: <MdArchive />, color: '#1B1555' }, name: 'Arkiver' },
-    { action: ()=>{console.log('delete')}, icon: { component: <MdDelete />, color: '#FF4444' }, name: 'Slett' },
+    { action: () => { console.log('copy') }, icon: { component: <MdControlPointDuplicate />, color: '#1B1555' }, name: 'Dupliser' },
+    { action: () => { console.log('hide') }, icon: { component: <MdArchive />, color: '#1B1555' }, name: 'Arkiver' },
+    { action: () => { console.log('delete') }, icon: { component: <MdDelete />, color: '#FF4444' }, name: 'Slett' },
   ]
+
+  let n = 40
+  if (event.location.length > n) {
+    event.location = event.location.substr(0, n) + '...'
+  }
 
   return (
     <div className="relative bg-light rounded-md shadow-md shrink-0 grow w-full sm:w-5/12 md:w-5/12 xl:max-w-screen-sm px-4 py-4 border border-transparent hover:border hover:border-border">
@@ -20,7 +25,7 @@ function EventCard({ event }) {
         <p className='italic font-light mb-2'>{event.tags}</p>
 
         <div className="flex flex-wrap gap-2 justify-between pr-0 xl:pr-10">
-          <div className="mr-10">
+          <div className="w-full lg:w-4/6">
             <p>Sted: <span className="font-bold">{event.location}</span></p>
             <p>Påmeldte: <span className="font-bold">{event.signups.current} / {event.signups.max}</span></p>
           </div>

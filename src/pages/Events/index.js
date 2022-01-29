@@ -1,13 +1,14 @@
 import StatCard from './components/StatCard'
 import EventCard from '../../components/EventCard'
+import Button from '../../components/Actions/Button';
 
 const index = () => {
     // * get from server and save in cache
     const events = [
-        {id: 1, title: 'Navn på arrangement', tags: 'tags...', location: 'Sandefjord 1234', signups: {current: '11', max: '40'}, date: '01.03.2040', time: {from: '10:00', to: '17:30'}},
-        {id: 2, title: 'Navn på arrangement', tags: 'tags...', location: 'Sandefjord 1234, Breidablikk', signups: {current: '11', max: '40'}, date: '01.03.2040', time: {from: '10:00', to: '17:30'}},
-        {id: 3, title: 'Navn på arrangement', tags: 'tags...', location: 'Sandefjord 1234, Breidablikk', signups: {current: '11', max: '40'}, date: '01.03.2040', time: {from: '10:00', to: '17:30'}},
-        {id: 4, title: 'Navn på arrangement', tags: 'tags...', location: 'Sandefjord 1234', signups: {current: '11', max: '40'}, date: '01.03.2040', time: {from: '10:00', to: '17:30'}},
+        { id: 1, title: 'Navn på arrangement', tags: 'tags...', location: 'Sandefjord 1234', signups: { current: '11', max: '40' }, date: '01.03.2040', time: { from: '10:00', to: '17:30' } },
+        { id: 2, title: 'Navn på arrangement', tags: 'tags...', location: 'Sandefjord 1234, Breidablikk en lang tekst som er', signups: { current: '11', max: '40' }, date: '01.03.2040', time: { from: '10:00', to: '17:30' } },
+        { id: 3, title: 'Navn på arrangement', tags: 'tags...', location: 'Sandefjord 1234, Breidablikk', signups: { current: '11', max: '40' }, date: '01.03.2040', time: { from: '10:00', to: '17:30' } },
+        { id: 4, title: 'Navn på arrangement', tags: 'tags...', location: 'Sandefjord 1234', signups: { current: '11', max: '40' }, date: '01.03.2040', time: { from: '10:00', to: '17:30' } },
     ]
 
     return (
@@ -36,8 +37,15 @@ const index = () => {
 
             <section className='mb-10'>
                 <div className='mb-5'>
-                    <h1 className="text-2xl font-bold">Arrangementer</h1>
-                    {/* ADD FILTERS HERE */}
+                    <div className='flex flex-wrap gap-5'>
+                        <h1 className="text-2xl font-bold mr-14">Arrangementer</h1>
+
+                        <div className='flex flex-wrap gap-5'>
+                            {/* ADD FILTERS HERE */}
+                            <Button style='secondary' text='Se akriverte' onClick={() => console.log('archived')} />
+                            <Button text='Nytt arrangement' onClick={() => console.log('new')} />
+                        </div>
+                    </div>
                 </div>
 
                 <div className='flex flex-wrap gap-5 2xl:gap-x-10'>

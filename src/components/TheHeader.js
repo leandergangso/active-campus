@@ -23,7 +23,7 @@ const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 	// TODO: replace select with custom dropdown component bellow
 	return (
 		<header>
-			<button onClick={() => setOpenSidebar(true)} className="cursor-pointer md:hidden">
+			<button onClick={() => setOpenSidebar(true)} className="cursor-pointer lg:hidden">
 				<MdMenu size={32} />
 			</button>
 
