@@ -32,13 +32,12 @@ function App() {
   return (
     <AnimatePresence exitBeforeEnter>
       <Routes key={location.pathname} location={location}>
-
         <Route path='/' element={<TheLayout sidebarNav={sidebarNav} />}>
           {routes.map(route => (
             <Route exact key={route.path} path={route.path} element={route.component} />
           ))}
         </Route>
-
+        
         <Route path='*' element={<NotFound />} />
       </Routes>
     </AnimatePresence>

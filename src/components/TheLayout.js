@@ -16,8 +16,7 @@ function Layout({ sidebarNav }) {
       <div className='relative overflow-x-hidden flex flex-col w-full pt-4 px-8 md:pt-8 md:px-12'>
         <TheHeader sidebarNav={sidebarNav} setOpenSidebar={setOpenSidebar} />
 
-        {/* add loading spinner */}
-        <Loading size={100} />
+        {/* <Loading size={100} /> */}
 
         <PageTransition>
           <div className='mt-10'>

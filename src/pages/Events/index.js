@@ -1,7 +1,21 @@
 import StatCard from './components/StatCard'
-import InfoCard from '../../components/InfoCard'
+import EventCard from '../../components/EventCard'
+import { MdControlPointDuplicate, MdArchive, MdDelete } from 'react-icons/md'
 
 const index = () => {
+    const options = [
+        { icon: <MdControlPointDuplicate />, name: 'Dupliser' },
+        { icon: <MdArchive />, name: 'Arkiver' },
+        { icon: <MdDelete />, name: 'Slett' },
+    ]
+
+    const events = [
+        {id: 1, title: 'Navn på arrangement', tags: 'tags...', location: 'Sandefjord 1234', signups: {current: '11', max: '40'}, date: '01.03.2040', time: {from: '10:00', to: '17:30'}},
+        {id: 2, title: 'Navn på arrangement', tags: 'tags...', location: 'Sandefjord 1234', signups: {current: '11', max: '40'}, date: '01.03.2040', time: {from: '10:00', to: '17:30'}},
+        {id: 3, title: 'Navn på arrangement', tags: 'tags...', location: 'Sandefjord 1234', signups: {current: '11', max: '40'}, date: '01.03.2040', time: {from: '10:00', to: '17:30'}},
+        {id: 4, title: 'Navn på arrangement', tags: 'tags...', location: 'Sandefjord 1234', signups: {current: '11', max: '40'}, date: '01.03.2040', time: {from: '10:00', to: '17:30'}},
+    ]
+
     return (
         <div>
             <section className='mb-10'>
@@ -10,7 +24,7 @@ const index = () => {
                     {/* ADD INPUT FIELDS HERE */}
                 </div>
 
-                <div className='flex flex-wrap gap-10 justify-between'>
+                <div className='flex flex-wrap gap-5 justify-between'>
                     <StatCard title='Aktive arrangementer' bgColor='bg-dark'>
                         DATA HERE
                     </StatCard>
@@ -32,10 +46,10 @@ const index = () => {
                     {/* ADD INPUT FIELDS HERE */}
                 </div>
 
-                <div>
-                    <InfoCard more={true} >
-                        This is some data ------------------------ -------------------- ----------------------------
-                    </InfoCard>
+                <div className='flex flex-wrap gap-5 justify-between'>
+                    {events.map(data => (
+                        <EventCard key={data.id} options={options} data={data} />
+                    ))}
                 </div>
             </section>
         </div>
