@@ -1,13 +1,11 @@
-// todo: change to grid instead
-
 const StatCard = ({ title, bgColor, children }) => {
   return (
-    <div className="grow  w-60 shadow-md">
+    <div className="shadow-md w-full sm:w-56 2xl:w-64 rounded-b-md bg-light">
       <div className={'text-light pl-5 py-4 rounded-t-md ' + bgColor}>
         <h2>{title}</h2>
       </div>
 
-      <div className="bg-light h-28 rounded-b-md flex justify-center items-center">
+      <div className="h-20 flex justify-center items-center">
         {children}
       </div>
     </div>

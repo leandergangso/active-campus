@@ -4,7 +4,7 @@ import { MdMenu, MdAccountCircle, MdCircleNotifications } from 'react-icons/md';
 const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 	const location = useLocation()
 
-	// ! GET THIS FROM SERVER AND STORE IN CACHE (react-query)
+	// * get this from server and save in cache (react-query)
 	const organizations = [
 		{ id: 1, name: 'Lentech', role: 3 },
 		{ id: 2, name: 'Total Klima', role: 2 },

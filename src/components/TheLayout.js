@@ -19,7 +19,7 @@ function Layout({ sidebarNav }) {
         {/* <Loading size={100} /> */}
 
         <PageTransition>
-          <div className='mt-10'>
+          <div className='mt-5'>
             <Outlet />
           </div>
         </PageTransition>
