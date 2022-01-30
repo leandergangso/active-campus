@@ -4,7 +4,7 @@ function Dropdown({ options }) {
   // let n = 23
   // options.forEach(option => {
   //   if (option.name.length > n) {
-  //     option.name = option.name.substr(0, n) + '...'
+  //     option.name = option.name.substring(0, n) + '...'
   //   }
   // });
 

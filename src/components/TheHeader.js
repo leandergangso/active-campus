@@ -12,17 +12,11 @@ const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 		{ id: 3, name: 'Komplett organization', role: 2 },
 	]
 
-	const getRouteName = () => {
-		// TODO: make this into a clickable breadcrumb
-		// ! FIX FOR ROUTES NOT IN PROPS.ROUTE
-		let curRoute = sidebarNav.find(route => route.path.includes(location.pathname))
-		if (curRoute) {
-			let breadcrumb = curRoute.name
-			return breadcrumb
-		}
+	const getActiveNavRoute = () => {
+		let curRoute = sidebarNav.find(route => location.pathname.includes(route.path))
+		return curRoute.name
 	}
 
-	// TODO: replace select with custom dropdown component bellow
 	return (
 		<header>
 			<button onClick={() => setOpenSidebar(true)} className="cursor-pointer lg:hidden">
@@ -30,7 +24,7 @@ const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 			</button>
 
 			<div className="flex justify-between flex-wrap gap-4">
-				<h3>{getRouteName()}</h3>
+				<h3>{getActiveNavRoute()}</h3>
 
 				<div className="flex flex-wrap gap-4">
 					<Dropdown options={organizations} />

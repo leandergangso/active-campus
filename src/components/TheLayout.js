@@ -11,11 +11,11 @@ function Layout() {
   const [isSidebarOpen, setOpenSidebar] = useState(false);
 
   const sidebarNav = [
-    { path: '/', name: 'Arrangementer', icon: <MdCalendarToday />, role: 1 },
-    { path: '/organization', name: 'Organisasjoner', icon: <MdOutlineBusiness />, role: 1 },
-    { path: '/users', name: 'Brukere', icon: <MdSupervisedUserCircle />, role: 1 },
-    { path: '/settings', name: 'Innstillinger', icon: <MdSettings />, role: 1 },
-    { path: '/feedback', name: 'Tilbakemelding', icon: <MdFeedback />, role: 1 },
+    { path: '/events', name: 'Arrangementer', icon: <MdCalendarToday /> },
+    { path: '/organizations', name: 'Organisasjoner', icon: <MdOutlineBusiness /> },
+    { path: '/users', name: 'Brukere', icon: <MdSupervisedUserCircle /> },
+    { path: '/settings', name: 'Innstillinger', icon: <MdSettings /> },
+    { path: '/feedback', name: 'Tilbakemelding', icon: <MdFeedback /> },
   ]
 
   return (

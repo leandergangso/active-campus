@@ -7,7 +7,7 @@ const TheSidebarLinks = ({ link }) => {
   const location = useLocation()
 
   const _isSamePath = (path) => {
-    return path.toLowerCase() === location.pathname.toLowerCase()
+    return location.pathname.toLowerCase().includes(path.toLowerCase())
   }
 
   const setIconColor = (path) => {

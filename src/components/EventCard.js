@@ -11,7 +11,7 @@ function EventCard({ event }) {
 
   let n = 40
   if (event.location.length > n) {
-    event.location = event.location.substr(0, n) + '...'
+    event.location = event.location.substring(0, n) + '...'
   }
 
   return (
