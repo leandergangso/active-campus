@@ -6,10 +6,10 @@ This is our group project for the course APP2000.
 
 We will be building this out with the following tech stack:
 
-- React.JS
-- Redux?
+- React
 - Tailwind
 - Firebase
+- Readt-Icons (https://react-icons.github.io/react-icons/icons?name=md)
 
 Group members:
 
