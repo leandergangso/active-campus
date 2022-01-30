@@ -1,6 +1,7 @@
 import StatCard from './components/StatCard'
 import EventCard from '../../components/EventCard'
 import Button from '../../components/Actions/Button';
+import Dropdown from '../../components/Actions/Dropdown';
 
 const index = () => {
     // * get from server and save in cache
@@ -38,10 +39,11 @@ const index = () => {
             <section className='mb-10'>
                 <div className='mb-5'>
                     <div className='flex flex-wrap gap-5'>
-                        <h1 className="text-2xl font-bold mr-14">Arrangementer</h1>
+                        <h1 className="text-2xl font-bold mr-20">Arrangementer</h1>
 
                         <div className='flex flex-wrap gap-5'>
-                            {/* ADD FILTERS HERE */}
+                            {/* search bar */}
+                            {/* checkbox dropdown */}
                             <Button style='secondary' text='Se akriverte' onClick={() => console.log('archived')} />
                             <Button text='Nytt arrangement' onClick={() => console.log('new')} />
                         </div>

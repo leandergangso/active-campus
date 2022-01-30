@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { MdMenu, MdAccountCircle, MdCircleNotifications } from 'react-icons/md';
+import Dropdown from "./Actions/Dropdown";
 
 const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 	const location = useLocation()
@@ -8,6 +9,7 @@ const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 	const organizations = [
 		{ id: 1, name: 'Lentech', role: 3 },
 		{ id: 2, name: 'Total Klima', role: 2 },
+		{ id: 3, name: 'Komplett organization', role: 2 },
 	]
 
 	const getRouteName = () => {
@@ -30,12 +32,8 @@ const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 			<div className="flex justify-between flex-wrap gap-4">
 				<h3>{getRouteName()}</h3>
 
-				<div className="flex gap-4">
-					<select name="organizations">
-						{organizations.map(organization => (
-							<option key={organization.id} value={organization.id}>{organization.name}</option>
-						))}
-					</select>
+				<div className="flex flex-wrap gap-4">
+					<Dropdown options={organizations} />
 
 					<div>
 						<MdAccountCircle className="fill-dark w-10 h-10" />

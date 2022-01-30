@@ -10,7 +10,7 @@ function Layout({ sidebarNav }) {
   const [isSidebarOpen, setOpenSidebar] = useState(false);
 
   return (
-    <div className='flex w-screen max-w-[1920px] mx-auto h-screen bg-background shadow-dark shadow-xl'>
+    <div className='flex w-screen max-w-[1920px] mx-auto h-screen text-dark bg-background shadow-dark shadow-xl'>
       <TheSidebar sidebarNav={sidebarNav} isSidebarOpen={isSidebarOpen} setOpenSidebar={setOpenSidebar} />
 
       <div className='relative overflow-x-hidden flex flex-col w-full pt-4 px-8 md:pt-8 md:px-12'>
