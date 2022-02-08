@@ -1,6 +1,4 @@
-
-
-const index = (props) => {
+const info = (props) => {
   return (
       <div>
           i am new event
@@ -9,4 +7,4 @@ const index = (props) => {
 };
 
 
-export default index;
+export default info;

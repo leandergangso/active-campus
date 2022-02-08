@@ -16,16 +16,16 @@ const useClickOutside = (handler) => {
   return domNode
 }
 
-const OutsideClickWrapper = ({children, onOutsideClick}) => {
+const OutsideClickWrapper = ({ children, onOutsideClick }) => {
   let domNode = useClickOutside(() => {
     onOutsideClick()
   })
 
-	return (
-		<div ref={domNode}>
-			{children}
-		</div>
-	);
+  return (
+    <div ref={domNode}>
+      {children}
+    </div>
+  );
 };
 
 export default OutsideClickWrapper;

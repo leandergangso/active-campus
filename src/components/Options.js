@@ -26,8 +26,8 @@ function Options({ options }) {
     <OutsideClickWrapper onOutsideClick={() => setIsOption(false)} >
       <div onClick={() => setIsOption(!isOption)} className='p-2 hover:cursor-pointer rounded-full border border-transparent hover:border hover:border-border'>
         <MdMoreVert className='w-6 h-6' />
+        {ShowOptions(isOption, setIsOption, options)}
       </div>
-      {ShowOptions(isOption, setIsOption, options)}
     </OutsideClickWrapper>
   );
 }
