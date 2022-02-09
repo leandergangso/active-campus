@@ -1,5 +1,4 @@
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion'
 
 import TheLayout from './components/TheLayout';
 import Events from './pages/Events/Index';

@@ -9,9 +9,7 @@ const Info = ({ nextStep, updateData, data }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative">
-      {/* <progress max='4' value='1' className="absolute -top-12 left-0 right-36 m-auto w-fit bg-light border border-border" /> */}
-
+    <div>
       <h1 className="mb-5 text-2xl font-bold">Nytt arrangement</h1>
 
       <div className="flex flex-col">
@@ -44,7 +42,7 @@ const Info = ({ nextStep, updateData, data }) => {
 
         <div className="flex mt-10 gap-5 flex-wrap sm:flex-nowrap sm:w-80">
           <Button text='Neste' onClick={nextStep} />
-          <Button text='Avbryt' style='secondary' onClick={() => navigate(-1)} />
+          <Button text='Avbryt' style='danger' onClick={() => navigate(-1)} />
         </div>
       </div>
     </div>

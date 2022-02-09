@@ -19,7 +19,7 @@ const TheSidebarLinks = ({ link }) => {
   }
 
   return (
-    <Link to={link.path} className='block pl-2 py-2 mx-auto cursor-pointer active:bg-border hover:bg-border'>
+    <Link to={link.path} className='block pl-2 py-2 mx-auto cursor-pointer outline-none active:bg-border hover:bg-border focus:bg-border'>
       <div className="float-left py-2 px-4">
         <IconContext.Provider value={{ color: setIconColor(link.path), size: "1.5em" }}>
           {link.icon}

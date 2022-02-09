@@ -5,12 +5,8 @@ import Settings from "./Settings";
 import Forms from "./Forms";
 import Stye from "./Style";
 
-function CurFormStep() {
-
-}
-
 const Index = () => {
-  const [curStep, setCurStep] = useState(1)
+  const [curStep, setCurStep] = useState(2)
   const [data, setData] = useState({
     info: {
       name: '',
@@ -24,9 +20,34 @@ const Index = () => {
       date: '',
       description: '',
     },
-    settings: {},
-    forms: {},
-    style: {},
+    settings: {
+      date: {
+        open: '',
+        close: '',
+      },
+      time: {
+        open: '',
+        close: '',
+      },
+      maxParticipants: null,
+      isWaitingList: false,
+      isReminder: true,
+      isSignoff: true,
+      isSignoffReminder: false,
+      signoffReminder: {
+        date: '',
+        time: '',
+      },
+      isConfirmationMail: true,
+      isMailTicked: true,
+      mailMessage: 'Hei %bruker%.\nDu er påmeldt %event%.\n\nSe info om arrangement her: %link%.',
+    },
+    forms: {
+
+    },
+    style: {
+
+    },
   })
 
   const prevStep = () => {
@@ -81,12 +102,6 @@ const Index = () => {
     default:
     // do nothing
   }
-
-  return (
-    <div>
-      <CurFormStep />
-    </div>
-  )
 };
 
 export default Index;
