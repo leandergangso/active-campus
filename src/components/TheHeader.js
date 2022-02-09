@@ -24,7 +24,7 @@ const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 			</button>
 
 			<div className="flex justify-between flex-wrap gap-4">
-				<h3>{getActiveNavRoute()}</h3>
+				<h3 className="flex items-center">{getActiveNavRoute()}</h3>
 
 				<div className="flex flex-wrap gap-4">
 					<Dropdown options={organizations} />
