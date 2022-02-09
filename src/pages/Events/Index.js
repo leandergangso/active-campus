@@ -23,7 +23,7 @@ const Index = () => {
                     <h1 className="text-2xl font-bold">Oversikt</h1>
                 </div>
 
-                <div className='flex flex-wrap gap-5 2xl:gap-x-10'>
+                <div className='flex flex-wrap gap-5 xl:justify-between 2xl:gap-x-10'>
                     <StatCard title='Aktive arrangementer' bgColor='bg-dark'>
                         DATA HERE
                     </StatCard>
@@ -39,12 +39,12 @@ const Index = () => {
                 </div>
             </section>
 
-            <section className='mb-10'>
+            <section className='mb-10 max-w-screen-xl'>
                 <div className='mb-5'>
-                    <div className='flex flex-wrap gap-5'>
-                        <h1 className="text-2xl font-bold mr-20">Arrangementer</h1>
+                    <div className='flex flex-wrap gap-5 justify-between'>
+                        <h1 className="text-2xl font-bold">Arrangementer</h1>
 
-                        <div className='flex flex-wrap gap-5'>
+                        <div className='flex flex-wrap gap-5 w-full sm:w-fit'>
                             {/* search bar */}
                             {/* checkbox dropdown */}
                             <Button style='secondary' text='Se akriverte' onClick={() => console.log('archived, get archived events from DB and replace')} />

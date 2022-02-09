@@ -18,15 +18,15 @@ function Layout() {
   ]
 
   return (
-    <div className='flex w-screen max-w-[1920px] mx-auto h-screen text-dark bg-background shadow-dark shadow-xl'>
+    <div className='flex h-screen max-w-[1920px] mx-auto text-dark bg-background shadow-dark shadow-xl'>
       <TheSidebar sidebarNav={sidebarNav} isSidebarOpen={isSidebarOpen} setOpenSidebar={setOpenSidebar} />
 
-      <div className='relative overflow-x-hidden flex flex-col w-full pt-4 px-8 md:pt-8 md:px-12'>
+      <div className='relative overflow-x-hidden flex flex-col w-full pt-4 px-8 lg:pt-8 lg:px-12'>
         <TheHeader sidebarNav={sidebarNav} setOpenSidebar={setOpenSidebar} />
 
         {/* <Loading size={100} /> */}
 
-        <div className='mt-5'>
+        <div className='w-fit mt-5 mb-20'>
           <Outlet />
         </div>
       </div>

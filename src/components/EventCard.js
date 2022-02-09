@@ -15,7 +15,7 @@ function EventCard({ event }) {
   }
 
   return (
-    <div onClick={() => console.log("clicked")} className="relative bg-light rounded-md shadow-md shrink-0 grow w-full sm:w-5/12 md:w-5/12 xl:max-w-screen-sm px-4 py-4 border border-transparent hover:border hover:border-border hover:cursor-pointer">
+    <div onClick={() => console.log("clicked")} className="relative bg-light rounded-md shadow-md shrink-0 grow w-full sm:w-5/12 px-4 py-4 border border-transparent hover:border hover:border-border hover:cursor-pointer">
       <div className='absolute top-2 right-2'>
         <Options options={options} />
       </div>

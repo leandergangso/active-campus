@@ -10,13 +10,13 @@ const Info = ({ nextStep, updateData, data }) => {
 
   return (
     <div className="relative">
-      <progress max='4' value='1' className="absolute -top-12 left-0 right-36 m-auto w-fit bg-light border border-border" />
+      {/* <progress max='4' value='1' className="absolute -top-12 left-0 right-36 m-auto w-fit bg-light border border-border" /> */}
 
       <h1 className="mb-5 text-2xl font-bold">Nytt arrangement</h1>
 
       <div className="flex flex-col">
-        <div className="flex">
-          <div className="flex flex-col gap-y-5 mr-14 w-80">
+        <div className="flex flex-wrap gap-5">
+          <div className="flex flex-col gap-5 w-80 sm:mr-10">
             <Input name='name' placeholder='Navn på arrangement' label='Arrangement navn*' />
             <Input name='organizor' placeholder='Navn på arrangør' label='Navn på arrangør*' />
             <Input name='address' placeholder='Adresse for arrangement' label='Adresse for arrangement*' />
@@ -36,16 +36,16 @@ const Info = ({ nextStep, updateData, data }) => {
 
             {/* replace with textarea component */}
             <label htmlFor="description">Beskrivelse</label>
-            <textarea id="description" cols="30" rows="10" defaultValue={data.description} />
+            <textarea className="border border-border outline-none rounded-md p-2 resize-none focus:border-dark" id="description" rows="10" defaultValue={data.description} />
 
 
           </div>
         </div>
 
-        <div className="flex mt-10 gap-x-5 w-max">
-            <Button text='Neste' onClick={nextStep} />
-            <Button text='Avbryt' style='secondary' onClick={() => navigate(-1)} />
-          </div>
+        <div className="flex mt-10 gap-5 flex-wrap sm:flex-nowrap sm:w-80">
+          <Button text='Neste' onClick={nextStep} />
+          <Button text='Avbryt' style='secondary' onClick={() => navigate(-1)} />
+        </div>
       </div>
     </div>
   );
