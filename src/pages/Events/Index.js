@@ -1,9 +1,13 @@
-import StatCard from './components/StatCard'
+import { useNavigate } from "react-router-dom";
+
+import StatCard from '../../components/StatCard'
 import EventCard from '../../components/EventCard'
 import Button from '../../components/Actions/Button';
 import Dropdown from '../../components/Actions/Dropdown';
 
-const index = () => {
+const Index = () => {
+    const navigate = useNavigate();
+
     // * get from server and save in cache
     const events = [
         { id: 1, title: 'Navn på arrangement', tags: 'tags...', location: 'Sandefjord 1234', signups: { current: '11', max: '40' }, date: '01.03.2040', time: { from: '10:00', to: '17:30' } },
@@ -17,7 +21,6 @@ const index = () => {
             <section className='mb-10'>
                 <div className='mb-5'>
                     <h1 className="text-2xl font-bold">Oversikt</h1>
-                    {/* ADD FILTERS HERE */}
                 </div>
 
                 <div className='flex flex-wrap gap-5 2xl:gap-x-10'>
@@ -44,8 +47,8 @@ const index = () => {
                         <div className='flex flex-wrap gap-5'>
                             {/* search bar */}
                             {/* checkbox dropdown */}
-                            <Button style='secondary' text='Se akriverte' onClick={() => console.log('archived')} />
-                            <Button text='Nytt arrangement' onClick={() => console.log('new')} />
+                            <Button style='secondary' text='Se akriverte' onClick={() => console.log('archived, get archived events from DB and replace')} />
+                            <Button text='Nytt arrangement' onClick={() => navigate('create')} />
                         </div>
                     </div>
                 </div>
@@ -61,4 +64,4 @@ const index = () => {
 };
 
 
-export default index;
+export default Index;

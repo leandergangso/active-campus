@@ -7,9 +7,9 @@ const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 
 	// * get this from server and save in cache (react-query)
 	const organizations = [
-		{ id: 1, name: 'Lentech', role: 3 },
-		{ id: 2, name: 'Total Klima', role: 2 },
-		{ id: 3, name: 'Komplett organization', role: 2 },
+		'Lentech',
+		'Total Klima',
+		'Komplett organization',
 	]
 
 	const getActiveNavRoute = () => {

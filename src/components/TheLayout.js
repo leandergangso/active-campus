@@ -2,7 +2,6 @@ import { Outlet } from 'react-router-dom';
 import { useState } from 'react';
 import { MdCalendarToday, MdOutlineBusiness, MdSupervisedUserCircle, MdSettings, MdFeedback } from 'react-icons/md';
 
-import PageTransition from './PageTransition';
 import TheSidebar from './TheSidebar';
 import TheHeader from './TheHeader';
 import Loading from './Loading';
@@ -27,11 +26,9 @@ function Layout() {
 
         {/* <Loading size={100} /> */}
 
-        <PageTransition>
-          <div className='mt-5'>
-            <Outlet />
-          </div>
-        </PageTransition>
+        <div className='mt-5'>
+          <Outlet />
+        </div>
       </div>
     </div>
   );

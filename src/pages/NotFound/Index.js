@@ -1,5 +1,5 @@
 
-const index = () => {
+const Index = () => {
     return (
         <div>
             404 error
@@ -7,4 +7,4 @@ const index = () => {
     );
 };
 
-export default index;
+export default Index;

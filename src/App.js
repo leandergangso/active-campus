@@ -2,15 +2,15 @@ import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion'
 
 import TheLayout from './components/TheLayout';
-import Events from './pages/Events';
-import CreateEvent from './pages/Events/Create';
-import Organization from './pages/Organization';
-import CreateOrganization from './pages/Organization/Create';
-import Users from './pages/Users';
-import Settings from './pages/Settings';
-import Feedback from './pages/Feedback';
-import Profile from './pages/Profile';
-import NotFound from './pages/NotFound';
+import Events from './pages/Events/Index';
+import CreateEvent from './pages/Events/Create/Index';
+import Organization from './pages/Organization/Index';
+import CreateOrganization from './pages/Organization/Create/Index';
+import Users from './pages/Users/Index';
+import Settings from './pages/Settings/Index';
+import Feedback from './pages/Feedback/Index';
+import Profile from './pages/Profile/Index';
+import NotFound from './pages/NotFound/Index';
 
 function App() {
   const routes = [
@@ -27,7 +27,6 @@ function App() {
   const location = useLocation()
 
   return (
-    <AnimatePresence exitBeforeEnter>
       <Routes key={location.pathname} location={location}>
         <Route exact path='/' element={<Navigate to='/events' />} />
         <Route exact path='/' element={<TheLayout />}>
@@ -38,7 +37,6 @@ function App() {
 
         <Route path='*' element={<NotFound />} />
       </Routes>
-    </AnimatePresence>
   );
 }
 
