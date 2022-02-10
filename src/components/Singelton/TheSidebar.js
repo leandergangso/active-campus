@@ -1,5 +1,5 @@
-import logo from '../images/logo.png';
-import OutsideClickWrapper from "./OutsideClickWrapper";
+import logo from '../../images/logo.png';
+import OutsideClickWrapper from "../OutsideClickWrapper";
 import TheSidebarLinks from "./TheSidebarLinks";
 
 const TheSidebar = ({ sidebarNav, isSidebarOpen, setOpenSidebar }) => {

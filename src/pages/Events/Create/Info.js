@@ -19,6 +19,7 @@ const Info = ({ nextStep, updateData, data }) => {
             <Input name='organizor' placeholder='Navn på arrangør' label='Navn på arrangør*' />
             <Input name='address' placeholder='Adresse for arrangement' label='Adresse for arrangement*' />
 
+            {/* make custom multiselect dropdown menu */}
             <Dropdown options={data.tags} label='Tags' />
 
             <div className="flex gap-5">

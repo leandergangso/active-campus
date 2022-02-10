@@ -4,7 +4,22 @@ import { MdCalendarToday, MdOutlineBusiness, MdSupervisedUserCircle, MdSettings,
 
 import TheSidebar from './TheSidebar';
 import TheHeader from './TheHeader';
-import Loading from './Loading';
+import TheLoading from './TheLoading';
+
+// const loading = (props) => {
+//   return (
+//     <div className='absolute left-0 right-0 backdrop-blur-xl w-screen h-screen bg-danger'>
+//       <TheLoading size={100} />
+//     </div>
+//   )
+// }
+
+// * idea
+// split up even further?
+// create a dashboard component that contains the other components for the dashboard
+// also create a event singup component
+// then check url and user state to determine which component to render with conditional rendering (dashboard or event signup)
+// also then need to restructure the file sturecture a bit...
 
 function Layout() {
   const [isSidebarOpen, setOpenSidebar] = useState(false);
@@ -23,8 +38,6 @@ function Layout() {
 
       <div className='relative overflow-x-hidden flex flex-col w-full pt-4 px-8 lg:pt-8 lg:px-12'>
         <TheHeader sidebarNav={sidebarNav} setOpenSidebar={setOpenSidebar} />
-
-        {/* <Loading size={100} /> */}
 
         <div className='w-fit mt-5 mb-20'>
           <Outlet />

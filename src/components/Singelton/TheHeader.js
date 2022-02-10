@@ -1,9 +1,14 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { MdMenu, MdAccountCircle, MdCircleNotifications } from 'react-icons/md';
-import Dropdown from "./Actions/Dropdown";
+
+import Dropdown from "../Actions/Dropdown";
+import { useEffect } from "react";
 
 const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 	const location = useLocation()
+	const navigate = useNavigate()
+	const [searchParams] = useSearchParams()
+	const organizationName = searchParams.get('organization')
 
 	// * get this from server and save in cache (react-query)
 	const organizations = [
@@ -17,6 +22,26 @@ const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 		return curRoute.name
 	}
 
+	const organizationChange = (e) => {
+		setQueryParam(e.target.value)
+	}
+
+	const setQueryParam = (name) => {
+		navigate({
+			pathname: location.pathname,
+			search: `organization=${name}`
+		})
+	}
+
+	useEffect(() => {
+		// if (organizationName && organizations.some(name => organizationName === name)) {
+		if (organizationName) {
+			setQueryParam(organizationName)
+		} else {
+			setQueryParam(organizations[0])
+		}
+	}, [])
+
 	return (
 		<header>
 			<button onClick={() => setOpenSidebar(true)} className="cursor-pointer lg:hidden">
@@ -27,7 +52,7 @@ const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 				<h3 className="flex items-center">{getActiveNavRoute()}</h3>
 
 				<div className="flex flex-wrap gap-4">
-					<Dropdown options={organizations} />
+					<Dropdown options={organizations} value={organizationName} onChange={organizationChange} />
 
 					<div>
 						<MdAccountCircle className="fill-dark w-10 h-10" />

@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 
-import TheLayout from './components/TheLayout';
+import TheLayout from './components/Singelton/TheLayout';
 import Events from './pages/Events/Index';
 import CreateEvent from './pages/Events/Create/Index';
 import Organization from './pages/Organization/Index';
