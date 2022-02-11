@@ -19,7 +19,10 @@ function Button({ text, style, onClick }) {
   }
 
   return (
-    <button onClick={onClick} className={'text-sm max-w-xs w-full sm:w-40 h-10 rounded-full font-bold border-2 outline-none hover:cursor-pointer focus:bg-dark focus:text-light ' + buttonStyle}>
+    <button
+      onClick={onClick}
+      className={'text-sm max-w-xs w-full sm:w-40 h-10 rounded-full font-bold border-2 outline-none hover:cursor-pointer ' + buttonStyle}
+    >
       {text}
     </button>
   );

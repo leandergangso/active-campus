@@ -1,12 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import Info from "./Info";
 import Settings from "./Settings";
-import Forms from "./Forms";
+import Form from "./Form";
 import Stye from "./Style";
 
 const Index = () => {
-  const [curStep, setCurStep] = useState(2)
+  const navigate = useNavigate()
+  const [curStep, setCurStep] = useState(1)
   const [data, setData] = useState({
     info: {
       name: '',
@@ -64,6 +66,12 @@ const Index = () => {
     })
   }
 
+  const submitForm = () => {
+    console.log('sending form data')
+    // ! validate formData
+    navigate('/events')
+  }
+
   switch (curStep) {
     case 1:
       return (
@@ -84,7 +92,7 @@ const Index = () => {
       )
     case 3:
       return (
-        <Forms
+        <Form
           prevStep={prevStep}
           nextStep={nextStep}
           updateData={updateData}
@@ -97,6 +105,7 @@ const Index = () => {
           prevStep={prevStep}
           updateData={updateData}
           data={data.style}
+          submit={submitForm}
         />
       )
     default:

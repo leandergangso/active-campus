@@ -4,7 +4,7 @@ import { MdCalendarToday, MdOutlineBusiness, MdSupervisedUserCircle, MdSettings,
 
 import TheSidebar from './TheSidebar';
 import TheHeader from './TheHeader';
-import TheLoading from './TheLoading';
+// import TheLoading from './TheLoading';
 
 // const loading = (props) => {
 //   return (

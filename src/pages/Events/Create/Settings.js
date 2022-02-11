@@ -61,7 +61,7 @@ const Settings = ({ prevStep, nextStep, updateData, data }) => {
           <Button text='Forrige' style='secondary' onClick={prevStep} />
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 

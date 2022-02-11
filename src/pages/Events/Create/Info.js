@@ -43,7 +43,7 @@ const Info = ({ nextStep, updateData, data }) => {
 
         <div className="flex mt-10 gap-5 flex-wrap sm:flex-nowrap sm:w-80">
           <Button text='Neste' onClick={nextStep} />
-          <Button text='Avbryt' style='danger' onClick={() => navigate(-1)} />
+          <Button text='Avbryt' style='danger' onClick={() => navigate('/events')} />
         </div>
       </div>
     </div>
