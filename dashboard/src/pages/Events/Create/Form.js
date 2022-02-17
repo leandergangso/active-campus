@@ -14,11 +14,11 @@ const Form = ({ prevStep, submit, updateData, data }) => {
             <FormCard name='select' type='select' required />
             <FormCard name='radio' type='radio' />
 
-            <Button text='Legg til nytt felt' onClick={()=>console.log('create new form field')} />
+            <Button onClick={()=>console.log('create new form field')}>Legg til nytt felt</Button>
 
             <div className="flex mt-10 gap-5 flex-wrap sm:flex-nowrap">
-              <Button text='Ferdig' onClick={submit} />
-              <Button text='Forrige' style='secondary' onClick={prevStep} />
+              <Button onClick={submit}>Ferdig</Button>
+              <Button style='secondary' onClick={prevStep}>Forrige</Button>
             </div>
           </div>
         </div>

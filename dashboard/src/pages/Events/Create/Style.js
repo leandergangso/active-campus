@@ -38,8 +38,8 @@ const Style = ({prevStep, updateData, data, submit}) => {
         </div>
 
         <div className="flex mt-10 gap-5 flex-wrap sm:flex-nowrap sm:w-80">
-          <Button text='Ferdig' onClick={onFormSubmit} />
-          <Button text='Forrige' style='secondary' onClick={prevStep} />
+          <Button onClick={onFormSubmit}>Ferdig</Button>
+          <Button style='secondary' onClick={prevStep}>Forrige</Button>
         </div>
       </div>
     </div>

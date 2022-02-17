@@ -44,8 +44,8 @@ const Index = () => {
                         <h1 className="text-2xl font-bold">Arrangementer</h1>
 
                         <div className='flex flex-wrap gap-5 w-full sm:w-fit'>
-                            <Button style='secondary' text='Se akriverte' onClick={() => console.log('archived, get archived events from DB and replace')} />
-                            <Button text='Nytt arrangement' onClick={() => navigate('create')} />
+                            <Button style='secondary' onClick={() => console.log('archived, get archived events from DB and replace')}>Se akriverte</Button>
+                            <Button onClick={() => navigate('create')}>Nytt arrangement</Button>
                         </div>
                     </div>
                 </div>

@@ -26,8 +26,8 @@ const OrganizationForm = ({ organization }) => {
       </div>
 
       <div className="flex gap-5">
-        <Button text='Oppdater' />
-        <Button text='Slett' style='danger' />
+        <Button>Oppdater</Button>
+        <Button style='danger'>Slett</Button>
       </div>
     </div>
   )

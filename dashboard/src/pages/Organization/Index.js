@@ -30,7 +30,7 @@ const Index = () => {
                         <h1 className="text-2xl font-bold">Andre organisasjoner</h1>
 
                         <div className='flex flex-wrap gap-5 w-full sm:w-fit'>
-                            <Button text='Ny organisasjon' onClick={() => navigate('create')} />
+                            <Button onClick={() => navigate('create')}>Ny organisasjon</Button>
                         </div>
                     </div>
                 </div>

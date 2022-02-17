@@ -57,8 +57,8 @@ const Settings = ({ prevStep, nextStep, updateData, data }) => {
         </div>
 
         <div className="flex mt-10 gap-5 flex-wrap sm:flex-nowrap sm:w-80">
-          <Button text='Neste' onClick={nextStep} />
-          <Button text='Forrige' style='secondary' onClick={prevStep} />
+          <Button onClick={nextStep}>Neste</Button>
+          <Button style='secondary' onClick={prevStep}>Forrige</Button>
         </div>
       </div>
     </div>
