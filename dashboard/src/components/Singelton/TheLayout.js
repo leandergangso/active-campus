@@ -28,7 +28,7 @@ function Layout() {
     { path: '/events', name: 'Arrangementer', icon: <MdCalendarToday /> },
     { path: '/organizations', name: 'Organisasjoner', icon: <MdOutlineBusiness /> },
     { path: '/users', name: 'Brukere', icon: <MdSupervisedUserCircle /> },
-    { path: '/settings', name: 'Innstillinger', icon: <MdSettings /> },
+    // { path: '/settings', name: 'Innstillinger', icon: <MdSettings /> },
     { path: '/feedback', name: 'Tilbakemelding', icon: <MdFeedback /> },
   ]
 

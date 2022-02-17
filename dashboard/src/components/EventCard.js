@@ -9,7 +9,7 @@ function EventCard({ event }) {
     { action: () => { console.log('delete') }, icon: { component: <MdDelete />, color: '#FF4444' }, name: 'Slett' },
   ]
 
-  let n = 40
+  let n = 20
   if (event.location.length > n) {
     event.location = event.location.substring(0, n) + '...'
   }

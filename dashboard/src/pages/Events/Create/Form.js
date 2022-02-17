@@ -1,7 +1,7 @@
 import Button from "../../../components/Actions/Button";
 import FormCard from "../../../components/FormCard";
 
-const Form = ({ prevStep, nextStep, updateData, data }) => {
+const Form = ({ prevStep, submit, updateData, data }) => {
   return (
     <div>
       <h1 className="mb-5 text-2xl font-bold">Påmeldings skjema</h1>
@@ -17,7 +17,7 @@ const Form = ({ prevStep, nextStep, updateData, data }) => {
             <Button text='Legg til nytt felt' onClick={()=>console.log('create new form field')} />
 
             <div className="flex mt-10 gap-5 flex-wrap sm:flex-nowrap">
-              <Button text='Neste' onClick={nextStep} />
+              <Button text='Ferdig' onClick={submit} />
               <Button text='Forrige' style='secondary' onClick={prevStep} />
             </div>
           </div>

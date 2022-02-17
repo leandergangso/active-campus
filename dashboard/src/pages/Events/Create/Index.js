@@ -94,18 +94,9 @@ const Index = () => {
       return (
         <Form
           prevStep={prevStep}
-          nextStep={nextStep}
+          submit={submitForm}
           updateData={updateData}
           data={data.forms}
-        />
-      )
-    case 4:
-      return (
-        <Stye
-          prevStep={prevStep}
-          updateData={updateData}
-          data={data.style}
-          submit={submitForm}
         />
       )
     default:

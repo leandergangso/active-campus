@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import StatCard from '../../components/StatCard'
 import EventCard from '../../components/EventCard'
 import Button from '../../components/Actions/Button';
-import Dropdown from '../../components/Actions/Dropdown';
 
 const Index = () => {
     const navigate = useNavigate();
@@ -45,8 +44,6 @@ const Index = () => {
                         <h1 className="text-2xl font-bold">Arrangementer</h1>
 
                         <div className='flex flex-wrap gap-5 w-full sm:w-fit'>
-                            {/* search bar */}
-                            {/* checkbox dropdown */}
                             <Button style='secondary' text='Se akriverte' onClick={() => console.log('archived, get archived events from DB and replace')} />
                             <Button text='Nytt arrangement' onClick={() => navigate('create')} />
                         </div>

@@ -23,24 +23,25 @@ const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 	}
 
 	const organizationChange = (e) => {
-		setQueryParam(e.target.value)
+		console.log('change organization')
+		// setQueryParam(e.target.value)
 	}
 
-	const setQueryParam = (name) => {
-		navigate({
-			pathname: location.pathname,
-			search: `organization=${name}`
-		})
-	}
+	// const setQueryParam = (name) => {
+	// 	navigate({
+	// 		pathname: location.pathname,
+	// 		search: `organization=${name}`
+	// 	})
+	// }
 
-	useEffect(() => {
-		// if (organizationName && organizations.some(name => organizationName === name)) {
-		if (organizationName) {
-			setQueryParam(organizationName)
-		} else {
-			setQueryParam(organizations[0])
-		}
-	}, [])
+	// useEffect(() => {
+	// 	// if (organizationName && organizations.some(name => organizationName === name)) {
+	// 	if (organizationName) {
+	// 		setQueryParam(organizationName)
+	// 	} else {
+	// 		setQueryParam(organizations[0])
+	// 	}
+	// }, [])
 
 	return (
 		<header>
@@ -54,13 +55,15 @@ const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 				<div className="flex flex-wrap gap-4">
 					<Dropdown options={organizations} value={organizationName} onChange={organizationChange} />
 
-					<div>
+					{/* no time to implement */}
+					{/* <div>
 						<MdAccountCircle className="fill-dark w-10 h-10" />
-					</div>
-
-					<div>
+					</div> */}
+					
+					{/* no time to implement */}
+					{/* <div>
 						<MdCircleNotifications className="fill-dark w-10 h-10" />
-					</div>
+					</div> */}
 				</div>
 			</div>
 		</header>

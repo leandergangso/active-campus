@@ -18,9 +18,9 @@ function App() {
     { path: '/organizations', component: <Organization /> },
     { path: '/organizations/create', component: <CreateOrganization /> },
     { path: '/users', component: <Users /> },
-    { path: '/settings', component: <Settings /> },
+    // { path: '/settings', component: <Settings /> },
     { path: '/feedback', component: <Feedback /> },
-    { path: '/profile', component: <Profile /> },
+    // { path: '/profile', component: <Profile /> },
   ]
 
   const location = useLocation()
