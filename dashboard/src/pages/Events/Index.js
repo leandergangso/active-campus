@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
-import StatCard from '../../components/StatCard'
-import EventCard from '../../components/EventCard'
+import StatCard from './components/StatCard'
+import EventCard from './components/EventCard'
 import Button from '../../components/Actions/Button';
 
 const Index = () => {

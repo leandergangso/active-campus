@@ -1,5 +1,5 @@
 import Button from "../../../components/Actions/Button";
-import FormCard from "../../../components/FormCard";
+import FormCard from "../components/FormCard";
 
 const Form = ({ prevStep, submit, updateData, data }) => {
   return (

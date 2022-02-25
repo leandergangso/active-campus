@@ -53,11 +53,11 @@ const Index = () => {
   })
 
   const prevStep = () => {
-    setCurStep((curStep) => curStep - 1)
+    setCurStep(curStep => curStep - 1)
   }
 
   const nextStep = () => {
-    setCurStep((curStep) => curStep + 1)
+    setCurStep(curStep => curStep + 1)
   }
 
   const updateData = (type, newData) => {

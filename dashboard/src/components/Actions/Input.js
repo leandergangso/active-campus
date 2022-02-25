@@ -1,23 +1,24 @@
 /**
  * Create input and label with given input.
  * 
- * @param name
  * @param placeholder
+ * @param name
  * @param type
- * @param label
- * @param value default = "" 
+ * @param defaultValue
+ * @param className
+ * @param onChange
  */
-const Input = ({ name, placeholder, label, type = 'text', value = "" }) => {
+const Input = ({ placeholder, name, defaultValue, onChange, required, type = "text", className = "" }) => {
   return (
     <div className="flex flex-col gap-1 grow">
-      <label htmlFor={ name }>{label}</label>
       <input
-        name={name}
-        id={ name }
-        placeholder={placeholder}
+        onChange={onChange}
+        required={required}
         type={type}
-        defaultValue={value}
-        className='rounded-md w-full h-10 px-4 bg-light appearance-none border border-border focus:border-dark outline-none' />
+        name={name}
+        placeholder={placeholder}
+        defaultValue={defaultValue}
+        className={'rounded-md py-2 px-4 bg-light appearance-none border border-border outline-none focus:border-dark ' + className} />
     </div>
   )
 }

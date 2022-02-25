@@ -1,8 +1,8 @@
 import { MdRemoveCircle, MdArrowDownward, MdArrowUpward, MdDelete } from 'react-icons/md'
 
-import Checkbox from "./Actions/Checkbox";
-import Dropdown from "./Actions/Dropdown";
-import Input from "./Actions/Input";
+import Checkbox from "../../../components/Actions/Checkbox";
+import Dropdown from "../../../components/Actions/Dropdown";
+import Input from "../../../components/Actions/Input";
 
 const FormCard = ({ name, type, required }) => {
   const options = [

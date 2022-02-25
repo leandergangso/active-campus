@@ -1,6 +1,6 @@
 import { MdControlPointDuplicate, MdArchive, MdDelete } from 'react-icons/md'
 
-import Options from './Options'
+import Options from '../../../components/Options'
 
 function EventCard({ event }) {
   const options = [

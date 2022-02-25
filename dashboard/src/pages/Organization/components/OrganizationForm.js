@@ -2,7 +2,7 @@ import Input from "../../../components/Actions/Input"
 import Button from "../../../components/Actions/Button"
 import Checkbox from "../../../components/Actions/Checkbox"
 
-const OrganizationForm = ({ organization }) => {
+const OrganizationForm = ({ organization, submitName, secondaryName, onSubmitClick, onSecondaryClick }) => {
 
   return (
     <div>
@@ -26,8 +26,8 @@ const OrganizationForm = ({ organization }) => {
       </div>
 
       <div className="flex gap-5">
-        <Button>Oppdater</Button>
-        <Button style='danger'>Slett</Button>
+        <Button onClick={onSubmitClick}>{submitName}</Button>
+        <Button onClick={onSecondaryClick} style='danger'>{secondaryName}</Button>
       </div>
     </div>
   )
