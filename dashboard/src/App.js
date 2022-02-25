@@ -13,11 +13,11 @@ import Organizations from './pages/Organization/Index';
 import CreateOrganization from './pages/Organization/Create/Index';
 import Users from './pages/Users/Index';
 import Feedback from './pages/Feedback/Index';
-import NotFound from './pages/Errors/NotFound/Index';
+import NotFound from './pages/Errors/NotFound';
 
 function App() {
-  const location = useLocation()
-  const { currentUser } = useAuth()
+  const location = useLocation();
+  const { currentUser } = useAuth();
 
   // authentication
   if (!currentUser) {
@@ -29,7 +29,7 @@ function App() {
         <Route exact path='/login' element={<Login />} />
         <Route exact path='/password/reset' element={<Reset />} />
       </Routes>
-    )
+    );
   }
 
   // application
