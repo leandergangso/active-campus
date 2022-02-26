@@ -1,16 +1,16 @@
-import { MdControlPointDuplicate, MdArchive, MdDelete } from 'react-icons/md'
+import { MdControlPointDuplicate, MdArchive, MdDelete } from 'react-icons/md';
 
-import Options from '../../../components/Options'
+import OptionWrapper from '../../../components/OptionWrapper';
 
 function OrganizationCard({ organization }) {
   const options = [
-    { action: () => { console.log('delete') }, icon: { component: <MdDelete />, color: '#FF4444' }, name: 'Slett' },
-  ]
+    { action: () => { console.log('delete'); }, icon: { component: <MdDelete />, color: '#FF4444' }, name: 'Slett' },
+  ];
 
   return (
     <div onClick={() => console.log("clicked")} className="relative bg-light rounded-md shadow-md shrink-0 grow w-full sm:w-5/12 px-4 py-4 border border-transparent hover:border hover:border-border hover:cursor-pointer">
       <div className='absolute top-2 right-2'>
-        <Options options={options} />
+        {/* <OptionWrapper options={options} /> */}
       </div>
 
       <div>

@@ -1,5 +1,5 @@
 import Loading from "../components/Loading";
-import React, { useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "../firebase";
 import { createUser, liveUser } from "../helpers/firestore";
 import {
@@ -14,13 +14,14 @@ import {
   deleteUser,
 } from "firebase/auth";
 
-const AuthContext = React.createContext();
+const AuthContext = createContext();
 
 const useAuth = () => {
   return useContext(AuthContext);
 };
 
 const AuthProvider = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState();
 
@@ -30,6 +31,7 @@ const AuthProvider = ({ children }) => {
       ...doc.data(),
     };
     setCurrentUser(user);
+    setLoading(false);
   };
 
   const signup = async (name, email, password) => {
@@ -64,28 +66,29 @@ const AuthProvider = ({ children }) => {
   };
 
   const deleteCurrentUser = () => {
-    return deleteUser(currentUser);
+    deleteUser(auth.currentUser);
   };
 
   const signout = () => {
-    signOut(auth).then(() => {
-      setCurrentUser();
-    });
+    signOut(auth);
   };
 
   useEffect(() => {
-    let userUnsub = null;
     const authUnsub = onAuthStateChanged(auth, user => {
       if (user) {
-        userUnsub = liveUser(user.uid, _onUserUpdate);
+        liveUser(user.uid, _onUserUpdate);
+        setIsAuthenticated(true);
+      } else {
+        setCurrentUser();
+        setIsAuthenticated(false);
+        setLoading(false);
       }
-      setCurrentUser(user);
-      setLoading(false);
     });
-    return [authUnsub, userUnsub];
+    return authUnsub;
   }, []);
 
   const value = {
+    isAuthenticated,
     currentUser,
     signup,
     signin,

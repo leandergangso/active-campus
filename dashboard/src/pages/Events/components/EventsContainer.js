@@ -1,11 +1,23 @@
+import { Link } from "react-router-dom";
+import { useAppState } from "../../../contexts/AppContext";
 import EventCard from "./EventCard";
 
 const EventsContainer = ({ events }) => {
+  const { state } = useAppState();
+
+  if (state.organizations.length === 0) {
+    return (
+      <div>
+        <p className="text-xl text-placeholder">Ingen arrangementer tilgjengelig.</p>
+        <p className="text-xl text-placeholder">Bli invitert eller opprett en organisasjon <Link to='/organizations/create' className='text-primary'>her</Link>.</p>
+      </div>
+    );
+  }
 
   if (events.length === 0) {
     return (
       <div>
-        no event...
+        <p className="text-xl text-placeholder">Ingen aktive eller arkiverte arrangementer for {state.currentOrganization.name}.</p>
       </div>
     );
   }

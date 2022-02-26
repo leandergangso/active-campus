@@ -1,6 +1,6 @@
 import { MdControlPointDuplicate, MdArchive, MdDelete } from 'react-icons/md';
 
-import Options from '../../../components/Options';
+import OptionWrapper from '../../../components/OptionWrapper';
 
 function EventCard({ event }) {
   const options = [
@@ -15,15 +15,9 @@ function EventCard({ event }) {
   // }
 
   return (
-    <div className='border p-2'>
-      {JSON.stringify(event)}
-    </div>
-  );
-
-  return (
     <div onClick={() => console.log("clicked")} className="relative bg-light rounded-md shadow-md shrink-0 grow w-full sm:w-5/12 px-4 py-4 border border-transparent hover:border hover:border-border hover:cursor-pointer">
       <div className='absolute top-2 right-2'>
-        <Options options={options} />
+        {/* <Options options={options} /> */}
       </div>
 
       <div>

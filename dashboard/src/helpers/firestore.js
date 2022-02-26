@@ -145,7 +145,11 @@ const getOrganization = async (orgNumber) => {
 };
 
 const getOrganizationList = async (list) => {
-  return await getDocs(query(organizationsRef, where('org_number', 'in', list)));
+  console.log(list.length);
+  if (list.length !== 0) {
+    return await getDocs(query(organizationsRef, where('org_number', 'in', list)));
+  }
+  return [];
 };
 
 // ORGANIZATIONS/EVENTS
@@ -181,11 +185,13 @@ const _createEventObject = (userID, name, description, city, zip, street, emailB
 };
 
 const liveEvents = (organizationID, callbackFunction) => {
-  const eventRef = _getEventRef(organizationID);
-  const unsub = onSnapshot(query(eventRef), docs => {
-    callbackFunction(docs);
-  });
-  return unsub;
+  if (organizationID) {
+    const eventRef = _getEventRef(organizationID);
+    const unsub = onSnapshot(query(eventRef), docs => {
+      callbackFunction(docs);
+    });
+    return unsub;
+  }
 };
 
 // ORGANIZATIONS/EVENTS/SIGNUP_LIST
@@ -202,22 +208,7 @@ const getAllRoles = async () => {
   return await getDocs(query(rolesRef));
 };
 
-// ! delete
-const testing = async () => {
-  try {
-    const data = await getOrganizationList(['123456789', '123']);
-    // console.log(data);
-    data.forEach(doc => {
-      console.log(doc.id, doc.data());
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 export {
-  // ! delete
-  testing,
   // users
   createUserObject,
   createUser,

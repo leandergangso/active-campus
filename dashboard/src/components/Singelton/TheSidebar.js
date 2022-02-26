@@ -17,7 +17,7 @@ const TheSidebar = ({ sidebarNav, isSidebarOpen, setOpenSidebar }) => {
 				</aside>
 			</OutsideClickWrapper>
 		</div>
-	)
-}
+	);
+};
 
 export default TheSidebar;

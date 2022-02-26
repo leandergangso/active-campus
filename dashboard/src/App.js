@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { AppProvider } from './contexts/AppContext';
 import { useAuth } from './contexts/AuthContext';
 
 import Login from './pages/Auth/Login';
@@ -6,13 +7,12 @@ import Reset from './pages/Auth/Reset';
 import Register from './pages/Auth/Register';
 import TheDashboard from './components/Singelton/TheDashboard';
 
-
 function App() {
   const location = useLocation();
-  const { currentUser } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   // authentication
-  if (!currentUser) {
+  if (!isAuthenticated) {
     return (
       <Routes key={location.pathname} location={location}>
         <Route path='*' element={<Navigate to='/login' />} />
@@ -25,7 +25,9 @@ function App() {
   }
 
   return (
-    <TheDashboard />
+    <AppProvider>
+      <TheDashboard />
+    </AppProvider>
   );
 }
 

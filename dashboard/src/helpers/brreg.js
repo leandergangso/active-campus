@@ -16,5 +16,5 @@ const getOrganizations = async (name, limit = 5) => {
 };
 
 export {
-  getOrganizations
+  getOrganizations,
 };
