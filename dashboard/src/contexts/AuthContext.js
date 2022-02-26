@@ -1,3 +1,4 @@
+import Loading from "../components/Loading";
 import React, { useContext, useEffect, useState } from "react";
 import { auth } from "../firebase";
 import { createUser, liveUser } from "../helpers/firestore";
@@ -13,9 +14,6 @@ import {
   deleteUser,
 } from "firebase/auth";
 
-import logo from '../images/logo.png';
-import Loading from "../components/Singelton/TheLoading";
-
 const AuthContext = React.createContext();
 
 const useAuth = () => {
@@ -28,8 +26,8 @@ const AuthProvider = ({ children }) => {
 
   const _onUserUpdate = (doc) => {
     const user = {
-      uid: doc?.id,
-      ...doc?.data(),
+      id: doc.id,
+      ...doc.data(),
     };
     setCurrentUser(user);
   };
@@ -79,7 +77,7 @@ const AuthProvider = ({ children }) => {
     let userUnsub = null;
     const authUnsub = onAuthStateChanged(auth, user => {
       if (user) {
-        userUnsub = liveUser(user?.uid, _onUserUpdate);
+        userUnsub = liveUser(user.uid, _onUserUpdate);
       }
       setCurrentUser(user);
       setLoading(false);
@@ -100,12 +98,7 @@ const AuthProvider = ({ children }) => {
 
   if (loading) {
     return (
-      <div className='bg-background flex flex-col gap-5 justify-center items-center h-screen'>
-        <img src={logo} alt="logo" />
-        <div className='border border-border m-5 p-5 py-10 sm:p-20 rounded-md bg-light'>
-          <Loading />
-        </div>
-      </div>
+      <Loading message="Sjekker verifisering..." />
     );
   }
 

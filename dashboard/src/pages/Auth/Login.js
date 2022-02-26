@@ -10,68 +10,68 @@ import google from '../../images/google.png';
 import facebook from '../../images/facebook.png';
 
 const Login = () => {
-  const navigate = useNavigate()
-  const { signin, signinWithGoogle, signinWithFacebook } = useAuth()
-  const [loading, setLoading] = useState(false)
-  const [authError, setAuthError] = useState('')
-  const [error, setError] = useState('')
+  const navigate = useNavigate();
+  const { signin, signinWithGoogle, signinWithFacebook } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [authError, setAuthError] = useState('');
+  const [error, setError] = useState('');
   const [data, setData] = useState({
     email: '',
     password: '',
-  })
+  });
 
   const updateData = (type, newData) => {
     setData(data => {
-      return { ...data, [type]: newData }
-    })
-  }
+      return { ...data, [type]: newData };
+    });
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    setError('')
-    setLoading(true)
+    setError('');
+    setLoading(true);
 
     try {
-      await signin(data.email, data.password)
-      navigate('/')
+      await signin(data.email, data.password);
+      navigate('/');
     }
     catch (error) {
-      setLoading(false)
+      setLoading(false);
 
       if (error.code.includes('too-many-requests')) {
-        setError('For mange forsøk, prøv igjen senere.')
+        setError('For mange forsøk, prøv igjen senere.');
       } else {
-        setError('Feil epost eller passord.')
+        setError('Feil epost eller passord.');
       }
     }
-  }
+  };
 
   const handleGoogle = async () => {
     try {
-      setAuthError('')
-      await signinWithGoogle()
-      navigate('/')
+      setAuthError('');
+      await signinWithGoogle();
+      navigate('/');
     }
-    catch(error) {
+    catch (error) {
       if (error.code.includes('account-exists')) {
-        setAuthError('Konto finnes alt med annen pålogging.')
+        setAuthError('Konto finnes alt med annen pålogging.');
       }
     }
-  }
-  
+  };
+
   const handleFacebook = async () => {
     try {
-      setAuthError('')
-      await signinWithFacebook()
-      navigate('/')
+      setAuthError('');
+      await signinWithFacebook();
+      navigate('/');
     }
-    catch(error) {
+    catch (error) {
       if (error.code.includes('account-exists')) {
-        setAuthError('Konto finnes alt med annen pålogging.')
+        setAuthError('Konto finnes alt med annen pålogging.');
       }
     }
-  }
+  };
 
   return (
     <div className='bg-background h-screen flex flex-col items-center px-5'>
@@ -103,7 +103,7 @@ const Login = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

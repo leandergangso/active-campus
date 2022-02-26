@@ -44,8 +44,8 @@ function Layout() {
             <button onClick={signout} className='border border-danger bg-light p-4'>logout</button>
             <button onClick={testing} className='border border-danger bg-light p-4'>firestore</button>
             <button onClick={brreg} className='border border-danger bg-light p-4'>brreg</button>
-            {JSON.stringify(currentUser)}
           </div>
+          <p className='w-0'>{JSON.stringify(currentUser)}</p>
 
         </div>
       </div>

@@ -1,18 +1,24 @@
-import { MdControlPointDuplicate, MdArchive, MdDelete } from 'react-icons/md'
+import { MdControlPointDuplicate, MdArchive, MdDelete } from 'react-icons/md';
 
-import Options from '../../../components/Options'
+import Options from '../../../components/Options';
 
 function EventCard({ event }) {
   const options = [
-    { action: () => { console.log('copy') }, icon: { component: <MdControlPointDuplicate />, color: '#1B1555' }, name: 'Dupliser' },
-    { action: () => { console.log('hide') }, icon: { component: <MdArchive />, color: '#1B1555' }, name: 'Arkiver' },
-    { action: () => { console.log('delete') }, icon: { component: <MdDelete />, color: '#FF4444' }, name: 'Slett' },
-  ]
+    { action: () => { console.log('copy'); }, icon: { component: <MdControlPointDuplicate />, color: '#1B1555' }, name: 'Dupliser' },
+    { action: () => { console.log('hide'); }, icon: { component: <MdArchive />, color: '#1B1555' }, name: 'Arkiver' },
+    { action: () => { console.log('delete'); }, icon: { component: <MdDelete />, color: '#FF4444' }, name: 'Slett' },
+  ];
 
-  let n = 20
-  if (event.location.length > n) {
-    event.location = event.location.substring(0, n) + '...'
-  }
+  // let n = 20;
+  // if (event.location.length > n) {
+  //   event.location = event.location.substring(0, n) + '...';
+  // }
+
+  return (
+    <div className='border p-2'>
+      {JSON.stringify(event)}
+    </div>
+  );
 
   return (
     <div onClick={() => console.log("clicked")} className="relative bg-light rounded-md shadow-md shrink-0 grow w-full sm:w-5/12 px-4 py-4 border border-transparent hover:border hover:border-border hover:cursor-pointer">

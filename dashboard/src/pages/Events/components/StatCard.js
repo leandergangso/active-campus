@@ -1,7 +1,7 @@
-const StatCard = ({ title, bgColor, children }) => {
+const StatCard = ({ title, className, children }) => {
   return (
-    <div className="shadow-md w-full sm:w-56 2xl:w-64 rounded-b-md bg-light">
-      <div className={'text-light pl-5 py-2 rounded-t-md ' + bgColor}>
+    <div className="shadow-md w-full sm:w-56 rounded-b-md bg-light">
+      <div className={'text-light pl-5 py-2 rounded-t-md ' + className}>
         <h2>{title}</h2>
       </div>
 

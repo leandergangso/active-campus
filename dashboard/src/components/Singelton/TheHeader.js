@@ -1,29 +1,34 @@
-import { useLocation, useSearchParams } from "react-router-dom";
-import { MdMenu, MdAccountCircle, MdCircleNotifications } from 'react-icons/md';
+import { useLocation } from "react-router-dom";
+import { MdMenu, MdAccountCircle } from 'react-icons/md';
+import { useEffect, useState } from "react";
+// import { getOrganizationList } from "../../helpers/firestore";
+// import { useAuth } from "../../contexts/AuthContext";
 
 import Dropdown from "../Actions/Dropdown";
-import { useEffect } from "react";
 
 const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
-	const location = useLocation()
-	const [searchParams] = useSearchParams()
-	const organizationName = searchParams.get('organization')
+	const location = useLocation();
+	// const { currentUser } = useAuth();
+	const [organizations, setOrganizations] = useState([]);
 
-	// * get this from server and save in cache (react-query)
-	const organizations = [
-		'Lentech',
-		'Total Klima',
-		'Komplett organization',
-	]
+	// useEffect(async () => {
+	// 	const organizations = [];
+	// 	const docs = await getOrganizationList(currentUser.organizations);
+	// 	docs.forEach(doc => {
+	// 		const data = doc.data();
+	// 		organizations.push(data.name);
+	// 	});
+	// 	setOrganizations(organizations);
+	// }, []);
 
 	const getActiveNavRoute = () => {
-		let curRoute = sidebarNav.find(route => location.pathname.split('/')[1].toLowerCase() == route.path.split('/')[1].toLowerCase())
-		return curRoute?.name
-	}
+		let curRoute = sidebarNav.find(route => location.pathname.split('/')[1].toLowerCase() == route.path.split('/')[1].toLowerCase());
+		return curRoute?.name;
+	};
 
 	const organizationChange = (e) => {
-		console.log('change organization to:', e.target.value)
-	}
+		console.log('change organization to:', e.target.value);
+	};
 
 	return (
 		<header>
@@ -35,17 +40,13 @@ const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 				<h3 className="flex items-center">{getActiveNavRoute()}</h3>
 
 				<div className="flex flex-wrap gap-4">
-					<Dropdown options={organizations} value={organizationName} onChange={organizationChange} />
+					{organizations === [] && (
+						<Dropdown options={organizations} onChange={organizationChange} />
+					)}
 
-					{/* just implement: users name on option dropdown, logout button and delete account */}
 					<div>
 						<MdAccountCircle className="fill-dark w-10 h-10" />
 					</div>
-					
-					{/* notification, not implemented */}
-					{/* <div>
-						<MdCircleNotifications className="fill-dark w-10 h-10" />
-					</div> */}
 				</div>
 			</div>
 		</header>
