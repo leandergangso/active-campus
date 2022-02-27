@@ -8,7 +8,7 @@
  * @param className
  * @param onChange
  */
-const Input = ({ placeholder, name, defaultValue, onChange, required, type = "text", className = "" }) => {
+const Input = ({ placeholder, name, value, defaultValue, onChange, required, type = "text", className = "" }) => {
   return (
     <div className="flex flex-col gap-1 grow">
       <input
@@ -17,10 +17,11 @@ const Input = ({ placeholder, name, defaultValue, onChange, required, type = "te
         type={type}
         name={name}
         placeholder={placeholder}
+        value={value}
         defaultValue={defaultValue}
         className={'rounded-md py-2 px-4 bg-light appearance-none border border-border outline-none focus:border-dark ' + className} />
     </div>
-  )
-}
+  );
+};
 
-export default Input
+export default Input;

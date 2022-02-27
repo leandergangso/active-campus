@@ -45,6 +45,14 @@ const _getDoc = async (ref, docID) => {
   return false;
 };
 
+const _resultToObject = (docs) => {
+  const list = [];
+  docs.forEach(doc => {
+    list.push({ id: doc.id, ...doc.data() });
+  });
+  return list;
+};
+
 // USERS
 
 const createUserObject = (name, email) => {
@@ -60,32 +68,18 @@ const createUser = async (uid, name, email) => {
   if (await _getDoc(usersRef, uid)) {
     return false; // don't overwrite
   }
-
-  try {
-    const data = createUserObject(name, email);
-    await setDoc(doc(usersRef, uid), data);
-    return true;
-  }
-  catch (error) {
-    console.error(error);
-    return false;
-  }
+  const data = createUserObject(name, email);
+  return await setDoc(doc(usersRef, uid), data);
 };
 
-const updateUser = async (uid, user) => {
-  try {
-    await updateDoc(doc(usersRef, uid), user);
-    return true;
-  }
-  catch (error) {
-    console.error(error);
-    return false;
-  }
-};
+// const updateUser = async (uid, name, email) => {
+//   const data = createUserObject(name, email);
+//   return await updateDoc(doc(usersRef, uid), data);
+// };
 
-const getUser = async (uid) => {
-  return await _getDoc(usersRef, uid);
-};
+// const getUser = async (uid) => {
+//   return await _getDoc(usersRef, uid);
+// };
 
 const liveUser = async (uid, callbackFunction) => {
   const unsub = onSnapshot(doc(usersRef, uid), docs => {
@@ -113,48 +107,54 @@ const createOrganizationObject = (userID, name, shortName, orgNumber, contactEma
   };
 };
 
-const createOrganization = async (userID, name, shortName, orgNumber, contactEmail, contactName, contactTlf) => {
+const createOrUpdateOrganization = async (userID, name, shortName, orgNumber, contactEmail, contactName, contactTlf) => {
   if (await _getDoc(organizationsRef, orgNumber)) {
-    return false; // don't overwrite
+    return await updateOrganization(userID, name, shortName, orgNumber, contactEmail, contactName, contactTlf);
+  } else {
+    return await createOrganization(userID, name, shortName, orgNumber, contactEmail, contactName, contactTlf);
   }
+};
 
+const createOrganization = async (userID, name, shortName, orgNumber, contactEmail, contactName, contactTlf) => {
   try {
     const data = createOrganizationObject(userID, name, shortName, orgNumber, contactEmail, contactName, contactTlf);
-    await setDoc(doc(organizationsRef, orgNumber), data);
-    return true;
+    const res = await setDoc(doc(organizationsRef, orgNumber), data);
+    updateOrganizationUserRoles(orgNumber, {
+      created: _getTimestamp(),
+      role: 'admin'
+    });
+    return res;
   }
   catch (error) {
     console.error(error);
-    return false;
   }
 };
 
-const updateOrganization = async (uid, organization) => {
+const updateOrganization = async (userID, name, shortName, orgNumber, contactEmail, contactName, contactTlf) => {
   try {
-    await updateDoc(doc(organizationsRef, uid), organization);
-    return true;
+    const data = createOrganizationObject(userID, name, shortName, orgNumber, contactEmail, contactName, contactTlf);
+    return await updateDoc(doc(organizationsRef, orgNumber), data);
   }
   catch (error) {
     console.error(error);
-    return false;
   }
 };
 
-const getOrganization = async (orgNumber) => {
-  return await _getDoc(organizationsRef, orgNumber);
-};
+// const getOrganization = async (userID, name, shortName, orgNumber, contactEmail, contactName, contactTlf) => {
+//   return await _getDoc(organizationsRef, orgNumber);
+// };
 
 const getOrganizationList = async (list) => {
-  console.log(list.length);
   if (list.length !== 0) {
-    return await getDocs(query(organizationsRef, where('org_number', 'in', list)));
+    const res = await getDocs(query(organizationsRef, where('org_number', 'in', list)));
+    return _resultToObject(res);
   }
   return [];
 };
 
 // ORGANIZATIONS/EVENTS
 
-const _createEventObject = (userID, name, description, city, zip, street, emailBody, send_ticket, openTimestamp, closeTimestamp, is_reminder, is_waiting_list, max_participants, form) => {
+const createEventObject = (userID, name, description, city, zip, street, emailBody, send_ticket, openTimestamp, closeTimestamp, is_reminder, is_waiting_list, max_participants, form) => {
   return {
     name: name,
     description: description,
@@ -200,27 +200,31 @@ const liveEvents = (organizationID, callbackFunction) => {
 
 // ORGANIZATIONS/USER_ROLE
 
+const updateOrganizationUserRoles = async (uid, data) => {
+  try {
+    return await addDoc(doc(collection(`organizations/${uid}/user_role`)), data);
+  }
+  catch (error) {
+    console.log(error);
+  }
+};
+
 // PARTICIPANTS
 
 // ROLES
 
 const getAllRoles = async () => {
-  return await getDocs(query(rolesRef));
+  const res = await getDocs(query(rolesRef));
+  return _resultToObject(res);
 };
 
 export {
   // users
-  createUserObject,
   createUser,
-  updateUser,
-  getUser,
   liveUser,
-  // organizations
-  createOrganizationObject,
-  createOrganization,
-  updateOrganization,
-  getOrganization,
   getOrganizationList,
+  // organizations
+  createOrUpdateOrganization,
   // organizations/events
   liveEvents,
   // organizations/user_role
@@ -228,5 +232,5 @@ export {
   // particiapnts
 
   // roles
-  getAllRoles,
+  getAllRoles
 };

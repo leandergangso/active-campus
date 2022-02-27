@@ -26,10 +26,13 @@ const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState();
 
   const _onUserUpdate = (doc) => {
+    if (!doc.exists()) return signOut();
+
     const user = {
       id: doc.id,
       ...doc.data(),
     };
+
     setCurrentUser(user);
     setLoading(false);
   };

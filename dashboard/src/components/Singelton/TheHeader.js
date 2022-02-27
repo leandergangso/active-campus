@@ -5,11 +5,13 @@ import { useAppState } from "../../contexts/AppContext";
 
 import OptionWrapper from '../OptionWrapper';
 import Dropdown from "../Actions/Dropdown";
+import { useEffect, useState } from "react";
 
 const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 	const location = useLocation();
 	const { currentUser, signout, deleteCurrentUser } = useAuth();
 	const { state, dispatch } = useAppState();
+	const [organizations, setOrganizations] = useState(); // ! dont use?
 
 	const options = [
 		{ name: currentUser?.name },
@@ -23,8 +25,18 @@ const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 	};
 
 	const organizationChange = (e) => {
-		console.log('change organization to:', e.target.value);
+		const name = e.target.value;
+		dispatch({ type: 'setCurrentOrganization', payload: name });
 	};
+
+	useEffect(() => {
+		const nameList = [];
+
+		// state.organizations.map(org => {
+		// 	nameList.push(org.name);
+		// });
+		// setOrganizations(nameList);
+	}, [state.organizations]);
 
 	return (
 		<header>
@@ -37,7 +49,7 @@ const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 
 				<div className="flex flex-wrap gap-4">
 					{state.organizations.length > 0 && (
-						<Dropdown options={state.organizations} onChange={organizationChange} />
+						<Dropdown options={organizations} onChange={organizationChange} />
 					)}
 
 					<div>

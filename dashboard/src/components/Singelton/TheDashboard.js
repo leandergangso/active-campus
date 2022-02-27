@@ -1,4 +1,5 @@
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import { useAppState } from "../../contexts/AppContext";
 
 import TheLayout from './TheLayout';
 import Events from '../../pages/Events/Index';
@@ -12,14 +13,18 @@ import NotFound from '../../pages/Errors/NotFound';
 
 const TheDashboard = () => {
   const location = useLocation();
+  const { state } = useAppState();
 
   return (
     <Routes key={location.pathname} location={location}>
-      <Route index element={<Navigate to='/events' />} />
+      {state.organizations.length > 0
+        ? <Route index element={<Navigate to='/events' />} />
+        : <Route index element={<Navigate to='/organizations/create' />} />
+      }
 
       <Route exact path='/' element={<TheLayout />}>
         <Route exact path='/events' element={<Events />} />
-        <Route exact path='/events/event' element={<Event />} />k
+        <Route exact path='/events/event' element={<Event />} />
         <Route exact path='/events/create' element={<CreateEvent />} />
 
         <Route exact path='/organizations' element={<Organizations />} />
