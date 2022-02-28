@@ -1,5 +1,5 @@
 import { db } from "../firebase";
-import { collection, doc, getDoc, getDocs, addDoc, setDoc, updateDoc, query, where, Timestamp, onSnapshot } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, addDoc, setDoc, query, where, Timestamp, onSnapshot } from "firebase/firestore";
 
 // COLLECTIONS
 
@@ -22,7 +22,7 @@ const _getEventWaitingRef = (organizationID, eventID) => {
   return collection(db, `organizations/${organizationID}/events/${eventID}/waiting_list`);
 };
 
-const _getOrganizationUserRoleRef = (organizationID) => {
+const _getUserRoleRef = (organizationID) => {
   return collection(db, `organizations/${organizationID}/user_role`);
 };
 
@@ -30,10 +30,6 @@ const _getOrganizationUserRoleRef = (organizationID) => {
 
 const _getTimestamp = () => {
   return + new Date();
-};
-
-const _makeTimestamp = (day, month, year) => {
-  return Timestamp.fromDate(new Date(`${month} ${day}, ${year}`));
 };
 
 const _getDoc = async (ref, docID) => {
@@ -107,42 +103,10 @@ const createOrganizationObject = (userID, name, shortName, orgNumber, contactEma
   };
 };
 
-const createOrUpdateOrganization = async (userID, name, shortName, orgNumber, contactEmail, contactName, contactTlf) => {
-  if (await _getDoc(organizationsRef, orgNumber)) {
-    return await updateOrganization(userID, name, shortName, orgNumber, contactEmail, contactName, contactTlf);
-  } else {
-    return await createOrganization(userID, name, shortName, orgNumber, contactEmail, contactName, contactTlf);
-  }
+const setOrganization = async (userID, name, shortName, orgNumber, contactEmail, contactName, contactTlf) => {
+  const data = createOrganizationObject(userID, name, shortName, orgNumber, contactEmail, contactName, contactTlf);
+  return await setDoc(doc(organizationsRef, orgNumber), data);
 };
-
-const createOrganization = async (userID, name, shortName, orgNumber, contactEmail, contactName, contactTlf) => {
-  try {
-    const data = createOrganizationObject(userID, name, shortName, orgNumber, contactEmail, contactName, contactTlf);
-    const res = await setDoc(doc(organizationsRef, orgNumber), data);
-    updateOrganizationUserRoles(orgNumber, {
-      created: _getTimestamp(),
-      role: 'admin'
-    });
-    return res;
-  }
-  catch (error) {
-    console.error(error);
-  }
-};
-
-const updateOrganization = async (userID, name, shortName, orgNumber, contactEmail, contactName, contactTlf) => {
-  try {
-    const data = createOrganizationObject(userID, name, shortName, orgNumber, contactEmail, contactName, contactTlf);
-    return await updateDoc(doc(organizationsRef, orgNumber), data);
-  }
-  catch (error) {
-    console.error(error);
-  }
-};
-
-// const getOrganization = async (userID, name, shortName, orgNumber, contactEmail, contactName, contactTlf) => {
-//   return await _getDoc(organizationsRef, orgNumber);
-// };
 
 const getOrganizationList = async (list) => {
   if (list.length !== 0) {
@@ -200,13 +164,13 @@ const liveEvents = (organizationID, callbackFunction) => {
 
 // ORGANIZATIONS/USER_ROLE
 
-const updateOrganizationUserRoles = async (uid, data) => {
-  try {
-    return await addDoc(doc(collection(`organizations/${uid}/user_role`)), data);
-  }
-  catch (error) {
-    console.log(error);
-  }
+const setOrganizationUserRole = async (orgID, userID, role) => {
+  const data = {
+    role: role.id,
+    created: _getTimestamp(),
+  };
+  const userRoleRef = _getUserRoleRef(orgID);
+  return await setDoc(doc(userRoleRef, userID), data);
 };
 
 // PARTICIPANTS
@@ -224,7 +188,7 @@ export {
   liveUser,
   getOrganizationList,
   // organizations
-  createOrUpdateOrganization,
+  setOrganization,
   // organizations/events
   liveEvents,
   // organizations/user_role

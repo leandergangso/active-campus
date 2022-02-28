@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppState } from "../../contexts/AppContext";
 import { useEffect } from "react";
 
@@ -18,11 +18,17 @@ const Index = () => {
 		{ id: 4, name: 'Navn på organisasjon', nr: '123 321 123', contact: { name: 'Leander Gangso', mail: 'min@mail.no', tlf: '+47 000 000 000' } },
 	];
 
-	useEffect(() => {
-		if (state.organizations.length === 0) {
-			navigate('./create');
-		}
-	});
+	if (state.organizations.length === 0) {
+		return (
+			<div>
+				<h1 className="text-2xl font-bold mb-5">Organisasjoner</h1>
+				<div>
+					<p className="text-xl text-placeholder">Ingen organisasjoner tilgjengelig.</p>
+					<p className="text-xl text-placeholder">Bli invitert eller opprett en organisasjon <Link to='/organizations/create' className='text-primary'>her</Link>.</p>
+				</div>
+			</div>
+		);
+	}
 
 	return (
 		<div>
@@ -30,8 +36,10 @@ const Index = () => {
 				<div className='mb-5'>
 					<h1 className="text-2xl font-bold">Gjeldene organisasjon</h1>
 				</div>
-				<OrganizationForm organization={organizations[1]} submitName='Oppdater' secondaryName='Slett'
-					onSubmit={() => console.log('create new organization, and go back to organization page.')}
+				<OrganizationForm
+					autofill
+					submitName='Oppdater'
+					secondaryName='Slett'
 					onSecondary={() => console.log('delete current organization, auto select next in list, hide if no organization exists.')}
 				/>
 			</section>

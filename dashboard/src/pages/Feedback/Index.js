@@ -1,4 +1,4 @@
-import Button from '../../components/Actions/Button'
+import Button from '../../components/Actions/Button';
 
 const Index = () => {
   return (
@@ -10,7 +10,6 @@ const Index = () => {
           {/* replace with component */}
           <label>Din melding</label>
           <textarea cols="30" rows="10"></textarea>
-
         </div>
 
         <div className="flex flex-col gap-2 mt-7">
@@ -31,7 +30,7 @@ const Index = () => {
 
       <Button>Send</Button>
     </div>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;

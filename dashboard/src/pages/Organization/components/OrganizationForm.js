@@ -4,14 +4,12 @@ import Checkbox from "../../../components/Actions/Checkbox";
 import { useEffect, useState } from "react";
 import { useAppState } from "../../../contexts/AppContext";
 import { useNavigate } from "react-router-dom";
-import { createOrUpdateOrganization } from "../../../helpers/firestore";
-import { useAuth } from "../../../contexts/AuthContext";
 import { apiGetOrganizations } from '../../../helpers/brreg';
+import { setOrganization } from "../../../helpers/firestore";
 
-const OrganizationForm = ({ submitName, secondaryName, onSecondary }) => {
+const OrganizationForm = ({ submitName, secondaryName, onSecondary, autofill }) => {
   const navigate = useNavigate();
-  const { currentUser } = useAuth();
-  const { state, dispatch } = useAppState();
+  const { state, setState } = useAppState();
   const [optionalOrganizations, setOptionalOrganizations] = useState([]);
   const [error, setError] = useState('');
   const [data, setData] = useState({
@@ -22,6 +20,8 @@ const OrganizationForm = ({ submitName, secondaryName, onSecondary }) => {
     contactName: '',
     contactTlf: '',
   });
+
+  // ! autofill will will out all fields with the current organization data
 
   useEffect(() => {
     if (data.name === '' || !data.org_number) {
@@ -52,8 +52,8 @@ const OrganizationForm = ({ submitName, secondaryName, onSecondary }) => {
 
     try {
       setError('');
-      createOrUpdateOrganization(currentUser.id, data.name, data.short_name, data.org_number, data.contactEmail, data.contactName, data.contactTlf);
-      dispatch({ type: 'setCurrentOrganization', payload: {} });
+      setOrganization(state.user.id, data.name, data.short_name, data.org_number, data.contactEmail, data.contactName, data.contactTlf);
+      setState('currentOrganization', data.name);
       navigate('/organizations');
     }
     catch (error) {
@@ -67,8 +67,8 @@ const OrganizationForm = ({ submitName, secondaryName, onSecondary }) => {
       <div className="flex flex-wrap gap-10 mb-10">
         <div className='flex flex-col gap-5'>
           <div className="flex flex-wrap gap-5">
-            <Input required onChange={(e) => updateData('name', e.target.value)} value={data.name} placeholder='Organisasjon navn' />
-            <div className="bg-background border border-border rounded-md px-4 py-2 w-40 text-center">{data.org_number}</div>
+            <Input required disable={autofill} onChange={(e) => updateData('name', e.target.value)} value={data.name} placeholder='Organisasjon navn' />
+            <div className="bg-background border border-border rounded-md px-4 py-2 w-full sm:w-40 text-center">{data.org_number}</div>
           </div>
 
           {optionalOrganizations.length !== 0 &&

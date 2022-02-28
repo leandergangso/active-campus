@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useReducer, useState } from "react";
-import { getAllRoles, getOrganizationList } from "../helpers/firestore";
-import Loading from "../components/Loading";
+import { getAllRoles, getOrganizationList, liveUser } from "../helpers/firestore";
 import { useAuth } from "./AuthContext";
+import Loading from "../components/Loading";
 
 const AppContext = createContext();
 
@@ -10,6 +10,7 @@ const useAppState = () => {
 };
 
 const initState = {
+  user: {},
   currentOrganization: {},
   organizations: [],
   roles: [],
@@ -17,18 +18,23 @@ const initState = {
 
 const _reduser = (state, action) => {
   switch (action.type) {
-    case 'setCurrentOrganization':
-
+    case 'user':
       return {
         ...state,
-        currentOrganization: action.payload,
+        user: action.payload
       };
-    case 'setOrganizations':
+    case 'currentOrganization':
+      const org = state.organizations.find(org => org.name === action.payload);
+      return {
+        ...state,
+        currentOrganization: org || {},
+      };
+    case 'organizations':
       return {
         ...state,
         organizations: action.payload,
       };
-    case 'setRoles':
+    case 'roles':
       return {
         ...state,
         roles: action.payload
@@ -38,38 +44,54 @@ const _reduser = (state, action) => {
   }
 };
 
-const _getRoles = async (dispatch) => {
-  const roles = await getAllRoles();
-  dispatch({
-    type: 'setRoles',
-    payload: roles
-  });
-};
-
-const _getOrganizations = async (list, dispatch) => {
-  const organizations = await getOrganizationList(list);
-  dispatch({
-    type: 'setOrganizations',
-    payload: organizations
-  });
-};
-
 const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
-  const { currentUser } = useAuth();
+  const { currentUser, signout } = useAuth();
   const [state, dispatch] = useReducer(_reduser, initState);
 
-  // load state
-  useEffect(async () => {
-    await _getRoles(dispatch);
-    await _getOrganizations(currentUser?.organizations || [], dispatch); // ! need to get live updates
+  const setState = (type, payload) => {
+    dispatch({
+      type: type,
+      payload, payload
+    });
+  };
 
-    setLoading(false);
-  }, []);
+  const _liveUser = (doc) => {
+    if (!doc.exists()) return signout();
+    const user = {
+      id: doc.id,
+      ...doc.data(),
+    };
+    setState('user', user);
+  };
+
+  const loadData = async () => {
+    const roles = await getAllRoles();
+    const organizations = await getOrganizationList(state.user.organizations);
+    setState('roles', roles);
+    setState('organizations', organizations);
+    if (organizations.length > 0 && state.currentOrganization === {}) {
+      setState('currentOrganization', organizations[0].name);
+    }
+  };
+
+  useEffect(() => {
+    if (currentUser) {
+      const userUnsub = liveUser(currentUser.uid, _liveUser);
+      return [userUnsub];
+    }
+  }, [currentUser]);
+
+  useEffect(async () => {
+    if (state.user.id) {
+      await loadData();
+      setLoading(false);
+    }
+  }, [state.user]);
 
   const value = {
     state,
-    dispatch,
+    setState,
   };
 
   if (loading) {

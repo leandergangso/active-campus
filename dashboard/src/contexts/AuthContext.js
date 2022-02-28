@@ -1,7 +1,7 @@
 import Loading from "../components/Loading";
 import { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "../firebase";
-import { createUser, liveUser } from "../helpers/firestore";
+import { createUser } from "../helpers/firestore";
 import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
@@ -21,21 +21,8 @@ const useAuth = () => {
 };
 
 const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState();
-
-  const _onUserUpdate = (doc) => {
-    if (!doc.exists()) return signOut();
-
-    const user = {
-      id: doc.id,
-      ...doc.data(),
-    };
-
-    setCurrentUser(user);
-    setLoading(false);
-  };
 
   const signup = async (name, email, password) => {
     return createUserWithEmailAndPassword(auth, email, password).then(result => {
@@ -78,20 +65,13 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const authUnsub = onAuthStateChanged(auth, user => {
-      if (user) {
-        liveUser(user.uid, _onUserUpdate);
-        setIsAuthenticated(true);
-      } else {
-        setCurrentUser();
-        setIsAuthenticated(false);
-        setLoading(false);
-      }
+      setCurrentUser(user);
+      setLoading(false);
     });
     return authUnsub;
   }, []);
 
   const value = {
-    isAuthenticated,
     currentUser,
     signup,
     signin,

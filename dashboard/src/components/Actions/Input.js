@@ -8,7 +8,7 @@
  * @param className
  * @param onChange
  */
-const Input = ({ placeholder, name, value, defaultValue, onChange, required, type = "text", className = "" }) => {
+const Input = ({ placeholder, name, value, defaultValue, disabled, onChange, required, type = "text", className = "" }) => {
   return (
     <div className="flex flex-col gap-1 grow">
       <input
@@ -19,6 +19,7 @@ const Input = ({ placeholder, name, value, defaultValue, onChange, required, typ
         placeholder={placeholder}
         value={value}
         defaultValue={defaultValue}
+        disabled={disabled}
         className={'rounded-md py-2 px-4 bg-light appearance-none border border-border outline-none focus:border-dark ' + className} />
     </div>
   );

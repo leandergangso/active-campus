@@ -31,6 +31,8 @@ const Index = () => {
 	// 	return unsub;
 	// }, []);
 
+	console.log(state);
+
 	return (
 		<div>
 			{events.length > 0 && (

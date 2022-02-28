@@ -9,12 +9,12 @@ import { useEffect, useState } from "react";
 
 const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 	const location = useLocation();
-	const { currentUser, signout, deleteCurrentUser } = useAuth();
-	const { state, dispatch } = useAppState();
-	const [organizations, setOrganizations] = useState(); // ! dont use?
+	const { signout, deleteCurrentUser } = useAuth();
+	const { state, setState } = useAppState();
+	const [organizations, setOrganizations] = useState([]);
 
 	const options = [
-		{ name: currentUser?.name },
+		{ name: state.user.name },
 		{ onClick: signout, component: <MdLogout />, name: 'Logg ut' },
 		{ onClick: deleteCurrentUser, component: <MdDelete />, name: 'Slett bruker' },
 	];
@@ -26,16 +26,15 @@ const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 
 	const organizationChange = (e) => {
 		const name = e.target.value;
-		dispatch({ type: 'setCurrentOrganization', payload: name });
+		setState('currentOrganization', name);
 	};
 
 	useEffect(() => {
-		const nameList = [];
-
-		// state.organizations.map(org => {
-		// 	nameList.push(org.name);
-		// });
-		// setOrganizations(nameList);
+		const organizationsNames = [];
+		state.organizations.map(org => {
+			organizationsNames.push(org.name);
+		});
+		setOrganizations(organizationsNames);
 	}, [state.organizations]);
 
 	return (

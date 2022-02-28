@@ -10,7 +10,9 @@ const Index = () => {
         <div className='mb-5'>
           <h1 className="text-2xl font-bold">Ny organisasjon</h1>
         </div>
-        <OrganizationForm submitName='Opprett' secondaryName='Avbryt'
+        <OrganizationForm
+          submitName='Opprett'
+          secondaryName='Avbryt'
           onSecondary={() => navigate('/organizations')}
         />
       </section>

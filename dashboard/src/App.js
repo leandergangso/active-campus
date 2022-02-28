@@ -9,10 +9,10 @@ import TheDashboard from './components/Singelton/TheDashboard';
 
 function App() {
   const location = useLocation();
-  const { isAuthenticated } = useAuth();
+  const { currentUser } = useAuth();
 
   // authentication
-  if (!isAuthenticated) {
+  if (!currentUser) {
     return (
       <Routes key={location.pathname} location={location}>
         <Route path='*' element={<Navigate to='/login' />} />
