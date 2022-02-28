@@ -19,9 +19,16 @@ Group members:
 - Kristin Kofoed
 - Linnea Kristine Twilley
 
-## Create react app
+## Get started
+
+Need to have both React and NPM installed.
+
+- Clone this repo to your local machine
+- Go to the /dashboard
+- Run the commands
 
 ```bash
-npx create-react-app NAME
+npm install --save
+npm start
 ```
 
