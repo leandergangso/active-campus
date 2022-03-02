@@ -20,7 +20,7 @@ const Input = ({ placeholder, name, value, defaultValue, disabled, onChange, req
         value={value}
         defaultValue={defaultValue}
         disabled={disabled}
-        className={'rounded-md py-2 px-4 bg-light appearance-none border border-border outline-none focus:border-dark ' + className} />
+        className={'rounded-md py-2 px-4 bg-light appearance-none border border-border outline-none disabled:cursor-default focus:border-dark ' + className} />
     </div>
   );
 };

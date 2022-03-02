@@ -1,33 +1,28 @@
-import { MdControlPointDuplicate, MdArchive, MdDelete } from 'react-icons/md';
-
-import OptionWrapper from '../../../components/OptionWrapper';
+import { useAppState } from '../../../contexts/AppContext';
 
 function OrganizationCard({ organization }) {
-  const options = [
-    { action: () => { console.log('delete'); }, icon: { component: <MdDelete />, color: '#FF4444' }, name: 'Slett' },
-  ];
+  const { state, setState } = useAppState();
+  let bgState = 'border-transparent hover:border-border';
+
+  if (organization.id === state.currentOrganization?.id) {
+    bgState = 'border-dark hover:border-dark';
+  }
 
   return (
-    <div onClick={() => console.log("clicked")} className="relative bg-light rounded-md shadow-md shrink-0 grow w-full sm:w-5/12 px-4 py-4 border border-transparent hover:border hover:border-border hover:cursor-pointer">
-      <div className='absolute top-2 right-2'>
-        {/* <OptionWrapper options={options} /> */}
-      </div>
-
+    <div
+      onClick={() => setState('currentOrganization', organization)}
+      className={"relative bg-light rounded-md shadow-md grow w-full sm:w-5/12 px-4 py-4 border hover:border hover:cursor-pointer " + bgState}
+    >
       <div>
-        <div className='flex flex-wrap gap-5 mb-2'>
-          <h1 className="text-lg font-bold">{organization.name}</h1>
-          <p className='italic font-light self-center mr-10'>{organization.nr}</p>
+        <div className='flex flex-wrap mb-2'>
+          <h1 className="text-lg font-bold mr-4">{organization.short_name}</h1>
+          <p className='italic font-light self-center'>{organization.org_number}</p>
         </div>
 
-        <div className="flex flex-col gap-2 justify-between pr-0 xl:pr-10">
-          <div>
-            <p>Kontakt person: <span className="font-bold">{organization.contact.name}</span></p>
-          </div>
-
-          <div className='flex gap-5 flex-wrap'>
-            <p>Mail: <span className="font-bold">{organization.contact.mail}</span></p>
-            <p>Tlf: <span className="font-bold">{organization.contact.tlf}</span></p>
-          </div>
+        <div className="flex flex-col gap-2">
+          <p>Kontakt person: <span className="font-bold">{organization.contact.name}</span></p>
+          <p>Mail: <span className="font-bold">{organization.contact.email}</span></p>
+          <p>Tlf: <span className="font-bold">{organization.contact.tlf}</span></p>
         </div>
       </div>
     </div>

@@ -11,7 +11,6 @@ const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 	const location = useLocation();
 	const { signout, deleteCurrentUser } = useAuth();
 	const { state, setState } = useAppState();
-	const [organizations, setOrganizations] = useState([]);
 
 	const options = [
 		{ name: state.user.name },
@@ -25,16 +24,15 @@ const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 	};
 
 	const organizationChange = (e) => {
-		const name = e.target.value;
-		setState('currentOrganization', name);
+		const orgID = e.target.value;
+		const org = state.organizations.find(org => org.id === orgID);
+		setState('currentOrganization', org);
 	};
 
 	useEffect(() => {
-		const organizationsNames = [];
-		state.organizations.map(org => {
-			organizationsNames.push(org.name);
-		});
-		setOrganizations(organizationsNames);
+		if (state.currentOrganization && Object.entries(state.currentOrganization).length === 0) {
+			setState('currentOrganization', state.organizations[0]);
+		}
 	}, [state.organizations]);
 
 	return (
@@ -48,7 +46,7 @@ const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 
 				<div className="flex flex-wrap gap-4">
 					{state.organizations.length > 0 && (
-						<Dropdown options={organizations} onChange={organizationChange} />
+						<Dropdown objValue='short_name' options={state.organizations} value={state.currentOrganization?.id} onChange={organizationChange} />
 					)}
 
 					<div>

@@ -1,9 +1,5 @@
-/**
- * Creates a prestyled button based on input.
- * 
- * @param style Valid input: (primary, secondary, danger)
- * @param onClick A function to call onClick
- */
+import { useEffect } from "react";
+
 function Button({ style, onClick, disabled, children }) {
   const primaryStyle = 'border-transparent text-light bg-primary hover:border-dark';
   const secondaryStyle = 'border-dark hover:bg-dark hover:text-light';

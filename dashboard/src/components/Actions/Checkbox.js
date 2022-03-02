@@ -6,7 +6,7 @@ const Checkbox = ({ name, label, checked, onChange, required, className }) => {
         id={name}
         required={required}
         type="checkbox"
-        defaultChecked={checked ? 'checked' : ''}
+        checked={checked}
         className={`mr-4 border border-dark rounded-md p-2 cursor-pointer ${className}`}
         onChange={onChange}
       />

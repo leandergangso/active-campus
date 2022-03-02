@@ -1,5 +1,5 @@
 import { db } from "../firebase";
-import { collection, doc, getDoc, getDocs, addDoc, setDoc, query, where, Timestamp, onSnapshot } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, addDoc, setDoc, query, where, Timestamp, onSnapshot, deleteDoc } from "firebase/firestore";
 
 // COLLECTIONS
 
@@ -29,7 +29,7 @@ const _getUserRoleRef = (organizationID) => {
 // HELPERS
 
 const _getTimestamp = () => {
-  return + new Date();
+  return Timestamp.now();
 };
 
 const _getDoc = async (ref, docID) => {
@@ -103,17 +103,38 @@ const createOrganizationObject = (userID, name, shortName, orgNumber, contactEma
   };
 };
 
+const createOrganization = async (userID, name, shortName, orgNumber, contactEmail, contactName, contactTlf) => {
+  if (await _getDoc(organizationsRef, orgNumber)) {
+    return false;
+  }
+  const data = createOrganizationObject(userID, name, shortName, orgNumber, contactEmail, contactName, contactTlf);
+  return await setDoc(doc(organizationsRef, orgNumber), data);
+};
+
 const setOrganization = async (userID, name, shortName, orgNumber, contactEmail, contactName, contactTlf) => {
   const data = createOrganizationObject(userID, name, shortName, orgNumber, contactEmail, contactName, contactTlf);
   return await setDoc(doc(organizationsRef, orgNumber), data);
 };
 
-const getOrganizationList = async (list) => {
+const getOrganizations = async (list) => {
   if (list.length !== 0) {
     const res = await getDocs(query(organizationsRef, where('org_number', 'in', list)));
     return _resultToObject(res);
   }
   return [];
+};
+
+const liveOrganizations = async (list, callbackFunction) => {
+  if (list.length !== 0) {
+    const unsub = onSnapshot(query(organizationsRef, where('org_number', 'in', list)), docs => {
+      callbackFunction(docs);
+    });
+    return unsub;
+  }
+};
+
+const deleteOrganization = async (orgID) => {
+  return await deleteDoc(doc(organizationsRef, orgID));
 };
 
 // ORGANIZATIONS/EVENTS
@@ -186,9 +207,12 @@ export {
   // users
   createUser,
   liveUser,
-  getOrganizationList,
   // organizations
+  createOrganization,
   setOrganization,
+  getOrganizations,
+  liveOrganizations,
+  deleteOrganization,
   // organizations/events
   liveEvents,
   // organizations/user_role

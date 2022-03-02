@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useReducer, useState } from "react";
-import { getAllRoles, getOrganizationList, liveUser } from "../helpers/firestore";
+import { getAllRoles, getOrganizationList, liveOrganizations, liveUser } from "../helpers/firestore";
 import { useAuth } from "./AuthContext";
 import Loading from "../components/Loading";
 
@@ -11,12 +11,14 @@ const useAppState = () => {
 
 const initState = {
   user: {},
+  selectOrganization: '',
   currentOrganization: {},
   organizations: [],
   roles: [],
 };
 
 const _reduser = (state, action) => {
+  console.log('update app state:', action.type, action.payload); // ! debuging
   switch (action.type) {
     case 'user':
       return {
@@ -24,10 +26,14 @@ const _reduser = (state, action) => {
         user: action.payload
       };
     case 'currentOrganization':
-      const org = state.organizations.find(org => org.name === action.payload);
       return {
         ...state,
-        currentOrganization: org || {},
+        currentOrganization: action.payload,
+      };
+    case 'selectOrganization':
+      return {
+        ...state,
+        selectOrganization: action.payload,
       };
     case 'organizations':
       return {
@@ -65,14 +71,28 @@ const AppProvider = ({ children }) => {
     setState('user', user);
   };
 
-  const loadData = async () => {
-    const roles = await getAllRoles();
-    const organizations = await getOrganizationList(state.user.organizations);
-    setState('roles', roles);
-    setState('organizations', organizations);
-    if (organizations.length > 0 && state.currentOrganization === {}) {
-      setState('currentOrganization', organizations[0].name);
+  const _liveOrganizations = (docs) => {
+    console.log('1');
+    const orgList = [];
+    docs.forEach(doc => {
+      orgList.push({ id: doc.id, ...doc.data() });
+    });
+    setState('organizations', orgList);
+    if (state.selectOrganization) {
+      console.log('2');
+      const org = orgList.find(org => org.org_number === state.selectOrganization);
+      setState('currentOrganization', org);
+      setState('selectOrganization', '');
+    } else {
+      console.log('3');
+      const org = orgList.find(org => org.org_number === state.currentOrganization?.org_number) || orgList[0];
+      setState('currentOrganization', org);
     }
+  };
+
+  const _loadData = async () => {
+    const roles = await getAllRoles();
+    setState('roles', roles);
   };
 
   useEffect(() => {
@@ -84,8 +104,10 @@ const AppProvider = ({ children }) => {
 
   useEffect(async () => {
     if (state.user.id) {
-      await loadData();
+      const orgUnsub = await liveOrganizations(state.user.organizations, _liveOrganizations);
+      await _loadData();
       setLoading(false);
+      return [orgUnsub];
     }
   }, [state.user]);
 

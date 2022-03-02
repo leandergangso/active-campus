@@ -7,3 +7,5 @@
 `firebase deploy` to update functions and hosting/dist
 
 `firebase emulators:start` run firebase locally
+
+`firebase emulators:start --import <export-directory> --export-on-exit` run with import/exported data

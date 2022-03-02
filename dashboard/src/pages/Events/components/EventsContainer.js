@@ -9,7 +9,9 @@ const EventsContainer = ({ events }) => {
     return (
       <div>
         <p className="text-xl text-placeholder">Ingen arrangementer tilgjengelig.</p>
-        <p className="text-xl text-placeholder">Bli invitert eller opprett en organisasjon <Link to='/organizations/create' className='text-primary'>her</Link>.</p>
+        <p className="text-xl text-placeholder">
+          Bli invitert eller opprett en organisasjon <Link to='/organizations/create' className='text-primary'>her</Link>.
+        </p>
       </div>
     );
   }
@@ -17,7 +19,9 @@ const EventsContainer = ({ events }) => {
   if (events.length === 0) {
     return (
       <div>
-        <p className="text-xl text-placeholder">Ingen aktive eller arkiverte arrangementer for {state.currentOrganization.name}.</p>
+        <p className="text-xl text-placeholder">
+          Ingen aktive eller arkiverte arrangementer for organisasjonen: <span className="font-bold">{state.currentOrganization.short_name}</span>.
+        </p>
       </div>
     );
   }
