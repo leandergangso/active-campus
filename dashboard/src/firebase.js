@@ -19,8 +19,10 @@ export const functions = getFunctions(app);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
+/*
 if (window.location.hostname === "localhost") {
   connectFirestoreEmulator(db, 'localhost', 8080);
   connectAuthEmulator(auth, 'http://localhost:9099');
   connectFunctionsEmulator(functions, 'localhost', 5001);
 }
+*/
