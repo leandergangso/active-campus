@@ -17,12 +17,13 @@ const REGION = 'europe-west1';
 //   });
 // });
 
-// delete DB user on delete AUTH user - ok
+// delete user and participant on delete auth user - ok
 exports.onAuthDelete = functions.region(REGION).auth.user().onDelete(user => {
+  admin.firestore().collection('participants').doc(user.uid).delete();
   return admin.firestore().collection('users').doc(user.uid).delete();
 });
 
-// cleanup DB data after user deletion - ok
+// cleanup db data after user deletion - ok
 exports.onUserDelete = functions.region(REGION).firestore.document('users/{userID}').onDelete((snap, context) => {
   const uid = context.params.userID;
   const user = snap.data();

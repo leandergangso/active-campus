@@ -72,22 +72,11 @@ const AppProvider = ({ children }) => {
   };
 
   const _liveOrganizations = (docs) => {
-    console.log('1');
     const orgList = [];
     docs.forEach(doc => {
       orgList.push({ id: doc.id, ...doc.data() });
     });
     setState('organizations', orgList);
-    if (state.selectOrganization) {
-      console.log('2');
-      const org = orgList.find(org => org.org_number === state.selectOrganization);
-      setState('currentOrganization', org);
-      setState('selectOrganization', '');
-    } else {
-      console.log('3');
-      const org = orgList.find(org => org.org_number === state.currentOrganization?.org_number) || orgList[0];
-      setState('currentOrganization', org);
-    }
   };
 
   const _loadData = async () => {
@@ -107,9 +96,22 @@ const AppProvider = ({ children }) => {
       const orgUnsub = await liveOrganizations(state.user.organizations, _liveOrganizations);
       await _loadData();
       setLoading(false);
-      return [orgUnsub];
+      return orgUnsub;
     }
   }, [state.user]);
+
+  useEffect(() => {
+    if (state.organizations.length !== 0) {
+      if (state.selectOrganization) {
+        const org = state.organizations.find(org => org.org_number === state.selectOrganization);
+        setState('currentOrganization', org);
+        setState('selectOrganization', '');
+      } else {
+        const org = state.organizations.find(org => org.org_number === state.currentOrganization?.org_number) || state.organizations[0];
+        setState('currentOrganization', org);
+      }
+    }
+  }, [state.organizations]);
 
   const value = {
     state,

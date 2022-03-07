@@ -2,16 +2,16 @@ import { useAppState } from '../../../contexts/AppContext';
 
 function OrganizationCard({ organization }) {
   const { state, setState } = useAppState();
-  let bgState = 'border-transparent hover:border-border';
+  let bgState = 'bg-light border-transparent hover:border-border hover:cursor-pointer';
 
   if (organization.id === state.currentOrganization?.id) {
-    bgState = 'border-dark hover:border-dark';
+    bgState = 'bg-background border-border hover:cursor-normal';
   }
 
   return (
     <div
       onClick={() => setState('currentOrganization', organization)}
-      className={"relative bg-light rounded-md shadow-md grow w-full sm:w-5/12 px-4 py-4 border hover:border hover:cursor-pointer " + bgState}
+      className={"relative rounded-md shadow-md grow w-full sm:w-5/12 px-4 py-4 border hover:border " + bgState}
     >
       <div>
         <div className='flex flex-wrap mb-2'>

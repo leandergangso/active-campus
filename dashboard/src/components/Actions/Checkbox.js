@@ -1,22 +1,16 @@
-const Checkbox = ({ name, label, checked, onChange, required, className }) => {
+const Checkbox = ({ name, label, checked, onChange, required }) => {
   return (
-    <div>
+    <label className='select-none cursor-pointer'>
       <input
         name={name}
-        id={name}
         required={required}
         type="checkbox"
         checked={checked}
-        className={`mr-4 border border-dark rounded-md p-2 cursor-pointer ${className}`}
         onChange={onChange}
+        className='mr-4 cursor-pointer'
       />
-      <label
-        htmlFor={name}
-        className='select-none cursor-pointer'
-      >
-        {label}
-      </label>
-    </div>
+      {label}
+    </label>
   );
 };
 

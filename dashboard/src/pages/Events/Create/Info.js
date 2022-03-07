@@ -1,46 +1,32 @@
 import { useNavigate } from "react-router-dom";
-
 import Input from "../../../components/Actions/Input";
-import Dropdown from "../../../components/Actions/Dropdown";
 import Button from "../../../components/Actions/Button";
+import TextArea from "../../../components/Actions/TextArea";
+import File from "../../../components/Actions/File";
 
-
-const Info = ({ nextStep, updateData, data }) => {
+const Info = ({ nextStep, curryUpdate, data }) => {
   const navigate = useNavigate();
 
   return (
     <div>
       <h1 className="mb-5 text-2xl font-bold">Nytt arrangement</h1>
-
       <div className="flex flex-col">
         <div className="flex flex-wrap gap-5">
           <div className="flex flex-col gap-5 w-80 sm:mr-10">
+            <Input value={data.name} onChange={curryUpdate('name')} name='name' placeholder='Navn på arrangement' label='Navn' />
+            <Input value={data.address} onChange={curryUpdate('address')} name='address' placeholder='Gate, by, post' label='Adresse' />
 
-            {/* create label wrapper and remove label from all input components */}
+            <Input value={data.startDate} onChange={curryUpdate('startDate')} name='date' placeholder='Dato' type='date' label='Dato' />
 
-            <Input name='name' placeholder='Navn på arrangement' label='Arrangement navn*' />
-            <Input name='organizor' placeholder='Navn på arrangør' label='Navn på arrangør*' />
-            <Input name='address' placeholder='Adresse for arrangement' label='Adresse for arrangement*' />
-
-            {/* make custom multiselect dropdown menu */}
-            <Dropdown options={data.tags} label='Tags' />
-
-            <div className="flex gap-5">
-              <Input name='start' placeholder='time' type='time' label='Start tid*' />
-              <Input name='end' placeholder='time' type='time' label='Slutt tid*' />
+            <div className="flex gap-5 justify-between">
+              <Input value={data.startTime} onChange={curryUpdate('startTime')} name='start' placeholder='time' type='time' label='Start tid' />
+              <Input value={data.endTime} onChange={curryUpdate('endTime')} name='end' placeholder='time' type='time' label='Slutt tid' />
             </div>
-
-            <Input name='date' placeholder='Dato' type='date' label='Dato*' />
           </div>
 
-          <div className="flex flex-col gap-2 w-80">
-            {/* replace with textarea component */}
-            <label htmlFor="description">Beskrivelse</label>
-            <textarea className="border border-border outline-none rounded-md p-2 resize-none focus:border-dark" id="description" rows="10" defaultValue={data.description} />
-
-            {/* replace with file component */}
-            <label>Last opp bilde <small>(JPG, PNG)</small></label>
-            <input type="file" />
+          <div className="flex flex-col gap-5 w-80">
+            <TextArea value={data.description} onChange={curryUpdate('description')} label="Beskrivelse" />
+            {/* <File onChange={() => console.log('file changed')} accept='image/*' label='Last opp bilde' /> */}
           </div>
         </div>
 

@@ -107,8 +107,7 @@ const createOrganization = async (userID, name, shortName, orgNumber, contactEma
   if (await _getDoc(organizationsRef, orgNumber)) {
     return false;
   }
-  const data = createOrganizationObject(userID, name, shortName, orgNumber, contactEmail, contactName, contactTlf);
-  return await setDoc(doc(organizationsRef, orgNumber), data);
+  return await setOrganization(userID, name, shortName, orgNumber, contactEmail, contactName, contactTlf);
 };
 
 const setOrganization = async (userID, name, shortName, orgNumber, contactEmail, contactName, contactTlf) => {

@@ -1,57 +1,43 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useAppState } from "../../../contexts/AppContext";
-
+import { useState } from "react";
 import Info from "./Info";
 import Settings from "./Settings";
 import Form from "./Form";
-// import Stye from "./Style";
 
 const Index = () => {
   const navigate = useNavigate();
-  const { state } = useAppState();
-  const [curStep, setCurStep] = useState(1);
+  const [curStep, setCurStep] = useState(3);
   const [data, setData] = useState({
-    info: {
-      name: '',
-      organizer: '',
-      address: '',
-      tags: ['ingen', 'one', 'two'], // ! get from DB, and create method to add new once
-      time: {
-        start: '',
-        end: '',
-      },
-      date: '',
-      description: '',
-    },
-    settings: {
-      date: {
-        open: '',
-        close: '',
-      },
-      time: {
-        open: '',
-        close: '',
-      },
-      maxParticipants: null,
-      isWaitingList: false,
-      isReminder: true,
-      isSignoff: true,
-      isSignoffReminder: false,
-      signoffReminder: {
-        date: '',
-        time: '',
-      },
-      isConfirmationMail: true,
-      isMailTicked: true,
-      mailMessage: 'Hei %bruker%.\nDu er påmeldt %event%.\n\nSe info om arrangement her: %link%.',
-    },
-    forms: {
-
-    },
-    style: {
-
-    },
+    // info
+    name: '',
+    description: '',
+    address: '',
+    startDate: '',
+    startTime: '00:00',
+    endTime: '00:00',
+    // settings
+    signupOpenDate: '',
+    signupOpenTime: '00:00',
+    signupCloseDate: '',
+    signupCloseTime: '00:00',
+    maxParticipants: '100',
+    isWaitingList: false,
+    isTicket: false,
+    mailBody: 'Hei %navn%.\n\nDu er nå påmeldt %arrangement%, se info i linken under.\n\n%link%',
+    // form
+    forms: [
+      {
+        id: 0,
+        question: '',
+        type: 'Tekst',
+        options: [{
+          id: 0,
+          name: '',
+          checked: false,
+        }],
+        required: false,
+      }
+    ],
   });
 
   const prevStep = () => {
@@ -68,25 +54,23 @@ const Index = () => {
     });
   };
 
+  const curryUpdate = (type) => {
+    return (e) => updateData(type, e.target.value);
+  };
+
   const submitForm = () => {
     console.log('sending form data');
     // ! validate formData
     navigate('/events');
   };
 
-  useEffect(() => {
-    if (state.organizations.length === 0) {
-      navigate('/organizations/create');
-    }
-  });
-
   switch (curStep) {
     case 1:
       return (
         <Info
           nextStep={nextStep}
-          updateData={updateData}
-          data={data.info}
+          curryUpdate={curryUpdate}
+          data={data}
         />
       );
     case 2:
@@ -95,7 +79,8 @@ const Index = () => {
           prevStep={prevStep}
           nextStep={nextStep}
           updateData={updateData}
-          data={data.settings}
+          curryUpdate={curryUpdate}
+          data={data}
         />
       );
     case 3:
@@ -104,7 +89,7 @@ const Index = () => {
           prevStep={prevStep}
           submit={submitForm}
           updateData={updateData}
-          data={data.forms}
+          data={data}
         />
       );
     default:

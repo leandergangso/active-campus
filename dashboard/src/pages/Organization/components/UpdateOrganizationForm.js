@@ -3,12 +3,10 @@ import Button from "../../../components/Actions/Button";
 import Checkbox from "../../../components/Actions/Checkbox";
 import { useEffect, useState } from "react";
 import { useAppState } from "../../../contexts/AppContext";
-import { apiGetOrganizations } from '../../../helpers/brreg';
 import { deleteOrganization, setOrganization } from "../../../helpers/firestore";
 
-const UpdateOrganizationForm = ({ onSecondary }) => {
-  const { state, setState } = useAppState();
-  const [optionalOrganizations, setOptionalOrganizations] = useState([]);
+const UpdateOrganizationForm = () => {
+  const { state } = useAppState();
   const [error, setError] = useState('');
   const [confirmation, setConfirmation] = useState(false);
   const [data, setData] = useState({
@@ -21,26 +19,16 @@ const UpdateOrganizationForm = ({ onSecondary }) => {
   });
 
   useEffect(() => {
+    setConfirmation(false);
     setData({
       name: state.currentOrganization?.name || '',
       short_name: state.currentOrganization?.short_name || '',
       org_number: state.currentOrganization?.org_number || '',
-      contactEmail: state.currentOrganization.contact?.email || '',
-      contactName: state.currentOrganization.contact?.name || '',
-      contactTlf: state.currentOrganization.contact?.tlf || '',
+      contactEmail: state.currentOrganization?.contact?.email || '',
+      contactName: state.currentOrganization?.contact?.name || '',
+      contactTlf: state.currentOrganization?.contact?.tlf || '',
     });
   }, [state.currentOrganization]);
-
-  useEffect(() => {
-    if (data.name === '' || !data.org_number) {
-      const timer = setTimeout(async () => {
-        const res = await apiGetOrganizations(data.name);
-        setOptionalOrganizations(res);
-        updateData('org_number', '');
-      }, 500);
-      return () => clearTimeout(timer);
-    }
-  }, [data.name]);
 
   const updateData = (type, newData) => {
     if (type === 'name' && data.org_number !== '') {
@@ -72,37 +60,14 @@ const UpdateOrganizationForm = ({ onSecondary }) => {
   return (
     <form onSubmit={handleSubmit}>
       <div className="flex flex-wrap gap-10 mb-10">
-        <div className='flex flex-col gap-5'>
-          <div className="flex flex-wrap gap-5">
-            <Input required disabled onChange={(e) => updateData('name', e.target.value)} value={data.name} placeholder='Organisasjon navn' />
-            <input
-              required
-              disabled
-              type='text'
-              className="bg-background border border-border rounded-md px-4 py-2 w-full sm:w-40 text-center"
-              value={data.org_number}
-            />
+        <div className='flex flex-col gap-5 max-w-md'>
+          <div className="flex gap-5 justify-between w-80">
+            <Input required disabled value={data.name} label='Navn' className='bg-background border border-border rounded-md px-4 py-2 w-full sm:w-72' />
+            <Input required disabled value={data.org_number} label='Org-nr' className='bg-background border border-border rounded-md px-4 py-2 w-full sm:w-32 text-center' />
           </div>
 
-          {optionalOrganizations.length !== 0 &&
-            <div className='select-none flex flex-col gap-1'>
-              {optionalOrganizations.map(org => (
-                <div key={org.organisasjonsnummer}
-                  className='bg-light flex gap-5 justify-between border border-border rounded-md px-4 py-2 hover:cursor-pointer hover:bg-border'
-                  onClick={() => {
-                    updateData('name', org.navn);
-                    updateData('org_number', org.organisasjonsnummer);
-                    setOptionalOrganizations([]);
-                  }}
-                >
-                  <p>{org.navn}</p>
-                  <p>{org.organisasjonsnummer}</p>
-                </div>
-              ))}
-            </div>
-          }
+          <Input required onChange={(e) => updateData('short_name', e.target.value)} label='Visningsnavn' value={data.short_name} placeholder='Visningsnavn' />
 
-          <Input required onChange={(e) => updateData('short_name', e.target.value)} value={data.short_name} placeholder='Visningsnavn' />
           <Checkbox
             required
             name='confirmation'
@@ -111,10 +76,10 @@ const UpdateOrganizationForm = ({ onSecondary }) => {
             label='Jeg bekrefter at jeg har rett til å ta besluttniger for denne organisasjonen.' />
         </div>
 
-        <div className="flex flex-col gap-5 h-fit">
-          <Input required onChange={(e) => updateData('contactName', e.target.value)} value={data.contactName} name='name' placeholder='Fult navn' />
-          <Input required onChange={(e) => updateData('contactEmail', e.target.value)} value={data.contactEmail} name='email' type="email" placeholder='Min@epost.no' />
-          <Input required onChange={(e) => updateData('contactTlf', e.target.value)} value={data.contactTlf} name='phone' placeholder='Telefon nummer' />
+        <div className="flex flex-col gap-5">
+          <Input required onChange={(e) => updateData('contactName', e.target.value)} label='Fult navn' value={data.contactName} name='name' placeholder='Fult navn' />
+          <Input required onChange={(e) => updateData('contactEmail', e.target.value)} label='Email' value={data.contactEmail} name='email' type="email" placeholder='Min@epost.no' />
+          <Input required onChange={(e) => updateData('contactTlf', e.target.value)} label='Tlf nummer' value={data.contactTlf} name='phone' placeholder='Telefon nummer' />
         </div>
       </div>
 

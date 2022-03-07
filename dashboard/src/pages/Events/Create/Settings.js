@@ -1,12 +1,9 @@
 import Input from "../../../components/Actions/Input";
 import Button from "../../../components/Actions/Button";
 import Checkbox from "../../../components/Actions/Checkbox";
-import { useState } from "react";
+import TextArea from "../../../components/Actions/TextArea";
 
-const Settings = ({ prevStep, nextStep, updateData, data }) => {
-  const [isSignoff, setIsSignoff] = useState(false)
-  const [isConfirmation, setIsConfirmation] = useState(true)
-
+const Settings = ({ prevStep, nextStep, updateData, curryUpdate, data }) => {
   return (
     <div>
       <h1 className="mb-5 text-2xl font-bold">Frister og varslinger</h1>
@@ -15,44 +12,31 @@ const Settings = ({ prevStep, nextStep, updateData, data }) => {
         <div className="flex flex-wrap gap-5">
           <div className="flex flex-col gap-5 w-80 sm:mr-10">
             <div className="flex gap-5">
-              <Input name='signon' type='date' label='Påmelding åpnes*' />
-              <Input name='signon-time' type='time' value="00:00" label='tid' />
+              <Input value={data.signupOpenDate} onChange={curryUpdate('signupOpenDate')} name='signupOpenDate' type='date' label='Påmelding åpnes' />
+              <Input value={data.signupOpenTime} onChange={curryUpdate('signupOpenTime')} name='signupOpenTime' type='time' label='tid' />
             </div>
 
             <div className="flex gap-5">
-              <Input name='signoff' type='date' label='Påmelding stenges*' />
-              <Input name='signoff-time' type='time' value="00:00" label='tid' />
+              <Input value={data.signupCloseDate} onChange={curryUpdate('signupCloseDate')} name='signupCloseDate' type='date' label='Påmelding stenges' />
+              <Input value={data.signupCloseTime} onChange={curryUpdate('signupCloseTime')} name='signupCloseTime' type='time' label='tid' />
             </div>
 
-            <Input name='amount' type='number' value='1' label='Max deltagere*' />
+            <div>
+              <Input value={data.maxParticipants} onChange={curryUpdate('maxParticipants')} name='maxParticipant' type='number' label='Max deltagere' />
+            </div>
 
-            <Checkbox onChange={() => console.log('1')} name='waitinglist' checked label='Ta i bruk venteliste' />
-            <Checkbox onChange={() => console.log('2')} name='reminder' checked label='Send påmindelse for arrangement start' />
-            <Checkbox onChange={() => setIsSignoff(prev => !prev)} name='allow-signoff' label='Mulighet for avmelding' />
-
-            {isSignoff &&
-              <>
-                <Checkbox onChange={() => console.log('4')} name='signoff-deadline' label='Send påmindelse for avmeldings frist' />
-                <div className="flex gap-5">
-                  <Input name='deadline' type='date' label='Avmeldings frist*' />
-                  <Input name='deadline-time' type='time' value="00:00" label='tid' />
-                </div>
-              </>
-            }
+            <Checkbox checked={data.isWaitingList} onChange={(e) => updateData('isWaitingList', e.target.checked)} name='isWaitingList' label='Ta i bruk venteliste' />
+            <Checkbox checked={data.isTicket} onChange={(e) => updateData('isTicket', e.target.checked)} name='isTicket' label='Send billett ved påmelding (QR-kode)' />
           </div>
 
           <div className="flex flex-col gap-2 w-80">
-            <Checkbox onChange={() => setIsConfirmation(prev => !prev)} name='confirmation-mail' checked label='Send bekreftelse på e-post' />
-            {isConfirmation && <Checkbox onChange={() => console.log('6')} name='ticket' label='Send billett ved påmelding' />}
-
-            {isConfirmation &&
-              <>
-                <label htmlFor="mail">Mail</label>
-                <textarea className="border border-border outline-none rounded-md p-2 resize-none focus:border-dark" id="mail" rows="10" defaultValue={data.mailMessage} />
-              </>
-            }
-
-
+            <TextArea value={data.mailBody} onChange={curryUpdate('mailBody')} name='mailBody' label='E-mail' />
+            <div className="text-placeholder">
+              <h3 className="font-bold mb-1">Tilpasset e-mail verdier:</h3>
+              <p>%navn% = Brukerens navn.</p>
+              <p>%arrangement% = Arrangementets navn.</p>
+              <p>%link% = Link til påmelding og info side.</p>
+            </div>
           </div>
         </div>
 

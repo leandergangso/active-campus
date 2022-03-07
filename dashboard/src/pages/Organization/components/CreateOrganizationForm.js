@@ -69,20 +69,14 @@ const CreateOrganizationForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <div className="flex flex-wrap gap-10 mb-10">
-        <div className='flex flex-col gap-5'>
-          <div className="flex flex-wrap gap-5">
-            <Input required onChange={(e) => updateData('name', e.target.value)} value={data.name} placeholder='Organisasjon navn' />
-            <input
-              required
-              disabled
-              type='text'
-              className="bg-background border border-border rounded-md px-4 py-2 w-full sm:w-40 text-center"
-              value={data.org_number}
-            />
+        <div className='flex flex-col gap-5 max-w-md'>
+          <div className="flex flex-wrap gap-5 w-full max-w-md justify-between">
+            <Input required onChange={(e) => updateData('name', e.target.value)} value={data.name} label='Navn' placeholder='Organisasjon navn' />
+            <Input required disabled value={data.org_number} label='Org-nr' className='bg-background border border-border rounded-md px-4 py-2 w-full sm:w-40 text-center' />
           </div>
 
           {optionalOrganizations.length !== 0 &&
-            <div className='select-none flex flex-col gap-1'>
+            <div className='select-none flex flex-col gap-1 max-w-md'>
               {optionalOrganizations.map(org => (
                 <div key={org.organisasjonsnummer}
                   className='bg-light flex gap-5 justify-between border border-border rounded-md px-4 py-2 hover:cursor-pointer hover:bg-border'
@@ -93,13 +87,13 @@ const CreateOrganizationForm = () => {
                   }}
                 >
                   <p>{org.navn}</p>
-                  <p>{org.organisasjonsnummer}</p>
+                  <p className="text-placeholder">{org.organisasjonsnummer}</p>
                 </div>
               ))}
             </div>
           }
 
-          <Input required onChange={(e) => updateData('short_name', e.target.value)} value={data.short_name} placeholder='Visningsnavn' />
+          <Input required onChange={(e) => updateData('short_name', e.target.value)} label='Visningsnavn' value={data.short_name} placeholder='Visningsnavn' />
           <Checkbox
             required
             name='confirmation'
@@ -108,10 +102,10 @@ const CreateOrganizationForm = () => {
             label='Jeg bekrefter at jeg har rett til å ta besluttniger for denne organisasjonen.' />
         </div>
 
-        <div className="flex flex-col gap-5 h-fit">
-          <Input required onChange={(e) => updateData('contactName', e.target.value)} value={data.contactName} name='name' placeholder='Fult navn' />
-          <Input required onChange={(e) => updateData('contactEmail', e.target.value)} value={data.contactEmail} name='email' type="email" placeholder='Min@epost.no' />
-          <Input required onChange={(e) => updateData('contactTlf', e.target.value)} value={data.contactTlf} name='phone' placeholder='Telefon nummer' />
+        <div className="flex flex-col gap-5">
+          <Input required onChange={(e) => updateData('contactName', e.target.value)} label='Fult navn' value={data.contactName} name='name' placeholder='Fult navn' />
+          <Input required onChange={(e) => updateData('contactEmail', e.target.value)} label='Email' value={data.contactEmail} name='email' type="email" placeholder='Min@epost.no' />
+          <Input required onChange={(e) => updateData('contactTlf', e.target.value)} label='Tlf nummer' value={data.contactTlf} name='phone' placeholder='Telefon nummer' />
         </div>
       </div>
 

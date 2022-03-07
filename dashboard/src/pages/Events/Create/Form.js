@@ -1,23 +1,68 @@
+import { ProviderId } from "firebase/auth";
+import { Droppable } from "react-beautiful-dnd";
+import { Draggable } from "react-beautiful-dnd";
+import { DragDropContext } from "react-beautiful-dnd";
 import Button from "../../../components/Actions/Button";
 import FormCard from "../components/FormCard";
 
 const Form = ({ prevStep, submit, updateData, data }) => {
+  const getId = () => {
+    return + new Date();
+  };
+
+  const addForm = () => {
+    const formData = data.forms;
+    formData.push({
+      id: getId(),
+      question: '',
+      type: 'Tekst',
+      options: [{
+        id: getId(),
+        name: '',
+        checked: false,
+      }],
+      required: false,
+    });
+    updateData('forms', formData);
+  };
+
+  const onDragEnd = (result) => {
+    const { destination, source } = result;
+    if (!destination) return;
+    if (destination.droppableId === source.droppableId && destination.index === source.index) return;
+
+    const forms = Array.from(data.forms);
+    const [reorderedForms] = forms.splice(source.index, 1);
+    forms.splice(destination.index, 0, reorderedForms);
+
+    updateData('forms', forms);
+  };
+
   return (
     <div>
       <h1 className="mb-5 text-2xl font-bold">Påmeldings skjema</h1>
 
       <div className="flex flex-col">
         <div className="flex flex-wrap gap-5">
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-5 w-full max-w-lg">
 
-            <FormCard name='text' type='text' />
-            <FormCard name='select' type='select' required />
-            <FormCard name='radio' type='radio' />
+            <DragDropContext onDragEnd={onDragEnd}>
+              <Droppable droppableId='forms'>
+                {provided => (
+                  <ul className="flex flex-col" {...provided.droppableProps} ref={provided.innerRef}>
+                    {data.forms.map((form, index) => (
+                      <FormCard key={form.id} data={data} updateData={updateData} index={index} {...form} />
+                    ))}
+                    {provided.placeholder}
+                  </ul>
+                )}
+              </Droppable>
+            </DragDropContext>
 
-            <Button onClick={()=>console.log('create new form field')}>Legg til nytt felt</Button>
+            <Button onClick={addForm}>Legg til nytt felt</Button>
 
             <div className="flex mt-10 gap-5 flex-wrap sm:flex-nowrap">
-              <Button onClick={submit}>Ferdig</Button>
+              <Button onClick={submit}>Opprett</Button>
               <Button style='secondary' onClick={prevStep}>Forrige</Button>
             </div>
           </div>

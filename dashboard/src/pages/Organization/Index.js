@@ -41,7 +41,7 @@ const Index = () => {
 					</div>
 				</div>
 
-				<div className='flex flex-wrap gap-5 2xl:gap-x-10'>
+				<div className='flex flex-wrap gap-5'>
 					{state.organizations.map(organization => (
 						<OrganizationCard key={organization.id} organization={organization} />
 					))}
