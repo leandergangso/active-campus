@@ -11,7 +11,7 @@ const Index = () => {
   const navigate = useNavigate();
 
   useEffect(async () => {
-    if (state.currentOrganization.id) {
+    if (state.currentOrganization?.id) {
       const event = await getEvent(state.currentOrganization.id, id);
       if (event.exists()) {
         setEvent(event.data());

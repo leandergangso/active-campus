@@ -1,4 +1,4 @@
-import { MdControlPointDuplicate, MdArchive, MdDelete } from 'react-icons/md';
+import { MdControlPointDuplicate, MdArchive, MdDelete, MdMoreVert } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
 import OptionWrapper from '../../../components/OptionWrapper';
@@ -13,9 +13,9 @@ function EventCard({ event, onClick }) {
   const to = `${('0' + toDateObj.getHours()).slice(-2)}:${('0' + toDateObj.getMinutes()).slice(-2)}`;
 
   const options = [
-    { action: () => { console.log('copy'); }, icon: { component: <MdControlPointDuplicate />, color: '#1B1555' }, name: 'Dupliser' },
-    { action: () => { console.log('archive'); }, icon: { component: <MdArchive />, color: '#1B1555' }, name: 'Arkiver' },
-    { action: () => { console.log('delete'); }, icon: { component: <MdDelete />, color: '#FF4444' }, name: 'Slett' },
+    // { action: () => { console.log('copy'); }, icon: { component: <MdControlPointDuplicate />, color: '#1B1555' }, name: 'Dupliser' },
+    // { action: () => { console.log('archive'); }, icon: { component: <MdArchive />, color: '#1B1555' }, name: 'Arkiver' },
+    { onClick: () => { console.log('delete, use method from firestore'); }, component: <MdDelete className='fill-danger' />, name: 'Slett' },
   ];
 
   let n = 20;
@@ -24,12 +24,14 @@ function EventCard({ event, onClick }) {
   }
 
   return (
-    <div onClick={() => navigate(event.id)} className="relative bg-light rounded-md shadow-md grow w-full sm:w-5/12 px-4 py-4 border border-transparent hover:border hover:border-border hover:cursor-pointer">
-      {/* <div className='absolute top-2 right-2'>
-        <Options options={options} />
-      </div> */}
+    <div className="relative bg-light rounded-md shadow-md grow w-full sm:w-5/12 px-4 py-4 border border-transparent hover:border-border">
+      <div className='absolute top-4 right-2'>
+        <OptionWrapper options={options}>
+          <MdMoreVert className='w-6 h-6' />
+        </OptionWrapper>
+      </div>
 
-      <div>
+      <div onClick={() => navigate(event.id)} className='hover:cursor-pointer'>
         <h1 className="text-lg font-bold mb-2">{event.name}</h1>
         {/* <p className='italic font-light mb-2'>{event.tags}</p> */}
 
@@ -39,7 +41,7 @@ function EventCard({ event, onClick }) {
             <p>Påmeldte: <span className="font-bold">{event.signup_count} / {event.max_participants}</span></p>
           </div>
 
-          <div>
+          <div className='mr-10'>
             <p>Dato: <span className="font-bold">{date}</span></p>
             <p>Tid: <span className="font-bold">{from} - {to}</span></p>
           </div>

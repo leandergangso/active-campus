@@ -27,7 +27,7 @@ const Options = ({ options }) => {
             onClick={option.onClick}
             className='flex gap-2 px-4 py-2 border-b border-border hover:cursor-pointer hover:bg-border'
           >
-            <IconContext.Provider value={{ className: "self-center w-5 h-5 fill-danger" }}>
+            <IconContext.Provider value={{ className: "self-center w-5 h-5" }}>
               {option.component}
             </IconContext.Provider>
             <p>{option.name}</p>
@@ -37,7 +37,7 @@ const Options = ({ options }) => {
             key={option.name}
             className='flex gap-2 px-4 py-2 border-b border-dark'
           >
-            <IconContext.Provider value={{ className: "self-center w-5 h-5 fill-danger" }}>
+            <IconContext.Provider value={{ className: "self-center w-5 h-5" }}>
               {option.component}
             </IconContext.Provider>
             <p>{option.name}</p>

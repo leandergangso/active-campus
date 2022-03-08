@@ -27,7 +27,7 @@ const Index = () => {
 	};
 
 	useEffect(() => {
-		if (state.currentOrganization.id) {
+		if (state.currentOrganization?.id) {
 			const unsub = liveEvents(state.currentOrganization.id, onUpdate);
 			return unsub;
 		}

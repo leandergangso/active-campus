@@ -14,8 +14,8 @@ const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 
 	const options = [
 		{ name: state.user.name },
-		{ onClick: signout, component: <MdLogout />, name: 'Logg ut' },
-		{ onClick: deleteCurrentUser, component: <MdDelete />, name: 'Slett bruker' },
+		{ onClick: signout, component: <MdLogout className="fill-danger" />, name: 'Logg ut' },
+		{ onClick: deleteCurrentUser, component: <MdDelete className="fill-danger" />, name: 'Slett bruker' },
 	];
 
 	const getActiveNavRoute = () => {
