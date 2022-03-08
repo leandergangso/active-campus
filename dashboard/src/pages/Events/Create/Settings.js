@@ -12,25 +12,42 @@ const Settings = ({ prevStep, nextStep, updateData, curryUpdate, data }) => {
         <div className="flex flex-wrap gap-5">
           <div className="flex flex-col gap-5 w-80 sm:mr-10">
             <div className="flex gap-5">
-              <Input value={data.signupOpenDate} onChange={curryUpdate('signupOpenDate')} name='signupOpenDate' type='date' label='Påmelding åpnes' />
-              <Input value={data.signupOpenTime} onChange={curryUpdate('signupOpenTime')} name='signupOpenTime' type='time' label='tid' />
+              <Input value={data.signup_open_date} onChange={curryUpdate('signup_open_date')} name='signup_open_date' type='date' label='Påmelding åpnes' />
+              <Input value={data.signup_open_time} onChange={curryUpdate('signup_open_time')} name='signup_open_time' type='time' label='tid' />
             </div>
 
             <div className="flex gap-5">
-              <Input value={data.signupCloseDate} onChange={curryUpdate('signupCloseDate')} name='signupCloseDate' type='date' label='Påmelding stenges' />
-              <Input value={data.signupCloseTime} onChange={curryUpdate('signupCloseTime')} name='signupCloseTime' type='time' label='tid' />
+              <Input value={data.signup_close_date} onChange={curryUpdate('signup_close_date')} name='signup_close_date' type='date' label='Påmelding stenges' />
+              <Input value={data.signup_close_time} onChange={curryUpdate('signup_close_time')} name='signup_close_time' type='time' label='tid' />
             </div>
 
             <div>
-              <Input value={data.maxParticipants} onChange={curryUpdate('maxParticipants')} name='maxParticipant' type='number' label='Max deltagere' />
+              <Input
+                value={data.max_participants}
+                onChange={curryUpdate('max_participants')}
+                name='max_participants'
+                type='number'
+                min='0'
+                label={<div>Max deltagere <span className="text-placeholder text-sm">(0 = ubegrenset)</span></div>}
+              />
             </div>
 
-            <Checkbox checked={data.isWaitingList} onChange={(e) => updateData('isWaitingList', e.target.checked)} name='isWaitingList' label='Ta i bruk venteliste' />
-            <Checkbox checked={data.isTicket} onChange={(e) => updateData('isTicket', e.target.checked)} name='isTicket' label='Send billett ved påmelding (QR-kode)' />
+            {data.max_participant !== '0' &&
+              <Checkbox checked={data.is_waiting_list}
+                onChange={(e) => updateData('is_waiting_list', e.target.checked)}
+                name='is_waiting_list'
+                label='Ta i bruk venteliste'
+              />
+            }
+            <Checkbox checked={data.is_ticket}
+              onChange={(e) => updateData('is_ticket', e.target.checked)}
+              name='is_ticket'
+              label={<>Send billett ved påmelding <span className="text-placeholder text-sm">(QR-kode)</span></>}
+            />
           </div>
 
           <div className="flex flex-col gap-2 w-80">
-            <TextArea value={data.mailBody} onChange={curryUpdate('mailBody')} name='mailBody' label='E-mail' />
+            <TextArea value={data.email_body} onChange={curryUpdate('email_body')} name='email_body' label='E-mail' />
             <div className="text-placeholder">
               <h3 className="font-bold mb-1">Tilpasset e-mail verdier:</h3>
               <p>%navn% = Brukerens navn.</p>

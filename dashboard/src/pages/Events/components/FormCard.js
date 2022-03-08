@@ -128,7 +128,7 @@ const Select = ({ options, id, data, updateData }) => {
           <div className='flex'>
             <Checkbox value={option.checked} onChange={curryUpdate(option.id, 'checked', true)} />
             <input
-              className='w-full outline-none border-b border-transparent focus:border-border'
+              className='w-full mr-10 outline-none border-b border-transparent focus:border-border'
               type="text"
               placeholder='Ett valg ...'
               value={option.name}
@@ -205,7 +205,7 @@ const Radio = ({ options, id, data, updateData }) => {
           <div className='flex'>
             <input value={option.checked} onChange={curryReset(option.id, 'checked', true)} type="radio" name={id} className='mr-4' />
             <input
-              className='w-full outline-none border-b border-transparent focus:border-border'
+              className='w-full mr-10 outline-none border-b border-transparent focus:border-border'
               type="text"
               placeholder='Ett valg ...'
               value={option.name}

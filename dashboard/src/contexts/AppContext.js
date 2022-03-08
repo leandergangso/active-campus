@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useReducer, useState } from "react";
-import { getAllRoles, getOrganizationList, liveOrganizations, liveUser } from "../helpers/firestore";
+import { getAllRoles, liveOrganizations, liveUser } from "../helpers/firestore";
 import { useAuth } from "./AuthContext";
 import Loading from "../components/Loading";
 

@@ -28,12 +28,15 @@ const _getUserRoleRef = (organizationID) => {
 
 // HELPERS
 
+const createTimestamp = (date) => {
+  return Timestamp.fromDate(date);
+};
+
 const _getTimestamp = () => {
   return Timestamp.now();
 };
 
 const _getDoc = async (ref, docID) => {
-  // const cache = await getDoc(doc(ref, docID), { caches });
   const docSnap = await getDoc(doc(ref, docID));
   if (docSnap.exists()) {
     return docSnap; // .id, .data()
@@ -138,34 +141,54 @@ const deleteOrganization = async (orgID) => {
 
 // ORGANIZATIONS/EVENTS
 
-const createEventObject = (userID, name, description, city, zip, street, emailBody, send_ticket, openTimestamp, closeTimestamp, is_reminder, is_waiting_list, max_participants, form) => {
+const createEventObject = (
+  userID, name, description, address, email_body,
+  date_from, date_to, signup_open, signup_close,
+  max_participants, is_waiting_list, is_ticket, forms
+) => {
   return {
     name: name,
     description: description,
-    signup_count: '???',
-    waiting_count: '???',
-    address: {
-      city: city,
-      zip: zip,
-      street: street,
+    address: address,
+    email_body: email_body,
+    max_participants: max_participants,
+    is_waiting_list: is_waiting_list,
+    is_ticket: is_ticket,
+    signup_count: 0,
+    waiting_count: 0,
+    forms: forms,
+    date: {
+      from: date_from, // timestamp
+      to: date_to, // timestamp
     },
-    email: {
-      body: emailBody,
-      send_ticket: send_ticket
-    },
-    signups: {
-      open: openTimestamp,
-      close: closeTimestamp,
-      is_reminder: is_reminder,
-      is_waiting_list: is_waiting_list,
-      max_participants: max_participants,
-      form: form
+    signup: {
+      open: signup_open, // timestamp
+      close: signup_close, // timestamp
     },
     created: {
       user: userID,
       timestamp: _getTimestamp()
     },
   };
+};
+
+const createEvent = async (
+  orgID, userID, name, description, address,
+  email_body, date_from, date_to, signup_open, signup_close,
+  max_participants, is_waiting_list, is_ticket, forms
+) => {
+  const eventRef = _getEventRef(orgID);
+  const data = createEventObject(
+    userID, name, description, address,
+    email_body, date_from, date_to, signup_open, signup_close,
+    max_participants, is_waiting_list, is_ticket, forms
+  );
+  return await addDoc(eventRef, data);
+};
+
+const getEvent = async (orgID, eventID) => {
+  const eventRef = _getEventRef(orgID);
+  return await getDoc(doc(eventRef, eventID));
 };
 
 const liveEvents = (organizationID, callbackFunction) => {
@@ -203,6 +226,8 @@ const getAllRoles = async () => {
 };
 
 export {
+  // helpers
+  createTimestamp,
   // users
   createUser,
   liveUser,
@@ -213,6 +238,8 @@ export {
   liveOrganizations,
   deleteOrganization,
   // organizations/events
+  createEvent,
+  getEvent,
   liveEvents,
   // organizations/user_role
 

@@ -16,11 +16,11 @@ const Info = ({ nextStep, curryUpdate, data }) => {
             <Input value={data.name} onChange={curryUpdate('name')} name='name' placeholder='Navn på arrangement' label='Navn' />
             <Input value={data.address} onChange={curryUpdate('address')} name='address' placeholder='Gate, by, post' label='Adresse' />
 
-            <Input value={data.startDate} onChange={curryUpdate('startDate')} name='date' placeholder='Dato' type='date' label='Dato' />
+            <Input value={data.date} onChange={curryUpdate('date')} name='date' placeholder='Dato' type='date' label='Dato' />
 
             <div className="flex gap-5 justify-between">
-              <Input value={data.startTime} onChange={curryUpdate('startTime')} name='start' placeholder='time' type='time' label='Start tid' />
-              <Input value={data.endTime} onChange={curryUpdate('endTime')} name='end' placeholder='time' type='time' label='Slutt tid' />
+              <Input value={data.start_time} onChange={curryUpdate('start_time')} name='start_time' placeholder='time' type='time' label='Start tid' />
+              <Input value={data.end_time} onChange={curryUpdate('end_time')} name='end_time' placeholder='time' type='time' label='Slutt tid' />
             </div>
           </div>
 

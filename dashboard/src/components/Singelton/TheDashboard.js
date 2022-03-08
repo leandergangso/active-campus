@@ -24,7 +24,7 @@ const TheDashboard = () => {
 
       <Route exact path='/' element={<TheLayout />}>
         <Route exact path='/events' element={<Events />} />
-        <Route exact path='/events/event' element={<Event />} />
+        <Route exact path='/events/:id' element={<Event />} />
         <Route exact path='/events/create' element={<CreateEvent />} />
 
         <Route exact path='/organizations' element={<Organizations />} />

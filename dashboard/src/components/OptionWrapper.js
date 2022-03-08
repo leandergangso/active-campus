@@ -19,7 +19,7 @@ const OptionWrapper = ({ options, children }) => {
 
 const Options = ({ options }) => {
   return (
-    <div className='absolute right-0 mb-10 w-56 rounded-md border border-border shadow-md bg-light'>
+    <div className='z-50 absolute mt-2 right-0 mb-10 w-56 rounded-md border border-border shadow-md bg-light'>
       {options.map(option => (
         option.onClick ? (
           <div

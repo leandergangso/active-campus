@@ -26,10 +26,12 @@ const Index = () => {
 		setEvents(events);
 	};
 
-	// useEffect(() => {
-	// 	const unsub = liveEvents(state.currentOrganization.id, onUpdate);
-	// 	return unsub;
-	// }, []);
+	useEffect(() => {
+		if (state.currentOrganization.id) {
+			const unsub = liveEvents(state.currentOrganization.id, onUpdate);
+			return unsub;
+		}
+	}, [state.currentOrganization]);
 
 	return (
 		<div>

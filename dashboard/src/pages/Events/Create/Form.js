@@ -1,11 +1,8 @@
-import { ProviderId } from "firebase/auth";
-import { Droppable } from "react-beautiful-dnd";
-import { Draggable } from "react-beautiful-dnd";
-import { DragDropContext } from "react-beautiful-dnd";
+import { Droppable, DragDropContext } from "react-beautiful-dnd";
 import Button from "../../../components/Actions/Button";
 import FormCard from "../components/FormCard";
 
-const Form = ({ prevStep, submit, updateData, data }) => {
+const Form = ({ prevStep, submit, error, updateData, data }) => {
   const getId = () => {
     return + new Date();
   };
@@ -61,9 +58,13 @@ const Form = ({ prevStep, submit, updateData, data }) => {
 
             <Button onClick={addForm}>Legg til nytt felt</Button>
 
-            <div className="flex mt-10 gap-5 flex-wrap sm:flex-nowrap">
-              <Button onClick={submit}>Opprett</Button>
-              <Button style='secondary' onClick={prevStep}>Forrige</Button>
+            <div className="flex flex-col gap-5 mt-5">
+              {error && <p className="text-center text-danger">{error}</p>}
+
+              <div className="flex gap-5 w-full sm:w-80 flex-wrap sm:flex-nowrap">
+                <Button onClick={submit}>Opprett</Button>
+                <Button style='secondary' onClick={prevStep}>Forrige</Button>
+              </div>
             </div>
           </div>
         </div>

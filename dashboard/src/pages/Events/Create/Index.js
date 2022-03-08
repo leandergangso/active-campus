@@ -3,35 +3,39 @@ import { useState } from "react";
 import Info from "./Info";
 import Settings from "./Settings";
 import Form from "./Form";
+import { createEvent, createTimestamp } from "../../../helpers/firestore";
+import { useAppState } from "../../../contexts/AppContext";
 
 const Index = () => {
   const navigate = useNavigate();
-  const [curStep, setCurStep] = useState(3);
+  const { state } = useAppState();
+  const [curStep, setCurStep] = useState(1);
+  const [error, setError] = useState('');
   const [data, setData] = useState({
     // info
     name: '',
     description: '',
     address: '',
-    startDate: '',
-    startTime: '00:00',
-    endTime: '00:00',
+    date: '',
+    start_time: '01:00',
+    end_time: '00:00',
     // settings
-    signupOpenDate: '',
-    signupOpenTime: '00:00',
-    signupCloseDate: '',
-    signupCloseTime: '00:00',
-    maxParticipants: '100',
-    isWaitingList: false,
-    isTicket: false,
-    mailBody: 'Hei %navn%.\n\nDu er nå påmeldt %arrangement%, se info i linken under.\n\n%link%',
+    signup_open_date: '',
+    signup_open_time: '01:00',
+    signup_close_date: '',
+    signup_close_time: '00:00',
+    max_participants: '100',
+    is_waiting_list: false,
+    is_ticket: false,
+    email_body: 'Hei %navn%.\n\nDu er nå påmeldt %arrangement%, se info i linken under.\n\n%link%',
     // form
     forms: [
       {
-        id: 0,
+        id: + new Date(),
         question: '',
         type: 'Tekst',
         options: [{
-          id: 0,
+          id: + new Date(),
           name: '',
           checked: false,
         }],
@@ -58,10 +62,29 @@ const Index = () => {
     return (e) => updateData(type, e.target.value);
   };
 
-  const submitForm = () => {
-    console.log('sending form data');
-    // ! validate formData
-    navigate('/events');
+  const submitForm = async () => {
+    setError('');
+
+    const date_from = createTimestamp(new Date(`${data.date} ${data.start_time}`));
+    const date_to = createTimestamp(new Date(`${data.date} ${data.end_time}`));
+    const signup_open = createTimestamp(new Date(`${data.signup_open_date} ${data.signup_open_time}`));
+    const signup_close = createTimestamp(new Date(`${data.signup_close_date} ${data.signup_close_time}`));
+
+    // ! validate data
+
+    try {
+      await createEvent(
+        state.currentOrganization.org_number, state.user.id, data.name, data.description, data.address,
+        data.email_body, date_from, date_to, signup_open, signup_close,
+        data.max_participants, data.is_waiting_list, data.is_ticket, data.forms
+      );
+      navigate('/events');
+    }
+    catch (error) {
+      console.error(error);
+      setError('Ops, mangel eller feil i en eller flere verdier...');
+    }
+
   };
 
   switch (curStep) {
@@ -88,6 +111,7 @@ const Index = () => {
         <Form
           prevStep={prevStep}
           submit={submitForm}
+          error={error}
           updateData={updateData}
           data={data}
         />
