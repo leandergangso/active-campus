@@ -1,11 +1,11 @@
 import Input from "../../../components/Actions/Input";
 import Button from "../../../components/Actions/Button";
 import Checkbox from "../../../components/Actions/Checkbox";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useAppState } from "../../../contexts/AppContext";
 import { useNavigate } from "react-router-dom";
 import { apiGetOrganizations } from '../../../helpers/brreg';
-import { setOrganization, createOrganization } from "../../../helpers/firestore";
+import { createOrganization } from "../../../helpers/firestore";
 
 const CreateOrganizationForm = () => {
   const navigate = useNavigate();
@@ -22,25 +22,14 @@ const CreateOrganizationForm = () => {
     contactTlf: '',
   });
 
-  useEffect(() => {
-    if (data.name === '' || !data.org_number) {
-      const timer = setTimeout(async () => {
-        const res = await apiGetOrganizations(data.name);
-        setOptionalOrganizations(res);
-        updateData('org_number', '');
-      }, 500);
-      return () => clearTimeout(timer);
-    }
-  }, [data.name]);
-
-  const updateData = (type, newData) => {
+  const updateData = useCallback((type, newData) => {
     if (type === 'name' && data.org_number !== '') {
       updateData('org_number', '');
     }
     setData(data => {
       return { ...data, [type]: newData };
     });
-  };
+  }, [data.org_number]);
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
@@ -65,6 +54,17 @@ const CreateOrganizationForm = () => {
       setError('Feil oppstod, vennligst prøv igjen.');
     }
   };
+
+  useEffect(() => {
+    if (data.name === '' || !data.org_number) {
+      const timer = setTimeout(async () => {
+        const res = await apiGetOrganizations(data.name);
+        setOptionalOrganizations(res);
+        updateData('org_number', '');
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [data.name, data.org_number, updateData]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -113,7 +113,7 @@ const CreateOrganizationForm = () => {
 
       <div className="flex gap-5 flex-wrap sm:flex-nowrap sm:w-80">
         <Button>Opprett</Button>
-        <Button onClick={() => navigate('/organizations')} style='danger'>Avbryt</Button>
+        <Button onClick={() => navigate('/organizations')} styles='danger'>Avbryt</Button>
       </div>
     </form>
   );

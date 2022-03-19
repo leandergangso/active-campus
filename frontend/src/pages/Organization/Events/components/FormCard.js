@@ -1,8 +1,8 @@
 import { Draggable } from 'react-beautiful-dnd';
 import { MdRemoveCircle, MdDragIndicator, MdDelete } from 'react-icons/md';
-import Checkbox from "../../../components/Actions/Checkbox";
-import Dropdown from "../../../components/Actions/Dropdown";
-import Input from "../../../components/Actions/Input";
+import Checkbox from "components/Actions/Checkbox";
+import Dropdown from "components/Actions/Dropdown";
+import Input from "components/Actions/Input";
 
 const FormCard = ({ data, updateData, id, index, question, type, options, required }) => {
   const typeOptions = [
@@ -34,7 +34,7 @@ const FormCard = ({ data, updateData, id, index, question, type, options, requir
       let index = formData.findIndex(form => form.id === id);
       formData[index][type] = checked ? e.target.checked : e.target.value;
       formData[index].options.filter(option => {
-        option.checked = false;
+        return option.checked = false;
       });
       updateData('forms', formData);
     };
@@ -187,7 +187,7 @@ const Radio = ({ options, id, data, updateData }) => {
       let index = formData.findIndex(form => form.id === id);
       let optionIndex = formData[index].options.findIndex(option => option.id === optionID);
       formData[index].options.filter(option => {
-        option.checked = false;
+        return option.checked = false;
       });
       formData[index].options[optionIndex][type] = checked ? e.target.checked : e.target.value;
       updateData('forms', formData);

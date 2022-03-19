@@ -1,5 +1,5 @@
 import { Droppable, DragDropContext } from "react-beautiful-dnd";
-import Button from "../../../components/Actions/Button";
+import Button from "../../../../components/Actions/Button";
 import FormCard from "../components/FormCard";
 
 const Form = ({ prevStep, submit, error, updateData, data }) => {
@@ -63,7 +63,7 @@ const Form = ({ prevStep, submit, error, updateData, data }) => {
 
               <div className="flex gap-5 w-full sm:w-80 flex-wrap sm:flex-nowrap">
                 <Button onClick={submit}>Opprett</Button>
-                <Button style='secondary' onClick={prevStep}>Forrige</Button>
+                <Button styles='secondary' onClick={prevStep}>Forrige</Button>
               </div>
             </div>
           </div>

@@ -37,9 +37,6 @@ const Options = ({ options }) => {
             key={option.name}
             className='flex gap-2 px-4 py-2 border-b border-dark'
           >
-            <IconContext.Provider value={{ className: "self-center w-5 h-5" }}>
-              {option.component}
-            </IconContext.Provider>
             <p>{option.name}</p>
           </div>
         )

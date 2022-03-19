@@ -9,6 +9,8 @@ import {
   GoogleAuthProvider,
   FacebookAuthProvider,
   signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   sendPasswordResetEmail,
   signOut,
   deleteUser,
@@ -33,6 +35,9 @@ const AuthProvider = ({ children }) => {
 
   const signinWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
+    if (window.innerWidth < 800) {
+      return signInWithRedirect(auth, provider);
+    }
     return signInWithPopup(auth, provider).then(result => {
       let user = result.user;
       createUser(user.uid, user.displayName, user.email);
@@ -41,6 +46,9 @@ const AuthProvider = ({ children }) => {
 
   const signinWithFacebook = async () => {
     const provider = new FacebookAuthProvider();
+    if (window.innerWidth < 800) {
+      return signInWithRedirect(auth, provider);
+    }
     return signInWithPopup(auth, provider).then(result => {
       let user = result.user;
       createUser(user.uid, user.displayName, user.email);
@@ -64,11 +72,23 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const authUnsub = onAuthStateChanged(auth, user => {
-      setCurrentUser(user);
-      setLoading(false);
-    });
-    return authUnsub;
+    const run = async () => {
+      const redirectUnsub = await getRedirectResult(auth).then(async result => {
+        if (result) {
+          let user = result.user;
+          await createUser(user.uid, user.displayName, user.email);
+        }
+      });
+      const authUnsub = onAuthStateChanged(auth, user => {
+        if (!user) {
+          signout();
+        }
+        setCurrentUser(user);
+        setLoading(false);
+      });
+      return [authUnsub, redirectUnsub];
+    };
+    return run();
   }, []);
 
   const value = {

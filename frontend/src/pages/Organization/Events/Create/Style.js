@@ -1,11 +1,11 @@
 import Button from '../../../components/Actions/Button';
 import ColorPicker from '../../../components/Actions/ColorPicker';
 
-const Style = ({prevStep, updateData, data, submit}) => {
+const Style = ({ prevStep, updateData, data, submit }) => {
   const onFormSubmit = () => {
-    submit()
-  }
-  
+    submit();
+  };
+
   return (
     <div>
       <h1 className="mb-5 text-2xl self-center font-bold">Visuelt</h1>
@@ -13,7 +13,7 @@ const Style = ({prevStep, updateData, data, submit}) => {
       <div className="flex flex-col">
         <div className="flex flex-wrap gap-5">
           <div className="flex flex-col gap-5 w-80 sm:mr-20">
-            
+
             <h3>Hoved farge</h3>
             <ColorPicker name='main' />
 
@@ -26,7 +26,7 @@ const Style = ({prevStep, updateData, data, submit}) => {
             <div>
               <input type="file" name="" id="" />
             </div>
-            
+
           </div>
 
           <div className="flex flex-col gap-2 w-80">
@@ -39,7 +39,7 @@ const Style = ({prevStep, updateData, data, submit}) => {
 
         <div className="flex mt-10 gap-5 flex-wrap sm:flex-nowrap sm:w-80">
           <Button onClick={onFormSubmit}>Ferdig</Button>
-          <Button style='secondary' onClick={prevStep}>Forrige</Button>
+          <Button styles='secondary' onClick={prevStep}>Forrige</Button>
         </div>
       </div>
     </div>

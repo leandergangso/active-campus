@@ -1,13 +1,14 @@
-import { useLocation } from "react-router-dom";
-import { MdMenu, MdAccountCircle, MdLogout, MdDelete } from 'react-icons/md';
-import { useAuth } from "../../contexts/AuthContext";
-import { useAppState } from "../../contexts/AppContext";
+import { useLocation, useNavigate } from "react-router-dom";
+import { MdMenu, MdKeyboardBackspace, MdAccountCircle, MdLogout, MdDelete } from 'react-icons/md';
+import { useAuth } from "contexts/AuthContext";
+import { useAppState } from "contexts/AppContext";
 
 import OptionWrapper from '../OptionWrapper';
 import Dropdown from "../Actions/Dropdown";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
+	const navigate = useNavigate();
 	const location = useLocation();
 	const { signout, deleteCurrentUser } = useAuth();
 	const { state, setState } = useAppState();
@@ -19,7 +20,7 @@ const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 	];
 
 	const getActiveNavRoute = () => {
-		let curRoute = sidebarNav.find(route => location.pathname.split('/')[1].toLowerCase() == route.path.split('/')[1].toLowerCase());
+		let curRoute = sidebarNav.find(route => location.pathname.split('/')[1].toLowerCase() === route.path.split('/')[1].toLowerCase());
 		return curRoute?.name;
 	};
 
@@ -33,18 +34,24 @@ const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 		if (state.currentOrganization && Object.entries(state.currentOrganization).length === 0) {
 			setState('currentOrganization', state.organizations[0]);
 		}
-	}, [state.organizations]);
+	}, [state.organizations, setState, state.currentOrganization]);
 
 	return (
-		<header>
+		<header className="flex flex-row gap-5">
 			<button onClick={() => setOpenSidebar(true)} className="cursor-pointer lg:hidden">
 				<MdMenu size={32} />
 			</button>
 
-			<div className="flex justify-between flex-wrap gap-4">
-				<h3 className="flex items-center">{getActiveNavRoute()}</h3>
+			<MdKeyboardBackspace
+				onClick={() => navigate(-1)}
+				size={32}
+				className='self-center hover:cursor-pointer'
+			/>
 
-				<div className="flex flex-wrap gap-4">
+			<h3 className="flex items-center">{getActiveNavRoute()}</h3>
+
+			<div className="flex justify-between flex-wrap gap-4 ml-auto">
+				<div className="flex flex-wrap ml-auto gap-4 h-10">
 					{state.organizations.length > 0 && (
 						<Dropdown objValue='short_name' options={state.organizations} value={state.currentOrganization?.id} onChange={organizationChange} />
 					)}

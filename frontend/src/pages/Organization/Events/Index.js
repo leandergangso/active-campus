@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useAppState } from "../../contexts/AppContext";
-import { liveEvents } from "../../helpers/firestore";
+import { useAppState } from "contexts/AppContext";
+import { liveEvents } from "helpers/firestore";
 
 import StatCard from './components/StatCard';
 import EventsContainer from "./components/EventsContainer";
-import Button from '../../components/Actions/Button';
+import Button from 'components/Actions/Button';
 
 const Index = () => {
 	const navigate = useNavigate();
@@ -64,7 +64,7 @@ const Index = () => {
 
 					{state.organizations.length > 0 &&
 						<div className="flex gap-5 flex-wrap sm:flex-nowrap sm:w-80">
-							<Button style='secondary' onClick={toggleArchive}>Se akriverte</Button>
+							<Button styles='secondary' onClick={toggleArchive}>Se akriverte</Button>
 							<Button onClick={() => navigate('create')}>Nytt arrangement</Button>
 						</div>
 					}

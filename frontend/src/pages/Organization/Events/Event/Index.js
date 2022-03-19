@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Button from "../../../components/Actions/Button";
-import { useAppState } from "../../../contexts/AppContext";
-import { getEvent } from "../../../helpers/firestore";
+import Button from "components/Actions/Button";
+import { useAppState } from "contexts/AppContext";
+import { getEvent } from "helpers/firestore";
 
 const Index = () => {
   const { id } = useParams();
@@ -10,15 +10,18 @@ const Index = () => {
   const [event, setEvent] = useState();
   const navigate = useNavigate();
 
-  useEffect(async () => {
-    if (state.currentOrganization?.id) {
-      const event = await getEvent(state.currentOrganization.id, id);
-      if (event.exists()) {
-        setEvent(event.data());
-        return;
+  useEffect(() => {
+    const run = async () => {
+      if (state.currentOrganization?.id) {
+        const event = await getEvent(state.currentOrganization.id, id);
+        if (event.exists()) {
+          setEvent(event.data());
+          return;
+        }
+        setEvent();
       }
-      setEvent();
-    }
+    };
+    return run();
   }, [state.currentOrganization, id]);
 
   return (
@@ -27,13 +30,13 @@ const Index = () => {
         <h1 className="font-bold text-2xl">Arrangement info</h1>
       </div>
 
-      {event && (
+      {(event && (
         <div>
           <p>{id}</p>
           <p>{event.name}</p>
           <p>{event.signup.open.seconds}</p>
         </div>
-      )
+      ))
         || (
           <div>
             <div className="flex flex-col gap-2">
@@ -41,7 +44,7 @@ const Index = () => {
               <p className="self-end">Fant ikke arrangement med id: <span className="italic">{id}</span></p>
             </div>
             <div className="w-40 mt-5">
-              <Button onClick={() => navigate('/events')} style='secondary'>Tilbake</Button>
+              <Button onClick={() => navigate('/events')} styles='secondary'>Tilbake</Button>
             </div>
           </div>
         )}

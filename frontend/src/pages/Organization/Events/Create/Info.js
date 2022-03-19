@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import Input from "../../../components/Actions/Input";
-import Button from "../../../components/Actions/Button";
-import TextArea from "../../../components/Actions/TextArea";
-import File from "../../../components/Actions/File";
+import Input from "components/Actions/Input";
+import Button from "components/Actions/Button";
+import TextArea from "components/Actions/TextArea";
+// import File from "../../../components/Actions/File";
 
 const Info = ({ nextStep, curryUpdate, data }) => {
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ const Info = ({ nextStep, curryUpdate, data }) => {
 
         <div className="flex mt-10 gap-5 flex-wrap sm:flex-nowrap sm:w-80">
           <Button onClick={nextStep}>Neste</Button>
-          <Button style='danger' onClick={() => navigate('/events')}>Avbryt</Button>
+          <Button styles='danger' onClick={() => navigate('/events')}>Avbryt</Button>
         </div>
       </div>
     </div>

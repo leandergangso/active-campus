@@ -35,13 +35,13 @@ const Reset = () => {
     <div className='bg-background h-screen flex flex-col items-center px-5'>
       <img src={logo} alt="logo" className='w-50 my-10' />
 
-      <div className='border border-border rounded-md bg-light flex flex-col mx-5 gap-5 py-5 px-5 sm:px-20 w-full max-w-md sm:w-fit'>
+      <div className='border border-border rounded-md bg-light flex flex-col mx-5 gap-5 py-5 px-5 sm:px-14 w-full max-w-md sm:w-fit'>
         <h1 className='text-center font-bold text-2xl'>Glemt passord?</h1>
 
         {message && <p className='text-center text-primary'>{message}</p>}
         {error && <p className='text-center text-danger'>{error}</p>}
 
-        <form onSubmit={handleSubmit} className='flex flex-col gap-5 sm:w-80'>
+        <form onSubmit={handleSubmit} className='flex flex-col gap-5 mx-2 sm:w-80'>
           <Input required onChange={(e) => setEmail(e.target.value)} name='email' type='email' placeholder='Epost' className='bg-background' />
           <Button disabled={loading}>Send</Button>
         </form>

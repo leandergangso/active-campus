@@ -3,8 +3,8 @@ import { useState } from "react";
 import Info from "./Info";
 import Settings from "./Settings";
 import Form from "./Form";
-import { createEvent, createTimestamp } from "../../../helpers/firestore";
-import { useAppState } from "../../../contexts/AppContext";
+import { createEvent, createTimestamp } from "../../../../helpers/firestore";
+import { useAppState } from "../../../../contexts/AppContext";
 
 const Index = () => {
   const navigate = useNavigate();

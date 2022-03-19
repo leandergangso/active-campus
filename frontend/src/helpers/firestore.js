@@ -5,7 +5,7 @@ import { collection, doc, getDoc, getDocs, addDoc, setDoc, query, where, Timesta
 
 const usersRef = collection(db, 'users');
 const organizationsRef = collection(db, 'organizations');
-const participantsRef = collection(db, 'participants');
+// const participantsRef = collection(db, 'participants');
 const rolesRef = collection(db, 'roles');
 
 // SUB COLLECTIONS
@@ -14,17 +14,17 @@ const _getEventRef = (organizationID) => {
   return collection(db, `organizations/${organizationID}/events`);
 };
 
-const _getEventSignupRef = (organizationID, eventID) => {
-  return collection(db, `organizations/${organizationID}/events/${eventID}/signup_list`);
-};
+// const _getEventSignupRef = (organizationID, eventID) => {
+//   return collection(db, `organizations/${organizationID}/events/${eventID}/signup_list`);
+// };
 
-const _getEventWaitingRef = (organizationID, eventID) => {
-  return collection(db, `organizations/${organizationID}/events/${eventID}/waiting_list`);
-};
+// const _getEventWaitingRef = (organizationID, eventID) => {
+//   return collection(db, `organizations/${organizationID}/events/${eventID}/waiting_list`);
+// };
 
-const _getUserRoleRef = (organizationID) => {
-  return collection(db, `organizations/${organizationID}/user_role`);
-};
+// const _getUserRoleRef = (organizationID) => {
+//   return collection(db, `organizations/${organizationID}/user_role`);
+// };
 
 // HELPERS
 
@@ -59,6 +59,7 @@ const createUserObject = (name, email) => {
     name: name,
     email: email,
     organizations: [],
+    events: [],
     created: _getTimestamp(),
   };
 };
@@ -68,7 +69,7 @@ const createUser = async (uid, name, email) => {
     return false; // don't overwrite
   }
   const data = createUserObject(name, email);
-  return await setDoc(doc(usersRef, uid), data);
+  return setDoc(doc(usersRef, uid), data);
 };
 
 // const updateUser = async (uid, name, email) => {
@@ -81,10 +82,9 @@ const createUser = async (uid, name, email) => {
 // };
 
 const liveUser = async (uid, callbackFunction) => {
-  const unsub = onSnapshot(doc(usersRef, uid), docs => {
-    callbackFunction(docs);
+  return onSnapshot(doc(usersRef, uid), doc => {
+    callbackFunction(doc);
   });
-  return unsub;
 };
 
 // ORGANIZATION
@@ -119,7 +119,7 @@ const setOrganization = async (userID, name, shortName, orgNumber, contactEmail,
 };
 
 const getOrganizations = async (list) => {
-  if (list.length !== 0) {
+  if (list && list.length !== 0) {
     const res = await getDocs(query(organizationsRef, where('org_number', 'in', list)));
     return _resultToObject(res);
   }
@@ -127,11 +127,10 @@ const getOrganizations = async (list) => {
 };
 
 const liveOrganizations = async (list, callbackFunction) => {
-  if (list.length !== 0) {
-    const unsub = onSnapshot(query(organizationsRef, where('org_number', 'in', list)), docs => {
+  if (list && list.length !== 0) {
+    return onSnapshot(query(organizationsRef, where('org_number', 'in', list)), docs => {
       callbackFunction(docs);
     });
-    return unsub;
   }
 };
 
@@ -207,14 +206,14 @@ const liveEvents = (organizationID, callbackFunction) => {
 
 // ORGANIZATIONS/USER_ROLE
 
-const setOrganizationUserRole = async (orgID, userID, role) => {
-  const data = {
-    role: role.id,
-    created: _getTimestamp(),
-  };
-  const userRoleRef = _getUserRoleRef(orgID);
-  return await setDoc(doc(userRoleRef, userID), data);
-};
+// const setOrganizationUserRole = async (orgID, userID, role) => {
+//   const data = {
+//     role: role.id,
+//     created: _getTimestamp(),
+//   };
+//   const userRoleRef = _getUserRoleRef(orgID);
+//   return await setDoc(doc(userRoleRef, userID), data);
+// };
 
 // PARTICIPANTS
 

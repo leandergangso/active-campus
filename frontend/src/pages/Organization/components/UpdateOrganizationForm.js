@@ -87,7 +87,7 @@ const UpdateOrganizationForm = () => {
 
       <div className="flex gap-5 flex-wrap sm:flex-nowrap sm:w-80">
         <Button>Oppdater</Button>
-        <Button onClick={() => deleteOrganization(state.currentOrganization.id)} style='danger'>Slett</Button>
+        <Button onClick={() => deleteOrganization(state.currentOrganization.id)} styles={'danger'}>Slett</Button>
       </div>
     </form>
   );

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useAppState } from "../../../contexts/AppContext";
+import { useAppState } from "contexts/AppContext";
 import EventCard from "./EventCard";
 
 const EventsContainer = ({ events }) => {

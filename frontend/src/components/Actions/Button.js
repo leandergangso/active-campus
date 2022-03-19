@@ -1,15 +1,13 @@
-import { useEffect } from "react";
-
-function Button({ style, onClick, disabled, children }) {
+function Button({ styles, onClick, disabled, children }) {
   const primaryStyle = 'border-transparent text-light bg-primary hover:border-dark';
   const secondaryStyle = 'border-dark hover:bg-dark hover:text-light';
   const dangerStyle = 'border-danger text-danger hover:bg-danger hover:text-light';
 
   let buttonStyle = primaryStyle;
-  if (style === 'secondary') {
+  if (styles === 'secondary') {
     buttonStyle = secondaryStyle;
   }
-  else if (style === 'danger') {
+  else if (styles === 'danger') {
     buttonStyle = dangerStyle;
   }
 

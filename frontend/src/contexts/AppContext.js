@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useReducer, useState } from "react";
-import { getAllRoles, liveOrganizations, liveUser } from "../helpers/firestore";
-import { useAuth } from "./AuthContext";
-import Loading from "../components/Loading";
+import { getAllRoles, liveOrganizations, liveUser } from "helpers/firestore";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "contexts/AuthContext";
+import Loading from "components/Loading";
 
 const AppContext = createContext();
 
@@ -14,11 +15,12 @@ const initState = {
   selectOrganization: '',
   currentOrganization: {},
   organizations: [],
+  events: [],
   roles: [],
 };
 
 const _reduser = (state, action) => {
-  console.log('update app state:', action.type, action.payload); // ! debuging
+  console.log('update app state:', action.type, action.payload); // ! for debuging
   switch (action.type) {
     case 'user':
       return {
@@ -51,19 +53,20 @@ const _reduser = (state, action) => {
 };
 
 const AppProvider = ({ children }) => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const { currentUser, signout } = useAuth();
+  const { currentUser } = useAuth();
   const [state, dispatch] = useReducer(_reduser, initState);
 
   const setState = (type, payload) => {
     dispatch({
       type: type,
-      payload, payload
+      payload: payload
     });
   };
 
   const _liveUser = (doc) => {
-    if (!doc.exists()) return signout();
+    if (!doc.exists()) return;
     const user = {
       id: doc.id,
       ...doc.data(),
@@ -85,19 +88,23 @@ const AppProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (currentUser) {
+    if (currentUser.uid) {
       const userUnsub = liveUser(currentUser.uid, _liveUser);
       return [userUnsub];
     }
   }, [currentUser]);
 
-  useEffect(async () => {
-    if (state.user.id) {
-      const orgUnsub = await liveOrganizations(state.user.organizations, _liveOrganizations);
-      await _loadData();
-      setLoading(false);
-      return orgUnsub;
-    }
+  useEffect(() => {
+    const run = async () => {
+      if (state.user?.id) {
+        const orgUnsub = liveOrganizations(state.user.organizations, _liveOrganizations);
+        await _loadData();
+        navigate('/');
+        setLoading(false);
+        return [orgUnsub];
+      }
+    };
+    return run();
   }, [state.user]);
 
   useEffect(() => {

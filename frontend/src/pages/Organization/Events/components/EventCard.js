@@ -1,7 +1,7 @@
-import { MdControlPointDuplicate, MdArchive, MdDelete, MdMoreVert } from 'react-icons/md';
+import { MdDelete, MdMoreVert } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
-import OptionWrapper from '../../../components/OptionWrapper';
+import OptionWrapper from 'components/OptionWrapper';
 
 function EventCard({ event, onClick }) {
   const navigate = useNavigate();

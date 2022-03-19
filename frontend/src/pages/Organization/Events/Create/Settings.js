@@ -1,7 +1,7 @@
-import Input from "../../../components/Actions/Input";
-import Button from "../../../components/Actions/Button";
-import Checkbox from "../../../components/Actions/Checkbox";
-import TextArea from "../../../components/Actions/TextArea";
+import Input from "components/Actions/Input";
+import Button from "components/Actions/Button";
+import Checkbox from "components/Actions/Checkbox";
+import TextArea from "components/Actions/TextArea";
 
 const Settings = ({ prevStep, nextStep, updateData, curryUpdate, data }) => {
   return (
@@ -59,7 +59,7 @@ const Settings = ({ prevStep, nextStep, updateData, curryUpdate, data }) => {
 
         <div className="flex mt-10 gap-5 flex-wrap sm:flex-nowrap sm:w-80">
           <Button onClick={nextStep}>Neste</Button>
-          <Button style='secondary' onClick={prevStep}>Forrige</Button>
+          <Button styles='secondary' onClick={prevStep}>Forrige</Button>
         </div>
       </div>
     </div>
