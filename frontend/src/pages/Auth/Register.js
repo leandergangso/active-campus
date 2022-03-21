@@ -4,16 +4,12 @@ import { useAuth } from '../../contexts/AuthContext';
 
 import Button from '../../components/Actions/Button';
 import Input from '../../components/Actions/Input';
-import AuthLogin from '../../components/Actions/AuthLogin';
 import logo from '../../images/logo.png';
-import google from '../../images/google.png';
-import facebook from '../../images/facebook.png';
 
 const Register = () => {
   const navigate = useNavigate();
-  const { signup, signinWithGoogle, signinWithFacebook } = useAuth();
+  const { signup } = useAuth();
   const [loading, setLoading] = useState(false);
-  const [authError, setAuthError] = useState('');
   const [error, setError] = useState('');
   const [data, setData] = useState({
     name: '',
@@ -48,32 +44,6 @@ const Register = () => {
         setError('Passord er for svakt, minst 6 tegn');
       } else {
         setError('Kunne ikke opprette bruker.');
-      }
-    }
-  };
-
-  const handleGoogle = async () => {
-    try {
-      setAuthError('');
-      await signinWithGoogle();
-      navigate('/');
-    }
-    catch (error) {
-      if (error.code.includes('account-exists')) {
-        setAuthError('Konto finnes alt med annen pålogging.');
-      }
-    }
-  };
-
-  const handleFacebook = async () => {
-    try {
-      setAuthError('');
-      await signinWithFacebook();
-      navigate('/');
-    }
-    catch (error) {
-      if (error.code.includes('account-exists')) {
-        setAuthError('Konto finnes alt med annen pålogging.');
       }
     }
   };

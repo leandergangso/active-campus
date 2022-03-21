@@ -2,21 +2,21 @@ import { useLocation, Link } from "react-router-dom";
 import { IconContext } from "react-icons";
 
 const TheSidebarLinks = ({ link }) => {
-  let activeColor = '#5544FF'
-  let defaultColor = '#908DB3'
-  const location = useLocation()
+  let activeColor = '#5544FF';
+  let defaultColor = '#908DB3';
+  const location = useLocation();
 
   const _isSamePath = (path) => {
-    return location.pathname.split('/')[1].toLowerCase() == path.split('/')[1].toLowerCase()
-  }
+    return location.pathname.split('/')[1].toLowerCase() === path.split('/')[1].toLowerCase();
+  };
 
   const setIconColor = (path) => {
-    return _isSamePath(path) ? activeColor : defaultColor
-  }
+    return _isSamePath(path) ? activeColor : defaultColor;
+  };
 
   const setTextColor = (path) => {
-    return _isSamePath(path) ? 'text-dark' : 'text-placeholder'
-  }
+    return _isSamePath(path) ? 'text-dark' : 'text-placeholder';
+  };
 
   return (
     <Link to={link.path} className='block pl-2 py-2 mx-auto cursor-pointer outline-none active:bg-border hover:bg-border focus:bg-border'>

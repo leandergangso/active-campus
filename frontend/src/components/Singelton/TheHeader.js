@@ -39,14 +39,17 @@ const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 	return (
 		<header className="flex flex-row gap-5">
 			<button onClick={() => setOpenSidebar(true)} className="cursor-pointer lg:hidden">
-				<MdMenu size={32} />
+				<MdMenu size={36} />
 			</button>
 
-			<MdKeyboardBackspace
-				onClick={() => navigate(-1)}
-				size={32}
-				className='self-center hover:cursor-pointer'
-			/>
+			{window.innerWidth > 800 && (
+				<button onClick={() => navigate(-1)} className='self-center hover:cursor-pointer text-xl'>
+					<MdKeyboardBackspace
+						size={30}
+					/>
+				</button>
+			)
+			}
 
 			<h3 className="flex items-center">{getActiveNavRoute()}</h3>
 

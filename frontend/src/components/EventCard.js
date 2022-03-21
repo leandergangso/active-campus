@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 function EventCard({ event }) {
   const navigate = useNavigate();
 
+  // ! do this logic on every event that is passed onto the state
   const fromDateObj = new Date(event.date.from.seconds * 1000);
   const toDateObj = new Date(event.date.to.seconds * 1000);
   const date = `${('0' + fromDateObj.getDate()).slice(-2)}.${('0' + (fromDateObj.getMonth() + 1)).slice(-2)}.${fromDateObj.getFullYear()}`;
@@ -17,10 +18,10 @@ function EventCard({ event }) {
 
   return (
     <div className="relative bg-light rounded-md shadow-md sm:w-80 max-w-sm px-4 py-4 border border-transparent hover:border-border">
-      <div onClick={() => navigate(event.id)} className='hover:cursor-pointer'>
+      <div onClick={() => navigate(`/events/${event.id}`)} className='hover:cursor-pointer'>
         <h1 className="text-lg font-bold mb-2">{event.name}</h1>
 
-        <img src={event.img} alt="image" className='mb-2 w-full h-full sm:h-32 object-cover border-2 border-dark' />
+        <img src={event.img} alt="arrengement-bilde" className='mb-2 w-full h-full sm:h-32 object-cover border-2 border-dark' />
 
         <div className="flex flex-col gap-2">
           <div>
