@@ -21,7 +21,7 @@ const TheDashboard = () => {
 
   return (
     <Routes key={location.pathname} location={location}>
-      <Route index element={<Navigate to='/events' />} />
+      <Route index element={<Navigate to='/eventss' />} />
 
       <Route exact path='/' element={<TheLayout />}>
         <Route exact path='/events' element={<ParticipantEvents />} />
@@ -33,9 +33,9 @@ const TheDashboard = () => {
         <Route exact path='/organizations' element={<Organizations />} />
         <Route exact path='/organizations/create' element={<CreateOrganization />} />
         <Route exact path='/organizations/:name/events' element={<OrganizationEvents />} />
-        <Route exact path='/organizations/:name/events/:id' element={<OrganizationEvent />} />
         <Route exact path='/organizations/:name/events/create' element={<CreateEvent />} />
-        <Route exact path='/organizations/:name/events/scanner' element={<QRScanner />} />
+        <Route exact path='/organizations/:name/events/:id' element={<OrganizationEvent />} />
+        <Route exact path='/organizations/:name/events/:id/scanner' element={<QRScanner />} />
 
         <Route exact path='/users' element={<Users />} />
         <Route exact path='/feedback' element={<Feedback />} />
