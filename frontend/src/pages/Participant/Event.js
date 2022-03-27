@@ -233,8 +233,7 @@ const Event = () => {
 
       <img src={event?.img} alt="arrangement-bilde" className='border-2 border-dark rounded-md' />
 
-      {/* <div className="flex flex-col gap-5 sm:border sm:border-border sm:bg-light rounded-md sm:p-4"> */}
-      <div className="flex flex-col gap-5 border border-border bg-light rounded-md p-4 -mx-4">
+      <div className="flex flex-col gap-5 border border-border bg-light rounded-md p-4 -mx-4 sm:mx-0">
         <div className="flex gap-2 sm:gap-5">
           <div className="flex items-center gap-2">
             <MdToday size={24} className='fill-primary' />
@@ -265,9 +264,14 @@ const Event = () => {
 
         <div>
           <h3 className="font-bold text-lg mb-1">Påmelding</h3>
-          <p>Påmelding åpner: <span className="font-bold">20.02.2023</span></p>
-          <p>Påmelding stenger: <span className="font-bold">13.03.2023</span></p>
-          <p>Avmeldings frist: <span className="font-bold">18.02.2023</span></p>
+          <p>Åpner: <span className="font-bold">20.02.2023</span></p>
+          <p>Stenger: <span className="font-bold">13.03.2023</span></p>
+        </div>
+
+        <div>
+          <h3 className="font-bold text-lg mb-1">Avmelding</h3>
+          <p>Siste frist: <span className="font-bold">18.02.2023</span></p>
+          <p>Avmelding er ikke tillatt for dette arrangementet.</p>
         </div>
       </div>
 

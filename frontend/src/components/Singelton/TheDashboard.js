@@ -21,7 +21,7 @@ const TheDashboard = () => {
 
   return (
     <Routes key={location.pathname} location={location}>
-      <Route index element={<Navigate to='/eventss' />} />
+      <Route index element={<Navigate to='/events' />} />
 
       <Route exact path='/' element={<TheLayout />}>
         <Route exact path='/events' element={<ParticipantEvents />} />
