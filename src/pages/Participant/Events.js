@@ -231,9 +231,10 @@ const Events = () => {
       <div className="flex flex-wrap gap-5 justify-between items-center mb-5">
         <h1 className="font-bold text-2xl">Påmeldt</h1>
 
-        <div className="flex gap-5 w-full sm:w-80">
-          <Button onClick={() => navigate('/events/history')} styles={'secondary'}>Historikk</Button>
-          <Button onClick={() => navigate('/events/explore')}>Utforsk</Button>
+        <div className="flex gap-5 w-full sm:w-40">
+          {/* <Button onClick={() => navigate('/events/history')} styles={'secondary'}>Historikk</Button> */}
+          {/* <Button onClick={() => navigate('/events/explore')}>Utforsk</Button> */}
+          <Button onClick={() => navigate('/events/history')}>Historikk</Button>
         </div>
       </div>
 
