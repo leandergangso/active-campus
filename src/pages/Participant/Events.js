@@ -232,9 +232,7 @@ const Events = () => {
         <h1 className="font-bold text-2xl">Påmeldt</h1>
 
         <div className="flex gap-5 w-full sm:w-40">
-          {/* <Button onClick={() => navigate('/events/history')} styles={'secondary'}>Historikk</Button> */}
-          {/* <Button onClick={() => navigate('/events/explore')}>Utforsk</Button> */}
-          <Button onClick={() => navigate('/events/history')}>Historikk</Button>
+          <Button onClick={() => navigate('/events/history')} styles={'secondary'}>Historikk</Button>
         </div>
       </div>
 

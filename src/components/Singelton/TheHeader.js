@@ -54,10 +54,12 @@ const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 			<h3 className="flex items-center">{getActiveNavRoute()}</h3>
 
 			<div className="flex justify-between flex-wrap gap-4 ml-auto">
-				<div className="flex flex-wrap ml-auto gap-4 h-10">
-					{state.organizations.length > 0 && (
+				<div className="flex flex-wrap ml-auto gap-4">
+					{/* {state.organizations.length > 0 && (
 						<Dropdown objValue='short_name' options={state.organizations} value={state.currentOrganization?.id} onChange={organizationChange} />
-					)}
+					)} */}
+
+					<h3 className="font-bold self-center mb-1">{state.currentOrganization?.short_name}</h3>
 
 					<div>
 						<OptionWrapper options={options}>

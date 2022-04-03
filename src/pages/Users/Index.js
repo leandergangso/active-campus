@@ -6,20 +6,48 @@ import Input from "../../components/Actions/Input";
 import Button from "../../components/Actions/Button";
 import Dropdown from "../../components/Actions/Dropdown";
 import UserRoleList from "./components/UserRoleList";
+import { useState } from "react";
 
 const Index = () => {
   const { state } = useAppState();
-
-  // useEffect() - firestore, state
-  const userList = [
-    { name: 'Brukerens navn', email: 'bruker@epost.no', role: 'Administrator' },
-    { name: 'Brukerens navn', email: 'bruker@epost.no', role: 'Administrator' },
-    { name: 'Brukerens navn', email: 'bruker@epost.no', role: 'Administrator' },
-    { name: 'Brukerens navn', email: 'bruker@epost.no', role: 'Moderator' },
-  ];
+  const [edit, setEdit] = useState({ email: "", role: "Member" });
 
   // ! get from state
-  const roles = ['Administrator', 'Moderator', 'Hjelper'];
+  const roles = [
+    { id: 0, name: 'Eier' },
+    { id: 1, name: 'Administrator' },
+    { id: 2, name: 'Medlem' }
+  ];
+
+  // ! useEffect() - firestore, state
+  const roleList = [
+    {
+      role: 'Eier', users: [
+        { name: 'Brukerens navn', email: 'bruker99@epost.no' },
+      ],
+    },
+    {
+      role: 'Administrator', users: [
+        { name: 'Brukerens navn', email: 'bruker0@epost.no' },
+      ],
+    }, {
+      role: 'Medlem', users: [
+        { name: 'Brukerens navn', email: 'bruker1@epost.no' },
+        { name: 'Brukerens navn', email: 'bruker2@epost.no' },
+        { name: 'Brukerens navn', email: 'bruker3@epost.no' },
+        { name: 'Brukerens navn', email: 'bruker4@epost.no' },
+      ]
+    }
+  ];
+
+  const onEditClick = (email, role) => {
+    setEdit({
+      email: email,
+      role: roles.find(r => {
+        return r.name === role;
+      }).id
+    });
+  };
 
   if (state.organizations.length === 0) {
     return (
@@ -34,12 +62,12 @@ const Index = () => {
   }
 
   return (
-    <div className="flex gap-14">
+    <div className="flex flex-wrap gap-14">
       <div className="flex flex-col gap-5">
         <h1 className="font-bold text-2xl">Bruker roller</h1>
 
         <div>
-          <UserRoleList users={userList} />
+          <UserRoleList onClick={onEditClick} roleList={roleList} />
         </div>
       </div>
 
@@ -65,11 +93,11 @@ const Index = () => {
           <div className="flex flex-col gap-5">
             <div>
               <label htmlFor="">Epost</label>
-              <Input placeholder='brukers@epost.no' />
+              <Input placeholder='brukers@epost.no' value={edit.email} />
             </div>
             <div>
               <label htmlFor="">Rolle</label>
-              <Dropdown options={roles} />
+              <Dropdown options={roles} value={edit.role} />
             </div>
 
             <Button>Oppdater</Button>

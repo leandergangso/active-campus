@@ -286,7 +286,7 @@ const Event = () => {
 };
 
 const ShowQR = () => {
-  const qrValue = 'get from state';
+  const qrValue = 'QR value'; // ! get from state
   const [show, setShow] = useState(false);
 
   // add check if user is signup on event

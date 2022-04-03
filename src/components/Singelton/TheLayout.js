@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { useState } from 'react';
 import { useAppState } from 'contexts/AppContext';
-import { MdCalendarToday, MdOutlineBusiness, MdSupervisedUserCircle, MdFeedback } from 'react-icons/md';
+import { MdManageSearch, MdOutlineBusiness, MdSupervisedUserCircle, MdOutlineEvent } from 'react-icons/md';
 
 import TheSidebar from './TheSidebar';
 import TheHeader from './TheHeader';
@@ -11,16 +11,16 @@ function Layout() {
   const [isSidebarOpen, setOpenSidebar] = useState(false);
 
   let sidebarNav = [
-    { path: '/events', name: 'Arrangementer', icon: <MdCalendarToday /> },
+    { path: '/explore', name: 'Utforsk', icon: <MdManageSearch /> },
+    { path: '/events/signed-up', name: 'Mine arrangementer', icon: <MdOutlineEvent /> },
     { path: '/organizations', name: 'Organisasjoner', icon: <MdOutlineBusiness /> },
     { path: '/users', name: 'Brukere', icon: <MdSupervisedUserCircle /> },
-    // { path: '/profile', name: 'Profil', icon: < /> },
-    { path: '/feedback', name: 'Tilbakemelding', icon: <MdFeedback /> },
+    // { path: '/feedback', name: 'Tilbakemelding', icon: <MdFeedback /> },
   ];
 
   if (state.organizations.length === 0) {
     sidebarNav = sidebarNav.filter(item => {
-      return !['/organizations', '/users'].includes(item.path);
+      return !['/users'].includes(item.path);
     });
   }
 

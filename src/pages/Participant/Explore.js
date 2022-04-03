@@ -2,15 +2,14 @@ import { useAppState } from "contexts/AppContext";
 import { createTimestamp } from "helpers/firestore";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "components/Actions/Button";
 import Events from "./components/EventList";
 
-const Explore = () => {
+const History = () => {
   const { state } = useAppState();
   const [events, setEvents] = useState([]);
   const navigate = useNavigate();
 
-  // ! use and get the same event objects as the database - remove
+  // ! use and get the same event objects as the database
   const now = + new Date();
   state.events = [{
     id: '1',
@@ -211,15 +210,12 @@ const Explore = () => {
     max_participants: '30',
   }];
 
-  // state.events = [];
-  state.user.events = ['1', '11', '3', '2', '31'];
-
   useEffect(() => {
     if (state.events.length > 0) {
       const now = + new Date() / 1000;
       const filteredEvents = state.events.filter(event => {
-        if (state.user.events.includes(event.id)) {
-          return now < event.date.to.seconds;
+        if (!state.user.events.includes(event.id)) {
+          return now > event.date.to.seconds;
         }
       });
       setEvents(filteredEvents);
@@ -230,11 +226,6 @@ const Explore = () => {
     <div>
       <div className="flex flex-wrap gap-5 justify-between items-center mb-5">
         <h1 className="font-bold text-2xl">Utforsk</h1>
-
-        <div className="flex gap-5 w-full sm:w-80">
-          <Button onClick={() => navigate('/events/history')} styles={'secondary'}>Historikk</Button>
-          <Button onClick={() => navigate('/events')} styles={'secondary'}>Påmeldt</Button>
-        </div>
       </div>
 
       <Events events={events} />
@@ -242,4 +233,4 @@ const Explore = () => {
   );
 };
 
-export default Explore;
+export default History;

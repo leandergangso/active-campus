@@ -1,3 +1,4 @@
+import TextArea from 'components/Actions/TextArea';
 import Button from '../../components/Actions/Button';
 
 const Index = () => {
@@ -7,9 +8,7 @@ const Index = () => {
 
       <div className="flex my-5 gap-14">
         <div className="flex flex-col gap-2">
-          {/* replace with component */}
-          <label>Din melding</label>
-          <textarea cols="30" rows="10"></textarea>
+          <TextArea label="Beskrivelse" />
         </div>
 
         <div className="flex flex-col gap-2 mt-7">
