@@ -76,11 +76,11 @@ const Index = () => {
           <h1 className="font-bold text-2xl">Legg til bruker</h1>
 
           <div>
-            <label htmlFor="">Epost</label>
+            <label>Epost</label>
             <Input placeholder='brukers@epost.no' />
           </div>
           <div>
-            <label htmlFor="">Rolle</label>
+            <label>Rolle</label>
             <Dropdown options={roles} />
           </div>
 
@@ -92,12 +92,12 @@ const Index = () => {
 
           <div className="flex flex-col gap-5">
             <div>
-              <label htmlFor="">Epost</label>
-              <Input placeholder='brukers@epost.no' value={edit.email} />
+              <label>Epost</label>
+              <Input placeholder='brukers@epost.no' value={edit.email} onChange={(e) => setEdit(old => { old = e.target.value; })} />
             </div>
             <div>
-              <label htmlFor="">Rolle</label>
-              <Dropdown options={roles} value={edit.role} />
+              <label>Rolle</label>
+              <Dropdown options={roles} value={edit.role} onChange={(e) => console.log(e.target.value)} />
             </div>
 
             <Button>Oppdater</Button>

@@ -1,13 +1,11 @@
 import { useAppState } from "contexts/AppContext";
 import { createTimestamp } from "helpers/firestore";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Events from "./components/EventList";
 
 const History = () => {
   const { state } = useAppState();
   const [events, setEvents] = useState([]);
-  const navigate = useNavigate();
 
   // ! use and get the same event objects as the database
   const now = + new Date();
@@ -217,10 +215,12 @@ const History = () => {
         if (!state.user.events?.includes(event.id)) {
           return now > event.date.to.seconds;
         }
+        return false;
       });
       setEvents(filteredEvents);
     }
   }, []);
+  // }, [state.events, state.user.events]);
 
   return (
     <div>

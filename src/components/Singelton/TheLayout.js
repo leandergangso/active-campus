@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { useState } from 'react';
 import { useAppState } from 'contexts/AppContext';
-import { MdManageSearch, MdOutlineBusiness, MdSupervisedUserCircle, MdOutlineEvent, MdAccountCircle } from 'react-icons/md';
+import { MdManageSearch, MdOutlineBusiness, MdSupervisedUserCircle, MdOutlineEvent, MdAccountCircle, MdEventNote } from 'react-icons/md';
 
 import TheSidebar from './TheSidebar';
 import TheHeader from './TheHeader';
@@ -11,17 +11,18 @@ function Layout() {
   const [isSidebarOpen, setOpenSidebar] = useState(false);
 
   let sidebarNav = [
-    { path: '/explore', name: 'Utforsk', icon: <MdManageSearch /> },
-    { path: '/events/signed-up', name: 'Mine arrangementer', icon: <MdOutlineEvent /> },
-    { path: '/organizations', name: 'Organisasjoner', icon: <MdOutlineBusiness /> },
-    { path: '/users', name: 'Brukere', icon: <MdSupervisedUserCircle /> },
-    { path: '/profile', name: 'Profil', icon: <MdAccountCircle /> },
-    // { path: '/feedback', name: 'Tilbakemelding', icon: <MdFeedback /> },
+    { id: 0, path: '/events', name: 'Utforsk', icon: <MdManageSearch /> },
+    { id: 1, path: '/events/signed-up', name: 'Mine arrangementer', icon: <MdOutlineEvent /> },
+    { id: 2, path: '/profile', name: 'Min side', icon: <MdAccountCircle /> },
+
+    { id: 3, path: '/organizations', name: 'Organisasjoner', icon: <MdOutlineBusiness />, split: true },
+    { id: 4, path: '/organizations/events', name: 'Arrangementer', icon: <MdEventNote /> },
+    { id: 5, path: '/organizations/users', name: 'Brukere', icon: <MdSupervisedUserCircle /> },
   ];
 
   if (state.organizations.length === 0) {
     sidebarNav = sidebarNav.filter(item => {
-      return !['/users'].includes(item.path);
+      return ![4, 5].includes(item.id);
     });
   }
 

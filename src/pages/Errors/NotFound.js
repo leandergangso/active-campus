@@ -11,8 +11,7 @@ const NotFound = () => {
 			let r = Math.floor(Math.random() * 25) + 15;
 			let x = Math.random() * (canvas.width - r * 2) + r;
 			let y = Math.random() * (canvas.height - r * 2) + r;
-			// let c = '#5544FF';
-			let c = '#FF4444';
+			let c = '#ffe0e4';
 			balls.push(new Circle(canvas, ctx, x, y, r, c));
 		}
 
@@ -68,9 +67,9 @@ class Circle {
 		this.c = c;
 
 		this.dx = Math.floor(Math.random() * 4) + 1;
-		this.dx *= Math.floor(Math.random() * 2) == 1 ? 1 : -1;
+		this.dx *= Math.floor(Math.random() * 2) === 1 ? 1 : -1;
 		this.dy = Math.floor(Math.random() * 4) + 1;
-		this.dy *= Math.floor(Math.random() * 2) == 1 ? 1 : -1;
+		this.dy *= Math.floor(Math.random() * 2) === 1 ? 1 : -1;
 	}
 
 	draw() {

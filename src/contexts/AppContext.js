@@ -17,6 +17,7 @@ const initState = {
   organizations: [],
   events: [],
   roles: [],
+  breadCrum: '',
 };
 
 const _reduser = (state, action) => {
@@ -46,6 +47,11 @@ const _reduser = (state, action) => {
       return {
         ...state,
         roles: action.payload
+      };
+    case 'breadCrum':
+      return {
+        ...state,
+        breadCrum: action.payload
       };
     default:
       return state;
@@ -99,7 +105,6 @@ const AppProvider = ({ children }) => {
       if (state.user?.id) {
         const orgUnsub = liveOrganizations(state.user.organizations, _liveOrganizations);
         await _loadData();
-        navigate('/');
         setLoading(false);
         return [orgUnsub];
       }

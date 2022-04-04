@@ -1,5 +1,5 @@
-import { Draggable } from 'react-beautiful-dnd';
 import { MdRemoveCircle, MdDragIndicator, MdDelete } from 'react-icons/md';
+import { Draggable } from 'react-beautiful-dnd';
 import Checkbox from "components/Actions/Checkbox";
 import Dropdown from "components/Actions/Dropdown";
 import Input from "components/Actions/Input";

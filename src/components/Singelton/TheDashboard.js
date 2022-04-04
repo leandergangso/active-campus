@@ -21,26 +21,26 @@ const TheDashboard = () => {
 
   return (
     <Routes key={location.pathname} location={location}>
-      <Route exact path="/" element={<Navigate to='/explore' />} />
+      <Route exact path='/' element={<Navigate to='/events' />} />
+      <Route exact path='/login' element={<Navigate to='/events' />} />
 
       <Route exact path='/' element={<TheLayout />}>
-        <Route exact path='/explore' element={<ParticipantExplore />} />
-
+        <Route exact path='/events' element={<ParticipantExplore />} />
         <Route exact path='/events/signed-up' element={<ParticipantEvents />} />
         <Route exact path='/events/history' element={<ParticipantHistory />} />
         <Route exact path='/events/:id' element={<ParticipantEvent />} />
+        {/* remove and add into /events/:id */}
         <Route exact path='/events/:id/discussion' element={<ParticipantEventDiscussion />} />
+
+        <Route exact path='/profile' element={<Profile />} />
 
         <Route exact path='/organizations' element={<Organizations />} />
         <Route exact path='/organizations/create' element={<CreateOrganization />} />
-        <Route exact path='/organizations/:name/events' element={<OrganizationEvents />} />
-        <Route exact path='/organizations/:name/events/create' element={<CreateEvent />} />
-        <Route exact path='/organizations/:name/events/:id' element={<OrganizationEvent />} />
-        <Route exact path='/organizations/:name/events/:id/scanner' element={<QRScanner />} />
-
-        <Route exact path='/users' element={<Users />} />
-
-        <Route exact path='/profile' element={<Profile />} />
+        <Route exact path='/organizations/events' element={<OrganizationEvents />} />
+        <Route exact path='/organizations/events/create' element={<CreateEvent />} />
+        <Route exact path='/organizations/events/:id' element={<OrganizationEvent />} />
+        <Route exact path='/organizations/events/:id/scanner' element={<QRScanner />} />
+        <Route exact path='/organizations/users' element={<Users />} />
       </Route>
 
       <Route path='*' element={<NotFound />} />

@@ -1,5 +1,6 @@
 import Loading from "../components/Loading";
 import { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import { createUser } from "../helpers/firestore";
 import {
@@ -23,6 +24,7 @@ const useAuth = () => {
 };
 
 const AuthProvider = ({ children }) => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState();
 
@@ -63,12 +65,14 @@ const AuthProvider = ({ children }) => {
     return sendPasswordResetEmail(auth, email);
   };
 
-  const deleteCurrentUser = () => {
-    deleteUser(auth.currentUser);
+  const deleteCurrentUser = async () => {
+    await deleteUser(auth.currentUser);
+    navigate('/login');
   };
 
-  const signout = () => {
-    signOut(auth);
+  const signout = async () => {
+    await signOut(auth);
+    navigate('/login');
   };
 
   useEffect(() => {
