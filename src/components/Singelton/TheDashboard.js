@@ -13,6 +13,7 @@ import OrganizationEvent from 'pages/Organization/Events/Event/Index';
 import QRScanner from "pages/Organization/Events/Event/QRScanner";
 import CreateEvent from 'pages/Organization/Events/Create/Index';
 import Users from 'pages/Users/Index';
+import Profile from 'pages/Profile/Index';
 import NotFound from 'pages/Errors/NotFound';
 
 const TheDashboard = () => {
@@ -38,6 +39,8 @@ const TheDashboard = () => {
         <Route exact path='/organizations/:name/events/:id/scanner' element={<QRScanner />} />
 
         <Route exact path='/users' element={<Users />} />
+
+        <Route exact path='/profile' element={<Profile />} />
       </Route>
 
       <Route path='*' element={<NotFound />} />

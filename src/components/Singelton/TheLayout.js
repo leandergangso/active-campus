@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { useState } from 'react';
 import { useAppState } from 'contexts/AppContext';
-import { MdManageSearch, MdOutlineBusiness, MdSupervisedUserCircle, MdOutlineEvent } from 'react-icons/md';
+import { MdManageSearch, MdOutlineBusiness, MdSupervisedUserCircle, MdOutlineEvent, MdAccountCircle } from 'react-icons/md';
 
 import TheSidebar from './TheSidebar';
 import TheHeader from './TheHeader';
@@ -15,6 +15,7 @@ function Layout() {
     { path: '/events/signed-up', name: 'Mine arrangementer', icon: <MdOutlineEvent /> },
     { path: '/organizations', name: 'Organisasjoner', icon: <MdOutlineBusiness /> },
     { path: '/users', name: 'Brukere', icon: <MdSupervisedUserCircle /> },
+    { path: '/profile', name: 'Profil', icon: <MdAccountCircle /> },
     // { path: '/feedback', name: 'Tilbakemelding', icon: <MdFeedback /> },
   ];
 
