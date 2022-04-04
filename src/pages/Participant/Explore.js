@@ -214,7 +214,7 @@ const History = () => {
     if (state.events.length > 0) {
       const now = + new Date() / 1000;
       const filteredEvents = state.events.filter(event => {
-        if (!state.user.events.includes(event.id)) {
+        if (!state.user.events?.includes(event.id)) {
           return now > event.date.to.seconds;
         }
       });
