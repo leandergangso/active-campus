@@ -1,6 +1,6 @@
 import Loading from "../components/Loading";
 import { createContext, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import { createUser } from "../helpers/firestore";
 import {
@@ -25,8 +25,10 @@ const useAuth = () => {
 
 const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState();
+  const initURL = location.pathname;
 
   const signup = async (name, email, password) => {
     return createUserWithEmailAndPassword(auth, email, password).then(result => {
@@ -89,9 +91,11 @@ const AuthProvider = ({ children }) => {
         }
         setCurrentUser(user);
         setLoading(false);
+        navigate(initURL);
       });
       return [authUnsub, redirectUnsub];
     };
+
     return run();
   }, []);
 

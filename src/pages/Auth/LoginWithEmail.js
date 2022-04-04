@@ -30,7 +30,6 @@ const Login = () => {
 
     try {
       await signin(data.email, data.password);
-      navigate('/');
     }
     catch (error) {
       setLoading(false);

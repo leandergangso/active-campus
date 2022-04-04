@@ -17,8 +17,6 @@ function App() {
   if (!currentUser) {
     return (
       <Routes key={location.pathname} location={location}>
-        {/* <Route path='/' element={<Navigate to='/login' />} /> */}
-
         <Route exact path='/login' element={<Login />} />
         <Route exact path='/login/email' element={<LoginWithEmail />} />
         <Route exact path='/register' element={<Register />} />
