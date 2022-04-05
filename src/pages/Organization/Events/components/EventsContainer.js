@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAppState } from "contexts/AppContext";
-import EventCard from "./EventCard";
+import EventCard from "components/EventCard";
 
 const EventsContainer = ({ events }) => {
   const { state } = useAppState();
@@ -27,7 +27,7 @@ const EventsContainer = ({ events }) => {
   }
 
   return (
-    <div className="w-full flex flex-wrap gap-5 2xl:gap-x-10">
+    <div className="flex flex-wrap gap-5">
       {events.map(event => (
         <EventCard key={event.id} event={event} />
       ))}

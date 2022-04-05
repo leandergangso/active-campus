@@ -21,7 +21,7 @@ function EventCard({ event }) {
       <div onClick={() => navigate(`/events/${event.id}`)} className='hover:cursor-pointer'>
         <h1 className="text-lg font-bold mb-2">{event.name}</h1>
 
-        <img src={event.img} alt="arrengement-bilde" className='mb-2 w-full h-full sm:h-32 object-cover border-2 border-dark' />
+        <img src={event.image} alt="bilde" className='flex justify-center items-center mb-2 w-full h-full sm:h-32 object-cover border-2 border-dark' />
 
         <div className="flex flex-col gap-2">
           <div>

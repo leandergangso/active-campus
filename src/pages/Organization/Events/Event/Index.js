@@ -24,30 +24,26 @@ const Index = () => {
     return run();
   }, [state.currentOrganization, id]);
 
+  if (!event) {
+    return (
+      <div>
+        <h1 className="font-bold text-2xl mb-5">Ugylding arrangement</h1>
+        <p className="text-xl">Fant ikke arrangement med id: {id}</p>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className="mb-5">
         <h1 className="font-bold text-2xl">Arrangement info</h1>
       </div>
 
-      {(event && (
-        <div>
-          <p>{id}</p>
-          <p>{event.name}</p>
-          <p>{event.signup.open.seconds}</p>
-        </div>
-      ))
-        || (
-          <div>
-            <div className="flex flex-col gap-2">
-              <h3 className="font-bold text-xl text-danger">404</h3>
-              <p className="self-end">Fant ikke arrangement med id: <span className="italic">{id}</span></p>
-            </div>
-            <div className="w-40 mt-5">
-              <Button onClick={() => navigate('/events')} styles='secondary'>Tilbake</Button>
-            </div>
-          </div>
-        )}
+      <div>
+        <p>{id}</p>
+        <p>{event.name}</p>
+        <p>{event.signup.open.seconds}</p>
+      </div>
     </div>
   );
 };
