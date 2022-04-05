@@ -22,6 +22,7 @@ const initState = {
 
 const _reduser = (state, action) => {
   console.log('update app state:', action.type, action.payload); // ! for debuging
+  console.log(state);
   switch (action.type) {
     case 'user':
       return {
@@ -59,7 +60,6 @@ const _reduser = (state, action) => {
 };
 
 const AppProvider = ({ children }) => {
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const { currentUser } = useAuth();
   const [state, dispatch] = useReducer(_reduser, initState);
