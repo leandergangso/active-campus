@@ -4,12 +4,12 @@ const UserRoleList = ({ roleList, onClick }) => {
   return (
     <div className="rounded-md shadow-sm border border-border bg-light max-h-[550px] md:h-full overflow-y-auto overflow-x-hidden">
       {roleList.map(item => (
-        <>
-          <h3 key={item.role} className="bg-background text-placeholder text-sm font-bold px-4 py-2 border-b border-border">{item.role}</h3>
+        <div key={item.role}>
+          <h3 className="bg-background text-placeholder text-sm font-bold px-4 py-2 border-b border-border">{item.role}</h3>
           {item.users.map(user => (
             <User key={user.email} username={user.name} email={user.email} role={item.role} onClick={onClick} />
           ))}
-        </>
+        </div>
       ))}
     </div>
   );

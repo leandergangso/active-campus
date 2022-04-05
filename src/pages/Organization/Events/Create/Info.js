@@ -2,9 +2,9 @@ import { useNavigate } from "react-router-dom";
 import Input from "components/Actions/Input";
 import Button from "components/Actions/Button";
 import TextArea from "components/Actions/TextArea";
-// import File from "../../../components/Actions/File";
+import File from "components/Actions/File";
 
-const Info = ({ nextStep, curryUpdate, data }) => {
+const Info = ({ nextStep, updateData, curryUpdate, data }) => {
   const navigate = useNavigate();
 
   return (
@@ -26,13 +26,13 @@ const Info = ({ nextStep, curryUpdate, data }) => {
 
           <div className="flex flex-col gap-5 w-80">
             <TextArea value={data.description} onChange={curryUpdate('description')} label="Beskrivelse" />
-            {/* <File onChange={() => console.log('file changed')} accept='image/*' label='Last opp bilde' /> */}
+            <File onChange={(e) => updateData('image', e.target.files[0])} accept='image/*' label='Last opp bilde' />
           </div>
         </div>
 
         <div className="flex mt-10 gap-5 flex-wrap sm:flex-nowrap sm:w-80">
           <Button onClick={nextStep}>Neste</Button>
-          <Button styles='danger' onClick={() => navigate('/events')}>Avbryt</Button>
+          <Button styles='danger' onClick={() => navigate(-1)}>Avbryt</Button>
         </div>
       </div>
     </div>

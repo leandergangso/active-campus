@@ -1,16 +1,16 @@
-import { MdToday, MdAccessTime, MdLocationOn, MdSupervisorAccount, MdQrCode2 } from "react-icons/md";
+import { MdToday, MdAccessTime, MdLocationOn, MdSupervisorAccount } from "react-icons/md";
 import { useAppState } from "contexts/AppContext";
 import { createTimestamp } from "helpers/firestore";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "components/Actions/Button";
-import QRCode from "react-qr-code";
+import ShowQR from "./components/ShowQR";
 
 const Event = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { state } = useAppState();
-  const [event, setEvent] = useState();
+  const [event, setEvent] = useState(false);
 
   // ! use and get the same event objects as the database - remove
   const now = + new Date();
@@ -221,8 +221,20 @@ const Event = () => {
     const event = state.events.find(event => {
       return event.id === id;
     });
-    setEvent(event);
+    if (event) {
+      setEvent(event);
+    }
   }, []);
+  // }, [state.events]);
+
+  if (!event) {
+    return (
+      <div>
+        <h1 className="text-2xl font-bold mb-5">Ugylding event</h1>
+        <p>Event med id "{id}" finnes ikke.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-5 sm:max-w-sm">
@@ -280,34 +292,9 @@ const Event = () => {
         </div>
       </div>
 
-      {ShowQR()}
+      <ShowQR />
     </div>
   );
-};
-
-const ShowQR = () => {
-  const qrValue = 'QR value'; // ! get from state
-  const [show, setShow] = useState(false);
-
-  // add check if user is signup on event
-  if (true) {
-    return (
-      <div onClick={() => setShow(!show)} className='hover:cursor-pointer w-fit'>
-        {show ? <QRCode
-          value={qrValue}
-          level="M"
-          bgColor="#F4F7FC"
-          className="my-5"
-        />
-          :
-          <div className="flex gap-5 items-center">
-            <span className="font-bold">QR-kode (klikk):</span>
-            <MdQrCode2 size={55} />
-          </div>
-        }
-      </div>
-    );
-  }
 };
 
 export default Event;

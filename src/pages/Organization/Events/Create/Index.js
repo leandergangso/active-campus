@@ -14,6 +14,7 @@ const Index = () => {
   const [data, setData] = useState({
     // info
     name: '',
+    image: '',
     description: '',
     address: '',
     date: '',
@@ -70,15 +71,13 @@ const Index = () => {
     const signup_open = createTimestamp(new Date(`${data.signup_open_date} ${data.signup_open_time}`));
     const signup_close = createTimestamp(new Date(`${data.signup_close_date} ${data.signup_close_time}`));
 
-    // ! validate data
-
     try {
       await createEvent(
-        state.currentOrganization.org_number, state.user.id, data.name, data.description, data.address,
+        state.currentOrganization.org_number, state.user.id, data.name, data.image, data.description, data.address,
         data.email_body, date_from, date_to, signup_open, signup_close,
         data.max_participants, data.is_waiting_list, data.is_ticket, data.forms
       );
-      navigate('/events');
+      navigate(-1);
     }
     catch (error) {
       console.error(error);
@@ -92,6 +91,7 @@ const Index = () => {
       return (
         <Info
           nextStep={nextStep}
+          updateData={updateData}
           curryUpdate={curryUpdate}
           data={data}
         />

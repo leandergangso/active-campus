@@ -36,9 +36,7 @@ const TheHeader = ({ sidebarNav, setOpenSidebar }) => {
 
 			{window.innerWidth > 800 && (
 				<button onClick={() => navigate(-1)} className='self-center hover:cursor-pointer text-xl'>
-					<MdKeyboardBackspace
-						size={30}
-					/>
+					<MdKeyboardBackspace size={30} />
 				</button>
 			)
 			}

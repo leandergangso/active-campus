@@ -1,5 +1,25 @@
-import { db } from "../firebase";
+import { db, storage } from "../firebase";
+import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import { collection, doc, getDoc, getDocs, addDoc, setDoc, query, where, Timestamp, onSnapshot, deleteDoc } from "firebase/firestore";
+
+// upload a file to storage, returns download url
+const _uploadFile = async (userID, file) => {
+  const fileName = `${userID}/${file.name}`;
+  const fileRef = ref(storage, fileName);
+  await uploadBytes(fileRef, file);
+  return await getDownloadURL(fileRef);
+};
+
+// delete file from storage, returns true/error
+const _deleteFile = (userID, name) => {
+  const fileName = `${userID}/${name}`;
+  const fileRef = ref(storage, fileName);
+  deleteObject(fileRef).then(() => {
+    return true;
+  }).catch((e) => {
+    return e;
+  });
+};
 
 // COLLECTIONS
 
@@ -141,12 +161,13 @@ const deleteOrganization = async (orgID) => {
 // ORGANIZATIONS/EVENTS
 
 const createEventObject = (
-  userID, name, description, address, email_body,
+  userID, name, imageURL, description, address, email_body,
   date_from, date_to, signup_open, signup_close,
   max_participants, is_waiting_list, is_ticket, forms
 ) => {
   return {
     name: name,
+    image: imageURL,
     description: description,
     address: address,
     email_body: email_body,
@@ -172,13 +193,14 @@ const createEventObject = (
 };
 
 const createEvent = async (
-  orgID, userID, name, description, address,
+  orgID, userID, name, imageFile, description, address,
   email_body, date_from, date_to, signup_open, signup_close,
   max_participants, is_waiting_list, is_ticket, forms
 ) => {
+  const imageURL = await _uploadFile(userID, imageFile);
   const eventRef = _getEventRef(orgID);
   const data = createEventObject(
-    userID, name, description, address,
+    userID, name, imageURL, description, address,
     email_body, date_from, date_to, signup_open, signup_close,
     max_participants, is_waiting_list, is_ticket, forms
   );

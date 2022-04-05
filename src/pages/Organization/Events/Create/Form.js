@@ -59,7 +59,7 @@ const Form = ({ prevStep, submit, error, updateData, data }) => {
             <Button onClick={addForm}>Legg til nytt felt</Button>
 
             <div className="flex flex-col gap-5 mt-5">
-              {error && <p className="text-center text-danger">{error}</p>}
+              {error && <p className="text-danger">{error}</p>}
 
               <div className="flex gap-5 w-full sm:w-80 flex-wrap sm:flex-nowrap">
                 <Button onClick={submit}>Opprett</Button>

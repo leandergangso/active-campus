@@ -35,7 +35,7 @@ const Index = () => {
 
 	return (
 		<div>
-			{events.length > 0 && (
+			{/* {events.length > 0 && (
 				<section className='mb-10'>
 					<div className='mb-5'>
 						<h1 className="text-2xl font-bold">Oversikt</h1>
@@ -56,14 +56,14 @@ const Index = () => {
 						</StatCard>
 					</div>
 				</section>
-			)}
+			)} */}
 
 			<section className='mb-10'>
 				<div className="flex flex-wrap gap-10 justify-between mb-5">
 					<h1 className="text-2xl font-bold">Arrangementer</h1>
 
 					{state.organizations.length > 0 &&
-						<div className="flex gap-5 flex-wrap sm:flex-nowrap sm:w-80">
+						<div className="flex gap-5 flex-wrap sm:flex-nowrap w-full sm:w-80">
 							<Button styles='secondary' onClick={toggleArchive}>Se akriverte</Button>
 							<Button onClick={() => navigate('create')}>Nytt arrangement</Button>
 						</div>

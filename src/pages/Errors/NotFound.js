@@ -29,7 +29,7 @@ const NotFound = () => {
 	});
 
 	return (
-		<>
+		<div>
 			<canvas ref={canvasRef} className="bg-background"></canvas>
 			<div className="absolute top-0 bottom-0 left-0 right-0" >
 				<div className="flex flex-col items-center justify-center h-full py-2 gap-10" >
@@ -41,7 +41,7 @@ const NotFound = () => {
 					</div>
 				</div>
 			</div>
-		</>
+		</div>
 	);
 };
 
