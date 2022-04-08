@@ -17,6 +17,40 @@ const REGION = 'europe-west1';
 //   });
 // });
 
+// on signup add to user.events - ok
+exports.onSignup = functions.region(REGION).firestore.document('organizations/{orgID}/events/{eventID}/signup_list/{userID}').onCreate((snap, context) => {
+  const id = context.params.orgID + '/' + context.params.eventID;
+  const userRef = admin.firestore().collection('users').doc(context.params.userID);
+  return userRef.get().then((doc) => {
+    let list = [];
+    if (Array.isArray(doc.data().events)) {
+      list = [...doc.data().events, id];
+    } else {
+      list = [id];
+    }
+    userRef.update({
+      events: list
+    });
+  });
+});
+
+// on signoff remove id from user.events 
+exports.onSignoff = functions.region(REGION).firestore.document('organizations/{orgID}/events/{eventID}/signup_list/{userID}').onDelete((snap, context) => {
+  const id = context.params.orgID + '/' + context.params.eventID;
+  const userRef = admin.firestore().collection('users').doc(context.params.userID);
+  return userRef.get().then((doc) => {
+    if (Array.isArray(doc.data().events)) {
+      let list = doc.data().events;
+      list = list.filter(item => {
+        return item !== id;
+      });
+      userRef.update({
+        events: list
+      });
+    }
+  });
+});
+
 // delete user and participant on delete auth user - ok
 exports.onAuthDelete = functions.region(REGION).auth.user().onDelete(user => {
   admin.firestore().collection('participants').doc(user.uid).delete();
@@ -43,7 +77,7 @@ exports.onOrganizationCreate = functions.region(REGION).firestore.document('orga
 
   admin.firestore().collection('organizations').doc(context.params.orgID).collection('user_role').doc(data.created.user).create({
     created: admin.firestore.FieldValue.serverTimestamp(),
-    role: 'admin'
+    role: 0
   });
 
   const userRef = admin.firestore().collection('users').doc(data.created.user);

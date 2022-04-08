@@ -15,17 +15,17 @@ const _getEventRef = (organizationID) => {
   return collection(db, `organizations/${organizationID}/events`);
 };
 
-// const _getEventSignupRef = (organizationID, eventID) => {
-//   return collection(db, `organizations/${organizationID}/events/${eventID}/signup_list`);
-// };
+const _getEventSignupRef = (organizationID, eventID) => {
+  return collection(db, `organizations/${organizationID}/events/${eventID}/signup_list`);
+};
 
-// const _getEventWaitingRef = (organizationID, eventID) => {
-//   return collection(db, `organizations/${organizationID}/events/${eventID}/waiting_list`);
-// };
+const _getEventWaitingRef = (organizationID, eventID) => {
+  return collection(db, `organizations/${organizationID}/events/${eventID}/waiting_list`);
+};
 
-// const _getUserRoleRef = (organizationID) => {
-//   return collection(db, `organizations/${organizationID}/user_role`);
-// };
+const _getUserRoleRef = (organizationID) => {
+  return collection(db, `organizations/${organizationID}/user_role`);
+};
 
 // HELPERS
 
@@ -78,9 +78,9 @@ const createUser = async (uid, name, email) => {
 //   return await updateDoc(doc(usersRef, uid), data);
 // };
 
-// const getUser = async (uid) => {
-//   return await _getDoc(usersRef, uid);
-// };
+const getUser = async (uid) => {
+  return await _getDoc(usersRef, uid);
+};
 
 const liveUser = async (uid, callbackFunction) => {
   return onSnapshot(doc(usersRef, uid), doc => {
@@ -125,6 +125,10 @@ const getOrganizations = async (list) => {
     return _resultToObject(res);
   }
   return [];
+};
+
+const getOrganization = async (orgID) => {
+  return await getDoc(doc(organizationsRef, orgID));
 };
 
 const liveOrganizations = async (list, callbackFunction) => {
@@ -214,6 +218,11 @@ const liveEvents = (organizationID, callbackFunction) => {
 
 // ORGANIZATIONS/USER_ROLE
 
+const getOrganizationUserRoles = async (orgID) => {
+  const roleRef = _getUserRoleRef(orgID);
+  return await getDocs(query(roleRef));
+};
+
 // const setOrganizationUserRole = async (orgID, userID, role) => {
 //   const data = {
 //     role: role.id,
@@ -224,6 +233,24 @@ const liveEvents = (organizationID, callbackFunction) => {
 // };
 
 // PARTICIPANTS
+
+const eventSignup = (userID, orgID, eventID, qrCode = '') => {
+  const ref = _getEventSignupRef(orgID, eventID);
+  const data = {
+    created: _getTimestamp(),
+    qr_code: qrCode,
+    scanned: {
+      timestamp: null,
+      user: '',
+    },
+  };
+  return setDoc(doc(ref, userID), data);
+};
+
+const eventSignoff = async (userID, orgID, eventID) => {
+  const ref = _getEventSignupRef(orgID, eventID);
+  return await deleteDoc(doc(ref, userID));
+};
 
 // ROLES
 
@@ -237,11 +264,13 @@ export {
   createTimestamp,
   // users
   createUser,
+  getUser,
   liveUser,
   // organizations
   createOrganization,
   setOrganization,
   getOrganizations,
+  getOrganization,
   liveOrganizations,
   deleteOrganization,
   // organizations/events
@@ -250,9 +279,10 @@ export {
   getAllEvents,
   liveEvents,
   // organizations/user_role
-
+  getOrganizationUserRoles,
   // particiapnts
-
+  eventSignup,
+  eventSignoff,
   // roles
   getAllRoles
 };

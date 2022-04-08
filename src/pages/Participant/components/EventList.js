@@ -8,7 +8,7 @@ const EventList = ({ events }) => {
     <div className="flex flex-wrap gap-5">
       {events.length !== 0
         ? events.map(event => (
-          <EventCard key={event.id} event={event} onClick={() => navigate(event.id)} />
+          <EventCard key={event.id} event={event} onClick={() => navigate(`${event.organizerID}/${event.id}`)} />
         ))
         : <p className="text-xl">Fant ingen relevante arrangementer.</p>
       }

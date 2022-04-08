@@ -26,7 +26,7 @@ const History = () => {
       const org = state.organizations[i];
       const docs = await getAllEvents(org.id);
       docs.forEach(doc => {
-        allEvents.push({ id: doc.id, organizer: org.short_name, ...doc.data() });
+        allEvents.push({ id: doc.id, organizerID: org.id, organizer: org.short_name, ...doc.data() });
       });
     }
     // ! sort out events that the user is already signed-up on

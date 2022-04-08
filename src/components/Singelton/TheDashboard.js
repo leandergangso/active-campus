@@ -3,7 +3,8 @@ import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import TheLayout from './TheLayout';
 import ParticipantExplore from 'pages/Participant/Explore';
 import ParticipantEvent from 'pages/Participant/Event';
-import ParticipantEventDiscussion from 'pages/Participant/Discussion';
+import ParticipantEventForm from 'pages/Participant/EventForm';
+// import ParticipantEventDiscussion from 'pages/Participant/Discussion';
 import ParticipantEvents from 'pages/Participant/Events';
 import ParticipantHistory from 'pages/Participant/History';
 import Organizations from 'pages/Organization/Index';
@@ -28,9 +29,11 @@ const TheDashboard = () => {
         <Route exact path='/events' element={<ParticipantExplore />} />
         <Route exact path='/events/signed-up' element={<ParticipantEvents />} />
         <Route exact path='/events/history' element={<ParticipantHistory />} />
-        <Route exact path='/events/:id' element={<ParticipantEvent />} />
-        {/* remove and add into /events/:id */}
-        <Route exact path='/events/:id/discussion' element={<ParticipantEventDiscussion />} />
+        <Route exact path='/events/:orgID/:eventID' element={<ParticipantEvent />} />
+        <Route exact path='/events/:orgID/:eventID/form' element={<ParticipantEventForm />} />
+
+        {/* remove and add into ParticipantEvent */}
+        {/* <Route exact path='/events/:id/discussion' element={<ParticipantEventDiscussion />} /> */}
 
         <Route exact path='/profile' element={<Profile />} />
 

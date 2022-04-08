@@ -6,7 +6,8 @@ import Input from "../../components/Actions/Input";
 import Button from "../../components/Actions/Button";
 import Dropdown from "../../components/Actions/Dropdown";
 import UserRoleList from "./components/UserRoleList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getOrganizationUserRoles, getUser } from "helpers/firestore";
 
 const Index = () => {
   const { state } = useAppState();
@@ -14,39 +15,33 @@ const Index = () => {
   const [newRole, setNewRole] = useState();
   const [editEmail, setEditEmail] = useState();
   const [editRole, setEditRole] = useState();
-
-  // ! get from state
-  const roles = [
-    { id: 0, name: 'Eier' },
-    { id: 1, name: 'Administrator' },
-    { id: 2, name: 'Medlem' }
-  ];
-
-  // ! useEffect() - firestore, state
-  const roleList = [
-    {
-      role: 'Eier', users: [
-        { name: 'Brukerens navn', email: 'bruker99@epost.no' },
-      ],
-    },
-    {
-      role: 'Administrator', users: [
-        { name: 'Brukerens navn', email: 'bruker0@epost.no' },
-      ],
-    }, {
-      role: 'Medlem', users: [
-        { name: 'Brukerens navn', email: 'bruker1@epost.no' },
-        { name: 'Brukerens navn', email: 'bruker2@epost.no' },
-        { name: 'Brukerens navn', email: 'bruker3@epost.no' },
-        { name: 'Brukerens navn', email: 'bruker4@epost.no' },
-      ]
-    }
-  ];
+  const [roleList, setRoleList] = useState([]);
 
   const onEditClick = (email, role) => {
     setEditEmail(email);
-    setEditRole(roles.find(r => { return r.name === role; }).id); // ! find from state
+    setEditRole(state.roles.find(r => { return r.name === role; }).id);
   };
+
+  useEffect(async () => {
+    let roleNames = [];
+    let newList = [];
+    state.roles.forEach(role => {
+      roleNames.push(role.name);
+      newList.push({ role: role.name, users: [] });
+    });
+    const roleDocs = await getOrganizationUserRoles(state.currentOrganization.id);
+    roleDocs.forEach(async doc => {
+      const data = doc.data();
+      const userDoc = await getUser(doc.id);
+      const userData = userDoc.data();
+      newList[data.role].users.push({
+        name: userData.name,
+        email: userData.email,
+      });
+    });
+    console.log("final:", newList[0].users);
+    setRoleList(newList);
+  }, []);
 
   if (state.organizations.length === 0) {
     return (
@@ -80,7 +75,7 @@ const Index = () => {
           </div>
           <div>
             <label>Rolle</label>
-            <Dropdown options={roles} value={newRole} onChange={(e) => setNewRole(e.target.value)} />
+            <Dropdown options={state.roles} value={newRole} onChange={(e) => setNewRole(e.target.value)} />
           </div>
 
           <Button>Legg til</Button>
@@ -96,7 +91,7 @@ const Index = () => {
             </div>
             <div>
               <label>Rolle</label>
-              <Dropdown options={roles} value={editRole} onChange={(e) => setEditRole(e.target.value)} />
+              <Dropdown options={state.roles} value={editRole} onChange={(e) => setEditRole(e.target.value)} />
             </div>
 
             <Button>Oppdater</Button>

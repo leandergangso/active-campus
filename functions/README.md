@@ -8,4 +8,4 @@
 
 `firebase emulators:start` run firebase locally
 
-`firebase emulators:start --import <export-directory> --export-on-exit` run with import/exported data
+`firebase emulators:start --import emulators --export-on-exit` run with import/exported data
