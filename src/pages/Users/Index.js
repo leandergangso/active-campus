@@ -1,6 +1,5 @@
 import { useAppState } from "../../contexts/AppContext";
 import { Link } from "react-router-dom";
-// import { useEffect } from "react";
 
 import Input from "../../components/Actions/Input";
 import Button from "../../components/Actions/Button";
@@ -39,7 +38,6 @@ const Index = () => {
         email: userData.email,
       });
     });
-    console.log("final:", newList[0].users);
     setRoleList(newList);
   }, []);
 

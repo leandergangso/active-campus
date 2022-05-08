@@ -22,7 +22,7 @@ function Layout() {
 
   if (state.organizations.length === 0) {
     sidebarNav = sidebarNav.filter(item => {
-      return ![4, 5].includes(item.id);
+      return ![3, 4, 5].includes(item.id);
     });
   }
 

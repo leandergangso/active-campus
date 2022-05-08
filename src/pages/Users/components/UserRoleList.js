@@ -1,6 +1,22 @@
 import { MdDelete, MdModeEdit } from 'react-icons/md';
 
 const UserRoleList = ({ roleList, onClick }) => {
+
+  // ! demo data
+  roleList = [
+    {
+      role: "Administrator",
+      users: [{
+        name: "Demo user",
+        email: "demo@mail.com"
+      }],
+    },
+    {
+      role: "Medlem",
+      users: [],
+    }
+  ];
+
   return (
     <div className="rounded-md shadow-sm border border-border bg-light max-h-[550px] md:h-full overflow-y-auto overflow-x-hidden">
       {roleList.map(item => (

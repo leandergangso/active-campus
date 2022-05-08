@@ -15,15 +15,22 @@ const Event = () => {
   const qrCode = urlID + '/' + state.user.id;
 
   const signon = () => {
-    if (event.forms.length > 0) {
-      navigate('form');
-    }
+    // ! uncomment to use form on signup
+    // if (event.forms.length > 0) {
+    //   navigate('form');
+    // }
     const code = event.is_ticket ? qrCode : '';
     eventSignup(state.user.id, orgID, eventID, code);
+
+    // local fast update
+    setEvent({ ...event, signup_count: event.signup_count + 1, });
   };
 
   const signoff = () => {
     eventSignoff(state.user.id, orgID, eventID);
+
+    // local fast update
+    setEvent({ ...event, signup_count: event.signup_count - 1, });
   };
 
   useEffect(async () => {

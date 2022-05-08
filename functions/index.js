@@ -20,6 +20,15 @@ const REGION = 'europe-west1';
 // on signup add to user.events - ok
 exports.onSignup = functions.region(REGION).firestore.document('organizations/{orgID}/events/{eventID}/signup_list/{userID}').onCreate((snap, context) => {
   const id = context.params.orgID + '/' + context.params.eventID;
+  // increment event signup counter
+  const eventRef = admin.firestore().collection('organizations').doc(context.params.orgID).collection('events').doc(context.params.eventID);
+  eventRef.get().then((doc) => {
+    curCount = doc.data().signup_count;
+    eventRef.update({
+      signup_count: curCount + 1
+    });
+  });
+  // add event to user event list
   const userRef = admin.firestore().collection('users').doc(context.params.userID);
   return userRef.get().then((doc) => {
     let list = [];
@@ -38,6 +47,15 @@ exports.onSignup = functions.region(REGION).firestore.document('organizations/{o
 exports.onSignoff = functions.region(REGION).firestore.document('organizations/{orgID}/events/{eventID}/signup_list/{userID}').onDelete((snap, context) => {
   const id = context.params.orgID + '/' + context.params.eventID;
   const userRef = admin.firestore().collection('users').doc(context.params.userID);
+  // decrement event signup counter
+  const eventRef = admin.firestore().collection('organizations').doc(context.params.orgID).collection('events').doc(context.params.eventID);
+  eventRef.get().then((doc) => {
+    curCount = doc.data().signup_count;
+    eventRef.update({
+      signup_count: curCount - 1
+    });
+  });
+  // remove event from user event list
   return userRef.get().then((doc) => {
     if (Array.isArray(doc.data().events)) {
       let list = doc.data().events;
