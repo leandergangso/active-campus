@@ -26,7 +26,7 @@ const Info = ({ nextStep, updateData, curryUpdate, data }) => {
 
           <div className="flex flex-col gap-5 w-80">
             <TextArea value={data.description} onChange={curryUpdate('description')} label="Beskrivelse" />
-            <File onChange={(e) => updateData('image', e.target.files[0])} accept='image/*' label='Last opp bilde' />
+            <File value={data.image?.name} onChange={(file) => updateData('image', file)} accept='image/*' label='Last opp bilde' />
           </div>
         </div>
 

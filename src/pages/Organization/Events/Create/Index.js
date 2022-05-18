@@ -14,7 +14,7 @@ const Index = () => {
   const [data, setData] = useState({
     // info
     name: '',
-    image: '',
+    image: {},
     description: '',
     address: '',
     date: '',

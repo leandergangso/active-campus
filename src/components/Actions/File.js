@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdImage } from "react-icons/md";
 
-const File = ({ name, label, onChange, accept }) => {
+const File = ({ name, label, value, onChange, accept }) => {
   const [file, setFile] = useState(false);
 
   const onFile = (e) => {
@@ -10,8 +10,17 @@ const File = ({ name, label, onChange, accept }) => {
       name = name.substring(0, 20) + '...';
     }
     setFile(name);
-    onChange(e);
+    onChange(e.target.files[0]);
   };
+
+  useEffect(() => {
+    if (value) {
+      if (value.length > 20) {
+        value = value.substring(0, 20) + '...';
+      }
+      setFile(value);
+    }
+  }, []);
 
   return (
     <label className="flex flex-col gap-1">
